@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Museu Matriosca - Exibições</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="module" src="js/main.js"></script>
+  </head>
+  <body>
+    <div id="ui">
+      <div id="gallery-ui">
+        <!-- Tela inicial -->
+        <div id="intro-section">
+          <h1>Museu Matriosca</h1>
+          <p class="subtitle">Escolha uma exibição para iniciar a experiência.</p>
+        </div>
+
+        <div id="exibicoes">
+          <!-- Preenchido dinamicamente pelo ui.js -->
+        </div>
+
+        <!-- Detalhes da exibição selecionada -->
+        <div id="exibicao-detalhes" style="display: none;">
+          <h2 id="exibicao-titulo"></h2>
+          <p id="exibicao-descricao"></p>
+
+          <div id="obras-lista">
+            <!-- Obras e autores aparecem aqui -->
+          </div>
+
+          <div id="start-wrapper">
+            <button id="start-ar-btn" type="button"></button>
+            <span class="start-label">Iniciar AR</span>
+          </div>
+
+          <button id="voltar-btn">← Voltar às Exibições</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
