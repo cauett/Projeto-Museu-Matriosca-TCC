@@ -42,7 +42,11 @@ export const exibicoes = [
 
 export function initUI(startCallback, options = {}) {
   const { deviceStatus = {} } = options;
-  const { shouldDisableAR = false, message: deviceMessage = "" } = deviceStatus;
+  const {
+    mode = "webxr",
+    message: deviceMessage = "",
+    startLabel: buttonLabel = "Iniciar AR",
+  } = deviceStatus;
   const exibicoesContainer = document.getElementById("exibicoes");
   const detalhesEl = document.getElementById("exibicao-detalhes");
   const tituloEl = document.getElementById("exibicao-titulo");
@@ -52,6 +56,14 @@ export function initUI(startCallback, options = {}) {
   const startBtn = document.getElementById("start-ar-btn");
   const startWrapper = document.getElementById("start-wrapper");
   const startLabel = document.querySelector(".start-label");
+
+  startBtn.textContent = buttonLabel;
+  if (startLabel) {
+    startLabel.textContent =
+      mode === "fallback"
+        ? "Modo alternativo com câmera ativa."
+        : "Iniciar experiência de realidade aumentada.";
+  }
 
   exibicoes.forEach((exib) => {
     const card = document.createElement("div");
@@ -80,11 +92,7 @@ export function initUI(startCallback, options = {}) {
       obrasLista.appendChild(div);
     });
 
-    if (shouldDisableAR) {
-      startBtn.onclick = null;
-    } else {
-      startBtn.onclick = () => startCallback(exibicao);
-    }
+    startBtn.onclick = mode === "unsupported" ? null : () => startCallback(exibicao);
   }
 
   voltarBtn.onclick = () => {
@@ -93,21 +101,20 @@ export function initUI(startCallback, options = {}) {
     document.getElementById("intro-section").style.display = "block";
   };
 
-  if (shouldDisableAR) {
+  if (mode === "unsupported") {
     startBtn.disabled = true;
     startBtn.classList.add("disabled");
     startBtn.setAttribute("aria-disabled", "true");
-    startBtn.textContent = "AR indisponível";
+  } else {
+    startBtn.disabled = false;
+    startBtn.classList.remove("disabled");
+    startBtn.removeAttribute("aria-disabled");
+  }
 
-    if (startLabel) {
-      startLabel.textContent = "Experiência de AR indisponível neste dispositivo.";
-    }
-
-    if (deviceMessage && startWrapper) {
-      const warning = document.createElement("p");
-      warning.className = "unsupported-message";
-      warning.textContent = deviceMessage;
-      startWrapper.appendChild(warning);
-    }
+  if (deviceMessage && startWrapper) {
+    const info = document.createElement("p");
+    info.className = mode === "unsupported" ? "unsupported-message" : "info-message";
+    info.textContent = deviceMessage;
+    startWrapper.appendChild(info);
   }
 }

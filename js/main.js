@@ -1,34 +1,36 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
 import { ARButton } from "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/webxr/ARButton.js";
 import { setupARScene } from "./ar-setup.js";
-import { onSelect, configureWallUtils, isWallPlaced, setExibicaoAtiva } from "./wall-utils.js";
+import {
+  onSelect,
+  configureWallUtils,
+  isWallPlaced,
+  setExibicaoAtiva,
+} from "./wall-utils.js";
 import { initUI } from "./ui.js";
 import { getDeviceXRStatus } from "./device-utils.js";
+import { startFallbackExperience } from "./fallback-ar.js";
 
 let camera, scene, renderer, controller, reticle, arButton;
 let hitTestSource = null, localSpace = null;
 
 const deviceStatus = getDeviceXRStatus();
 
-initUI(
-  (exibicaoSelecionada) => {
-    setExibicaoAtiva(exibicaoSelecionada); // envia a exibição para wall-utils
+const startExperience = (exibicaoSelecionada) => {
+  setExibicaoAtiva(exibicaoSelecionada);
+
+  if (deviceStatus.mode === "webxr") {
     if (arButton) {
-      arButton.click(); // inicia AR
+      arButton.click();
     }
-  },
-  { deviceStatus }
-);
+  } else if (deviceStatus.mode === "fallback") {
+    startFallbackExperience(exibicaoSelecionada);
+  }
+};
 
-let shouldInitAR = true;
+initUI(startExperience, { deviceStatus });
 
-if (deviceStatus.shouldDisableAR) {
-  console.warn("WebXR não suportado neste dispositivo. Experiência AR desabilitada.");
-  document.body.classList.add("ar-disabled");
-  shouldInitAR = false;
-}
-
-if (shouldInitAR) {
+if (deviceStatus.mode === "webxr") {
   (async function init() {
     const sceneObjects = await setupARScene(THREE, ARButton, onSelect);
     camera = sceneObjects.camera;
@@ -70,4 +72,12 @@ if (shouldInitAR) {
       renderer.render(scene, camera);
     });
   })();
+} else if (deviceStatus.mode === "fallback") {
+  console.info(
+    "WebXR indisponível. Ativando modo alternativo baseado em câmera para experiência AR."
+  );
+} else {
+  console.warn(
+    "Este dispositivo não possui suporte ao WebXR nem ao modo alternativo baseado em câmera."
+  );
 }

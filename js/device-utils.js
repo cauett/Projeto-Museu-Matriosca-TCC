@@ -8,19 +8,32 @@ export function getDeviceXRStatus() {
     (platform === "MacIntel" && nav.maxTouchPoints > 1);
 
   const hasWebXR = typeof nav.xr !== "undefined";
+  const hasMediaDevices = !!nav.mediaDevices?.getUserMedia;
 
-  const shouldDisableAR = isIOS && !hasWebXR;
-
+  let mode = "webxr";
   let message = "";
-  if (shouldDisableAR) {
+  let startLabel = "Iniciar AR";
+
+  if (hasWebXR) {
+    mode = "webxr";
+  } else if (hasMediaDevices) {
+    mode = "fallback";
+    startLabel = "Iniciar modo alternativo";
     message =
-      "A experiência de realidade aumentada não está disponível no navegador padrão do iPhone. Utilize um navegador compatível com WebXR, como o WebXR Viewer da Mozilla ou outro navegador que ofereça suporte.";
+      "O navegador deste dispositivo não oferece suporte ao WebXR. Iniciaremos um modo alternativo de visualização usando a câmera para que você possa explorar as obras.";
+  } else {
+    mode = "unsupported";
+    startLabel = "AR indisponível";
+    message =
+      "Este dispositivo não possui suporte ao WebXR nem acesso à câmera necessário para o modo alternativo.";
   }
 
   return {
     isIOS,
     hasWebXR,
-    shouldDisableAR,
+    hasMediaDevices,
+    mode,
     message,
+    startLabel,
   };
 }

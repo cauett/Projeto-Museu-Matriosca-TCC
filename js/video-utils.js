@@ -1,26 +1,36 @@
 export let video, canvas, ctx;
+let streamRef = null;
 
 export async function initVideoStream() {
-  video = document.createElement("video");
-  video.setAttribute("autoplay", "");
-  video.setAttribute("muted", "");
-  video.setAttribute("playsinline", "");
-  video.style.display = "none";
-  document.body.appendChild(video);
+  if (!video) {
+    video = document.createElement("video");
+    video.setAttribute("autoplay", "");
+    video.setAttribute("muted", "");
+    video.setAttribute("playsinline", "");
+    video.style.display = "none";
+    document.body.appendChild(video);
+  }
 
-  canvas = document.createElement("canvas");
-  canvas.style.display = "none";
-  ctx = canvas.getContext("2d");
-  document.body.appendChild(canvas);
+  if (!canvas) {
+    canvas = document.createElement("canvas");
+    canvas.style.display = "none";
+    ctx = canvas.getContext("2d");
+    document.body.appendChild(canvas);
+  }
+
+  if (streamRef) {
+    return;
+  }
 
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({
+    streamRef = await navigator.mediaDevices.getUserMedia({
       video: { facingMode: "environment" },
     });
-    video.srcObject = stream;
+    video.srcObject = streamRef;
     await video.play();
   } catch (err) {
     console.error("Erro ao acessar a câmera:", err);
+    streamRef = null;
   }
 }
 
@@ -55,4 +65,29 @@ export function getWallTextureFromVideo(THREE) {
   texture.magFilter = THREE.LinearFilter;
   texture.needsUpdate = true;
   return texture;
+}
+
+export function showVideoBackground() {
+  if (video) {
+    video.style.display = "block";
+    video.classList.add("camera-background");
+  }
+}
+
+export function hideVideoBackground() {
+  if (video) {
+    video.style.display = "none";
+    video.classList.remove("camera-background");
+  }
+}
+
+export function stopVideoStream() {
+  if (streamRef) {
+    streamRef.getTracks().forEach((track) => track.stop());
+    streamRef = null;
+  }
+
+  if (video) {
+    video.srcObject = null;
+  }
 }
