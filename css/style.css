@@ -150,6 +150,16 @@ h1 {
   justify-content: center;
 }
 
+#start-ar-btn.disabled,
+#start-ar-btn:disabled {
+  background: #d9d9d9;
+  border-color: #f0f0f0;
+  box-shadow: none;
+  color: #555;
+  cursor: not-allowed;
+  transform: none;
+}
+
 #start-ar-btn:hover {
   transform: scale(1.05);
 }
@@ -159,6 +169,15 @@ h1 {
   font-size: 1rem;
   color: #333;
   letter-spacing: 0.3px;
+}
+
+.unsupported-message {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #b00020;
+  text-align: center;
+  line-height: 1.4;
+  padding: 0 1rem;
 }
 
 #voltar-btn {

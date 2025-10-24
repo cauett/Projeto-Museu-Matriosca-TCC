@@ -40,7 +40,9 @@ export const exibicoes = [
   }
 ];
 
-export function initUI(startCallback) {
+export function initUI(startCallback, options = {}) {
+  const { deviceStatus = {} } = options;
+  const { shouldDisableAR = false, message: deviceMessage = "" } = deviceStatus;
   const exibicoesContainer = document.getElementById("exibicoes");
   const detalhesEl = document.getElementById("exibicao-detalhes");
   const tituloEl = document.getElementById("exibicao-titulo");
@@ -48,6 +50,8 @@ export function initUI(startCallback) {
   const obrasLista = document.getElementById("obras-lista");
   const voltarBtn = document.getElementById("voltar-btn");
   const startBtn = document.getElementById("start-ar-btn");
+  const startWrapper = document.getElementById("start-wrapper");
+  const startLabel = document.querySelector(".start-label");
 
   exibicoes.forEach((exib) => {
     const card = document.createElement("div");
@@ -76,7 +80,11 @@ export function initUI(startCallback) {
       obrasLista.appendChild(div);
     });
 
-    startBtn.onclick = () => startCallback(exibicao);
+    if (shouldDisableAR) {
+      startBtn.onclick = null;
+    } else {
+      startBtn.onclick = () => startCallback(exibicao);
+    }
   }
 
   voltarBtn.onclick = () => {
@@ -84,4 +92,22 @@ export function initUI(startCallback) {
     exibicoesContainer.style.display = "flex";
     document.getElementById("intro-section").style.display = "block";
   };
+
+  if (shouldDisableAR) {
+    startBtn.disabled = true;
+    startBtn.classList.add("disabled");
+    startBtn.setAttribute("aria-disabled", "true");
+    startBtn.textContent = "AR indisponível";
+
+    if (startLabel) {
+      startLabel.textContent = "Experiência de AR indisponível neste dispositivo.";
+    }
+
+    if (deviceMessage && startWrapper) {
+      const warning = document.createElement("p");
+      warning.className = "unsupported-message";
+      warning.textContent = deviceMessage;
+      startWrapper.appendChild(warning);
+    }
+  }
 }
