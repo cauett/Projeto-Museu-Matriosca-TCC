@@ -1,6 +1,7 @@
 // Tamanho padrão das obras
 const DEFAULT_OBRA_SIZE = { w: 0.42, h: 0.42, d: 0.04 };
 const SERTAO_OBRA_SIZE = { w: 0.62, h: 0.4, d: 0.035 };
+const TESOUROS_VIVOS_OBRA_SIZE = { w: 0.32, h: 0.32, d: 0.035 };
 
 function mapObras(
   itens,
@@ -116,6 +117,146 @@ const sertaoMonumentalObras = [
   },
 ];
 
+// Exposição "Tesouros Vivos do Ceará"
+const tesourosVivosAutor = "Xilogravuras de Otávio Menezes";
+const tesourosVivosObras = [
+  // === Linha superior ===
+  {
+    titulo: "[Título da obra 1]",
+    descricao: "[Descrição da obra 1]",
+    arquivo: "tesouros-vivos/tesouro-1.jpeg",
+    position: { x: -1.25, y: 0.45, z: -0.02 },
+  },
+  {
+    titulo: "[Título da obra 2]",
+    descricao: "[Descrição da obra 2]",
+    arquivo: "tesouros-vivos/tesouro-2.jpeg",
+    position: { x: -1.0, y: 0.45, z: -0.02 },
+  },
+  {
+    titulo: "[Título da obra 3]",
+    descricao: "[Descrição da obra 3]",
+    arquivo: "tesouros-vivos/tesouro-3.jpeg",
+    position: { x: -0.75, y: 0.45, z: -0.02 },
+  },
+  {
+    titulo: "[Título da obra 4]",
+    descricao: "[Descrição da obra 4]",
+    arquivo: "tesouros-vivos/tesouro-4.jpeg",
+    position: { x: -0.5, y: 0.45, z: -0.02 },
+  },
+  {
+    titulo: "[Título da obra 5]",
+    descricao: "[Descrição da obra 5]",
+    arquivo: "tesouros-vivos/tesouro-5.jpeg",
+    position: { x: -0.25, y: 0.45, z: -0.02 },
+  },
+  {
+    titulo: "[Título da obra 6]",
+    descricao: "[Descrição da obra 6]",
+    arquivo: "tesouros-vivos/tesouro-6.jpeg",
+    position: { x: 0, y: 0.45, z: -0.02 },
+  },
+  {
+    titulo: "[Título da obra 7]",
+    descricao: "[Descrição da obra 7]",
+    arquivo: "tesouros-vivos/tesouro-7.jpeg",
+    position: { x: 0.25, y: 0.45, z: -0.02 },
+  },
+  {
+    titulo: "[Título da obra 8]",
+    descricao: "[Descrição da obra 8]",
+    arquivo: "tesouros-vivos/tesouro-8.jpeg",
+    position: { x: 0.5, y: 0.45, z: -0.02 },
+  },
+  {
+    titulo: "[Título da obra 9]",
+    descricao: "[Descrição da obra 9]",
+    arquivo: "tesouros-vivos/tesouro-9.jpeg",
+    position: { x: 0.75, y: 0.45, z: -0.02 },
+  },
+  {
+    titulo: "[Título da obra 10]",
+    descricao: "[Descrição da obra 10]",
+    arquivo: "tesouros-vivos/tesouro-10.jpeg",
+    position: { x: 1.0, y: 0.45, z: -0.02 },
+  },
+  {
+    titulo: "[Título da obra 11]",
+    descricao: "[Descrição da obra 11]",
+    arquivo: "tesouros-vivos/tesouro-11.jpeg",
+    position: { x: 1.25, y: 0.45, z: -0.02 },
+  },
+
+  // === Linha inferior ===
+  {
+    titulo: "[Título da obra 12]",
+    descricao: "[Descrição da obra 12]",
+    arquivo: "tesouros-vivos/tesouro-12.jpeg",
+    position: { x: -1.25, y: -0.15, z: -0.02 },
+  },
+  {
+    titulo: "[Título da obra 13]",
+    descricao: "[Descrição da obra 13]",
+    arquivo: "tesouros-vivos/tesouro-13.jpeg",
+    position: { x: -1.0, y: -0.15, z: -0.02 },
+  },
+  {
+    titulo: "[Título da obra 14]",
+    descricao: "[Descrição da obra 14]",
+    arquivo: "tesouros-vivos/tesouro-14.jpeg",
+    position: { x: -0.75, y: -0.15, z: -0.02 },
+  },
+  {
+    titulo: "[Título da obra 15]",
+    descricao: "[Descrição da obra 15]",
+    arquivo: "tesouros-vivos/tesouro-15.jpeg",
+    position: { x: -0.5, y: -0.15, z: -0.02 },
+  },
+  {
+    titulo: "[Título da obra 16]",
+    descricao: "[Descrição da obra 16]",
+    arquivo: "tesouros-vivos/tesouro-16.jpeg",
+    position: { x: -0.25, y: -0.15, z: -0.02 },
+  },
+  {
+    titulo: "[Título da obra 17]",
+    descricao: "[Descrição da obra 17]",
+    arquivo: "tesouros-vivos/tesouro-17.jpeg",
+    position: { x: 0, y: -0.15, z: -0.02 },
+  },
+  {
+    titulo: "[Título da obra 18]",
+    descricao: "[Descrição da obra 18]",
+    arquivo: "tesouros-vivos/tesouro-18.jpeg",
+    position: { x: 0.25, y: -0.15, z: -0.02 },
+  },
+  {
+    titulo: "[Título da obra 19]",
+    descricao: "[Descrição da obra 19]",
+    arquivo: "tesouros-vivos/tesouro-19.jpeg",
+    position: { x: 0.5, y: -0.15, z: -0.02 },
+  },
+  {
+    titulo: "[Título da obra 20]",
+    descricao: "[Descrição da obra 20]",
+    arquivo: "tesouros-vivos/tesouro-20.jpeg",
+    position: { x: 0.75, y: -0.15, z: -0.02 },
+  },
+  {
+    titulo: "[Título da obra 21]",
+    descricao: "[Descrição da obra 21]",
+    arquivo: "tesouros-vivos/tesouro-21.jpeg",
+    position: { x: 1.0, y: -0.15, z: -0.02 },
+  },
+  {
+    titulo: "[Título da obra 22]",
+    descricao: "[Descrição da obra 22]",
+    arquivo: "tesouros-vivos/tesouro-22.jpeg",
+    position: { x: 1.25, y: -0.15, z: -0.02 },
+  },
+];
+
 // Export das exposições (usando o mapper genérico)
 export const exibicoes = [
   {
@@ -136,6 +277,17 @@ export const exibicoes = [
       size: SERTAO_OBRA_SIZE,
     }),
     quadroTipo: "fotografia",
+  },
+  {
+    id: "exibicao3",
+    titulo: "Tesouros Vivos do Ceará",
+    descricao:
+      "Reconhecida como uma celebração dos Mestres e Mestras da Cultura Popular, a exposição apresenta as xilogravuras que homenageiam guardiões da memória coletiva cearense.",
+    obras: mapObras(tesourosVivosObras, {
+      autor: tesourosVivosAutor,
+      size: TESOUROS_VIVOS_OBRA_SIZE,
+    }),
+    quadroTipo: "moldura",
   },
 ];
 
