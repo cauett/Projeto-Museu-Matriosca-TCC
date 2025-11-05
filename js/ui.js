@@ -70,11 +70,6 @@ const sertaoMonumentalObras = [
     position: { x: -1, y: 0.1, z: -0.025 },
   },
   {
-    titulo: "Geossítio Gnaisse Milonítico",
-    arquivo: "sertao-monumental/sertao-06.jpeg",
-    position: { x: -0.6, y: 0.45, z: -0.025 },
-  },
-  {
     titulo: "Geossítio Gruta do Magé",
     arquivo: "sertao-monumental/sertao-03.jpeg",
     position: { x: -0.35, y: 0.1, z: -0.025 },
