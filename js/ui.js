@@ -124,6 +124,7 @@ export const exibicoes = [
     descricao:
       "A exposição celebra a potência da arte como expressão sensível e inclusiva.",
     obras: mapObras(linhasDaVidaObras, { size: DEFAULT_OBRA_SIZE }),
+    quadroTipo: "moldura",
   },
   {
     id: "exibicao2",
@@ -134,6 +135,7 @@ export const exibicoes = [
       autor: sertaoAutor,
       size: SERTAO_OBRA_SIZE,
     }),
+    quadroTipo: "fotografia",
   },
 ];
 

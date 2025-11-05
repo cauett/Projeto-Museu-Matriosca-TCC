@@ -55,20 +55,30 @@ export function onSelect() {
     const group = new THREE.Group();
     wall.add(group);
 
+    const quadroTipo = exibicaoAtiva.quadroTipo ?? "moldura";
     const obras = exibicaoAtiva.obras;
 
     obras.forEach((obra) => {
-      addQuadro(group, obra.url, obra.position, obra.size);
+      addQuadro(group, obra.url, obra.position, obra.size, quadroTipo);
+      const labelZOffset =
+        quadroTipo === "fotografia" ? obra.position.z + 0.012 : obra.position.z + 0.021;
+
       addAutorLabel(scene, group, obra.autor, {
         x: obra.position.x,
         y: obra.position.y - (obra.size?.h || 0.45) / 2 - 0.12,
-        z: obra.position.z + 0.021,
+        z: labelZOffset,
       });
     });
   }
 }
 
-function addQuadro(group, textureURL, position, size = { w: 0.45, h: 0.45, d: 0.04 }) {
+function addQuadro(
+  group,
+  textureURL,
+  position,
+  size = { w: 0.45, h: 0.45, d: 0.04 },
+  quadroTipo = "moldura",
+) {
   const loader = new THREE.TextureLoader();
   loader.load(textureURL, (texture) => {
     texture.encoding = THREE.sRGBEncoding;
@@ -77,6 +87,57 @@ function addQuadro(group, textureURL, position, size = { w: 0.45, h: 0.45, d: 0.
     texture.magFilter = THREE.LinearFilter;
     texture.wrapS = THREE.ClampToEdgeWrapping;
     texture.wrapT = THREE.ClampToEdgeWrapping;
+
+    if (quadroTipo === "fotografia") {
+      const photoGroup = new THREE.Group();
+      photoGroup.position.set(position.x, position.y, position.z);
+      photoGroup.rotation.y = Math.PI;
+
+      const paperMaterial = new THREE.MeshStandardMaterial({
+        color: 0xf5f1e6,
+        roughness: 0.9,
+        metalness: 0.0,
+        side: THREE.DoubleSide,
+      });
+
+      const photoMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        color: 0xffffff,
+        roughness: 0.45,
+        metalness: 0.0,
+        side: THREE.FrontSide,
+      });
+
+      const paper = new THREE.Mesh(
+        new THREE.PlaneGeometry(size.w + 0.08, size.h + 0.08),
+        paperMaterial,
+      );
+      paper.position.set(0, 0, -0.0015);
+      paper.receiveShadow = false;
+      photoGroup.add(paper);
+
+      const photo = new THREE.Mesh(new THREE.PlaneGeometry(size.w, size.h), photoMaterial);
+      photo.position.set(0, 0, 0.0015);
+      photo.castShadow = false;
+      photo.receiveShadow = false;
+      photoGroup.add(photo);
+
+      const tapeMaterial = new THREE.MeshStandardMaterial({
+        color: 0xdcc8a0,
+        roughness: 0.8,
+        metalness: 0.0,
+        side: THREE.DoubleSide,
+      });
+      const tapeGeometry = new THREE.PlaneGeometry(size.w * 0.35, 0.025);
+      const tape = new THREE.Mesh(tapeGeometry, tapeMaterial);
+      tape.position.set(0, size.h / 2 + 0.03, 0.002);
+      tape.castShadow = false;
+      tape.receiveShadow = false;
+      photoGroup.add(tape);
+
+      group.add(photoGroup);
+      return;
+    }
 
     const canvasMaterial = new THREE.MeshStandardMaterial({
       map: texture,
