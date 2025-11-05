@@ -139,6 +139,64 @@ function addQuadro(
       return;
     }
 
+    if (quadroTipo === "molduraPreta") {
+      const frameGroup = new THREE.Group();
+      frameGroup.position.set(position.x, position.y, position.z);
+      frameGroup.rotation.y = Math.PI;
+
+      const frameThickness = 0.05;
+      const frameDepth = Math.max(size.d ?? 0.04, 0.04) + 0.01;
+      const outerWidth = size.w + frameThickness * 2;
+      const outerHeight = size.h + frameThickness * 2;
+
+      const frameMaterial = new THREE.MeshStandardMaterial({
+        color: 0x111111,
+        roughness: 0.45,
+        metalness: 0.25,
+      });
+
+      const frameMesh = new THREE.Mesh(
+        new THREE.BoxGeometry(outerWidth, outerHeight, frameDepth),
+        frameMaterial,
+      );
+      frameMesh.castShadow = true;
+      frameMesh.receiveShadow = true;
+      frameGroup.add(frameMesh);
+
+      const passepartoutMaterial = new THREE.MeshStandardMaterial({
+        color: 0x1c1c1c,
+        roughness: 0.85,
+        metalness: 0.05,
+      });
+
+      const passepartout = new THREE.Mesh(
+        new THREE.PlaneGeometry(outerWidth - 0.02, outerHeight - 0.02),
+        passepartoutMaterial,
+      );
+      passepartout.position.set(0, 0, frameDepth / 2 - 0.004);
+      frameGroup.add(passepartout);
+
+      const artworkMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        color: 0xffffff,
+        roughness: 0.9,
+        metalness: 0.0,
+        side: THREE.FrontSide,
+      });
+
+      const artwork = new THREE.Mesh(
+        new THREE.PlaneGeometry(size.w, size.h),
+        artworkMaterial,
+      );
+      artwork.position.set(0, 0, frameDepth / 2 - 0.002);
+      artwork.castShadow = false;
+      artwork.receiveShadow = false;
+      frameGroup.add(artwork);
+
+      group.add(frameGroup);
+      return;
+    }
+
     const canvasMaterial = new THREE.MeshStandardMaterial({
       map: texture,
       color: 0xffffff,

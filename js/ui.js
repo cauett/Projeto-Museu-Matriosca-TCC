@@ -287,7 +287,7 @@ export const exibicoes = [
       autor: tesourosVivosAutor,
       size: TESOUROS_VIVOS_OBRA_SIZE,
     }),
-    quadroTipo: "moldura",
+    quadroTipo: "molduraPreta",
   },
 ];
 
