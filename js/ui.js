@@ -1,5 +1,6 @@
 // Tamanho padrão das obras
 const DEFAULT_OBRA_SIZE = { w: 0.42, h: 0.42, d: 0.04 };
+const SERTAO_OBRA_SIZE = { w: 0.64, h: 0.45, d: 0.04 };
 
 function mapObras(
   itens,
@@ -54,54 +55,54 @@ const sertaoAutor = "Acervo Sertão Monumental";
 
 const sertaoMonumentalObras = [
   {
-    titulo: "Gruta de São Francisco",
+    titulo: "Geossítio Gruta de São Francisco",
     arquivo: "sertao-monumental/sertao-01.jpeg",
-    position: { x: -0.96, y: 0.38, z: -0.025 },
+    position: { x: 0.8, y: 0.55, z: -0.025 },
   },
   {
     titulo: "Ponte Metálica de Quixeramobim",
     arquivo: "sertao-monumental/sertao-02.jpeg",
-    position: { x: -0.48, y: 0.38, z: -0.025 },
+    position: { x: 0, y: 0.55, z: -0.025 },
   },
   {
-    titulo: "Gruta do Magé",
+    titulo: "Geossítio Gruta do Magé",
     arquivo: "sertao-monumental/sertao-03.jpeg",
-    position: { x: 0, y: 0.38, z: -0.025 },
+    position: { x: -0.8, y: 0.55, z: -0.025 },
   },
   {
     titulo: "Rio Quixeramobim",
     arquivo: "sertao-monumental/sertao-04.jpeg",
-    position: { x: 0.48, y: 0.38, z: -0.025 },
+    position: { x: 0.45, y: 0.15, z: -0.025 },
   },
   {
     titulo: "Açude Cedro",
     arquivo: "sertao-monumental/sertao-05.jpeg",
-    position: { x: 0.96, y: 0.38, z: -0.025 },
+    position: { x: -0.45, y: 0.15, z: -0.025 },
   },
   {
-    titulo: "Gnaisse Milonítico",
+    titulo: "Geossítio Gnaisse Milonítico",
     arquivo: "sertao-monumental/sertao-06.jpeg",
-    position: { x: -0.96, y: -0.38, z: -0.025 },
+    position: { x: 1, y: -0.4, z: -0.025 },
   },
   {
     titulo: "Pedra da Gaveta",
     arquivo: "sertao-monumental/sertao-07.jpeg",
-    position: { x: -0.48, y: -0.38, z: -0.025 },
+    position: { x: 0.5, y: -0.4, z: -0.025 },
   },
   {
-    titulo: "Pedra do Cruzeiro",
+    titulo: "Geossítio Pedra do Cruzeiro",
     arquivo: "sertao-monumental/sertao-08.jpeg",
-    position: { x: 0, y: -0.38, z: -0.025 },
+    position: { x: 0, y: -0.4, z: -0.025 },
   },
   {
     titulo: "Serra do Padre",
     arquivo: "sertao-monumental/sertao-09.jpeg",
-    position: { x: 0.48, y: -0.38, z: -0.025 },
+    position: { x: -0.5, y: -0.4, z: -0.025 },
   },
   {
-    titulo: "Pedra do Letreiro",
+    titulo: "Geossítio Pedra do Letreiro",
     arquivo: "sertao-monumental/sertao-10.jpeg",
-    position: { x: 0.96, y: -0.38, z: -0.025 },
+    position: { x: -1, y: -0.4, z: -0.025 },
   },
 ];
 
@@ -121,7 +122,7 @@ export const exibicoes = [
       "A exposição é um esforço conjunto de agentes sociais, educacionais e culturais que buscam promover a difusão e a valorização do patrimônio local.",
     obras: mapObras(sertaoMonumentalObras, {
       autor: sertaoAutor,
-      size: DEFAULT_OBRA_SIZE,
+      size: SERTAO_OBRA_SIZE,
     }),
   },
 ];
