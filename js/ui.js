@@ -122,114 +122,114 @@ const tesourosVivosAutor = "Otávio Menezes";
 const tesourosVivosObras = [
   // === Linha superior ===
   {
-    titulo: "[Mestre Françuli, Miniaturista]",
+    titulo: "Mestre Françuli, Miniaturista",
     arquivo: "tesouros-vivos/tesouro-1.jpeg",
     position: { x: -1.25, y: 0.2, z: -0.02 },
   },
   {
-    titulo: "[Mestre Lucas Evangelista, Cordelista]",
+    titulo: "Mestre Lucas Evangelista, Cordelista",
     arquivo: "tesouros-vivos/tesouro-2.jpeg",
     position: { x: -1.0, y: 0.2, z: -0.02 },
   },
   {
-    titulo: "[Mestre Stênio Diniz, Xilógrafo]",
+    titulo: "Mestre Stênio Diniz, Xilógrafo",
     arquivo: "tesouros-vivos/tesouro-3.jpeg",
     position: { x: -0.75, y: 0.2, z: -0.02 },
   },
   {
-    titulo: "[Mestre Zé Pio, Bumba-meu-boi]",
+    titulo: "Mestre Zé Pio, Bumba-meu-boi",
     arquivo: "tesouros-vivos/tesouro-4.jpeg",
     position: { x: -0.5, y: 0.2, z: -0.02 },
   },
   {
-    titulo: "[Mestre Raimundo Aniceto, Banda Cabaçal]",
+    titulo: "Mestre Raimundo Aniceto, Banda Cabaçal",
     arquivo: "tesouros-vivos/tesouro-5.jpeg",
     position: { x: -0.25, y: 0.2, z: -0.02 },
   },
   {
-    titulo: "[Mestre Vitor, Ferreiro]",
+    titulo: "Mestre Vitor, Ferreiro",
     arquivo: "tesouros-vivos/tesouro-6.jpeg",
     position: { x: 0, y: 0.2, z: -0.02 },
   },
   {
-    titulo: "[Mestre Piauí, Reisado]",
+    titulo: "Mestre Piauí, Reisado",
     arquivo: "tesouros-vivos/tesouro-7.jpeg",
     position: { x: 0.25, y: 0.2, z: -0.02 },
   },
   {
-    titulo: "[Mestre Pedro Balaeiro. Trançado em Cipó]",
+    titulo: "Mestre Pedro Balaeiro. Trançado em Cipó",
     arquivo: "tesouros-vivos/tesouro-8.jpeg",
     position: { x: 0.5, y: 0.2, z: -0.02 },
   },
   {
-    titulo: "[Mestre Getúlio, Sineiro]",
+    titulo: "Mestre Getúlio, Sineiro",
     arquivo: "tesouros-vivos/tesouro-9.jpeg",
     position: { x: 0.75, y: 0.2, z: -0.02 },
   },
   {
-    titulo: "[Mestre Pimenta, Palhaço]",
+    titulo: "Mestre Pimenta, Palhaço",
     arquivo: "tesouros-vivos/tesouro-10.jpeg",
     position: { x: 1.0, y: 0.2, z: -0.02 },
   },
   {
-    titulo: "[Mestre Luis Caboclo, Pajé Tremembé]",
+    titulo: "Mestre Luis Caboclo, Pajé Tremembé",
     arquivo: "tesouros-vivos/tesouro-11.jpeg",
     position: { x: 1.25, y: 0.2, z: -0.02 },
   },
 
   // === Linha inferior ===
   {
-    titulo: "[Mestre Gilberto, Bonequeiro]",
+    titulo: "Mestre Gilberto, Bonequeiro",
     arquivo: "tesouros-vivos/tesouro-12.jpeg",
     position: { x: -1.25, y: -0.15, z: -0.02 },
   },
   {
-    titulo: "[Mestre Antonio Luiz, Reisado de Caretas]",
+    titulo: "Mestre Antonio Luiz, Reisado de Caretas",
     arquivo: "tesouros-vivos/tesouro-13.jpeg",
     position: { x: -1.0, y: -0.15, z: -0.02 },
   },
   {
-    titulo: "[Mestre Antonio, Luthier-rabeca]",
+    titulo: "Mestre Antonio, Luthier-rabeca",
     arquivo: "tesouros-vivos/tesouro-14.jpeg",
     position: { x: -0.75, y: -0.15, z: -0.02 },
   },
   {
-    titulo: "[Mestre Joaquim, Dança de São Gonçalo]",
+    titulo: "Mestre Joaquim, Dança de São Gonçalo",
     arquivo: "tesouros-vivos/tesouro-15.jpeg",
     position: { x: -0.5, y: -0.15, z: -0.02 },
   },
   {
-    titulo: "[Mestre Aldenir, Reisado]",
+    titulo: "Mestre Aldenir, Reisado",
     arquivo: "tesouros-vivos/tesouro-16.jpeg",
     position: { x: -0.25, y: -0.15, z: -0.02 },
   },
   {
-    titulo: "[Mestre Espedito Seleiro, Arte em Couro]",
+    titulo: "Mestre Espedito Seleiro, Arte em Couro",
     arquivo: "tesouros-vivos/tesouro-17.jpeg",
     position: { x: 0, y: -0.15, z: -0.02 },
   },
   {
-    titulo: "[Mestre Bibi, Escultor]",
+    titulo: "Mestre Bibi, Escultor",
     arquivo: "tesouros-vivos/tesouro-18.jpeg",
     position: { x: 0.25, y: -0.15, z: -0.02 },
   },
   {
-    titulo: "[Mestre Cirilo, Maneiro Pau]",
+    titulo: "Mestre Cirilo, Maneiro Pau",
     arquivo: "tesouros-vivos/tesouro-19.jpeg",
     position: { x: 0.5, y: -0.15, z: -0.02 },
   },
   {
-    titulo: "[Mestre Totonho, Luthier-violino]",
+    titulo: "Mestre Totonho, Luthier-violino",
     arquivo: "tesouros-vivos/tesouro-20.jpeg",
     position: { x: 0.75, y: -0.15, z: -0.02 },
   },
   {
-    titulo: "[Mestre João Venâncio, Cacique Tremembé]",
+    titulo: "Mestre João Venâncio, Cacique Tremembé",
     arquivo: "tesouros-vivos/tesouro-21.jpeg",
     position: { x: 1.0, y: -0.15, z: -0.02 },
   },
   {
-    titulo: "[Mestre Moisés Cardoso, Dança do Côco]",
+    titulo: "Mestre Moisés Cardoso, Dança do Côco",
     arquivo: "tesouros-vivos/tesouro-22.jpeg",
     position: { x: 1.25, y: -0.15, z: -0.02 },
   },
