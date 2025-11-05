@@ -57,12 +57,17 @@ const sertaoMonumentalObras = [
   {
     titulo: "Geossítio Gruta de São Francisco",
     arquivo: "sertao-monumental/sertao-01.jpeg",
-    position: { x: 0.6, y: 0.45, z: -0.025 },
+    position: { x: -0.55, y: 0.6, z: -0.025 },
   },
   {
     titulo: "Ponte Metálica de Quixeramobim",
     arquivo: "sertao-monumental/sertao-02.jpeg",
-    position: { x: 0, y: 0.45, z: -0.025 },
+    position: { x: 0.55, y: 0.6, z: -0.025 },
+  },
+  {
+    titulo: "Geossítio Gnaisse Milonítico",
+    arquivo: "sertao-monumental/sertao-06.jpeg",
+    position: { x: -1, y: 0.1, z: -0.025 },
   },
   {
     titulo: "Geossítio Gnaisse Milonítico",
@@ -72,37 +77,37 @@ const sertaoMonumentalObras = [
   {
     titulo: "Geossítio Gruta do Magé",
     arquivo: "sertao-monumental/sertao-03.jpeg",
-    position: { x: 0.6, y: 0, z: -0.025 },
+    position: { x: -0.35, y: 0.1, z: -0.025 },
   },
   {
     titulo: "Rio Quixeramobim",
     arquivo: "sertao-monumental/sertao-04.jpeg",
-    position: { x: 0, y: 0, z: -0.025 },
+    position: { x: 0.35, y: 0.1, z: -0.025 },
   },
   {
     titulo: "Açude Cedro",
     arquivo: "sertao-monumental/sertao-05.jpeg",
-    position: { x: -0.6, y: 0, z: -0.025 },
+    position: { x: 1, y: 0.1, z: -0.025 },
   },
   {
     titulo: "Pedra da Gaveta",
     arquivo: "sertao-monumental/sertao-07.jpeg",
-    position: { x: 0.9, y: -0.45, z: -0.025 },
+    position: { x: -1, y: -0.55, z: -0.025 },
   },
   {
     titulo: "Geossítio Pedra do Cruzeiro",
     arquivo: "sertao-monumental/sertao-08.jpeg",
-    position: { x: 0.3, y: -0.45, z: -0.025 },
+    position: { x: -0.35, y: -0.55, z: -0.025 },
   },
   {
     titulo: "Serra do Padre",
     arquivo: "sertao-monumental/sertao-09.jpeg",
-    position: { x: -0.3, y: -0.45, z: -0.025 },
+    position: { x: 0.35, y: -0.55, z: -0.025 },
   },
   {
     titulo: "Geossítio Pedra do Letreiro",
     arquivo: "sertao-monumental/sertao-10.jpeg",
-    position: { x: -0.9, y: -0.45, z: -0.025 },
+    position: { x: 1, y: -0.55, z: -0.025 },
   },
 ];
 
