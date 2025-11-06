@@ -42,7 +42,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: clamp(1rem, 5vw, 1.75rem);
+  padding: clamp(0.85rem, 4.5vw, 1.65rem);
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -50,8 +50,7 @@ body {
 body.details-active {
   align-items: stretch;
   justify-content: flex-start;
-  padding: clamp(0.75rem, 6vw, 2rem) clamp(1rem, 7vw, 2.75rem)
-    clamp(1.75rem, 8vw, 3rem);
+  padding: 0;
 }
 
 #ui {
@@ -61,7 +60,7 @@ body.details-active {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(1rem, 4vw, 1.75rem);
+  padding: clamp(0.85rem, 3.75vw, 1.65rem);
   margin-inline: auto;
 }
 
@@ -75,8 +74,10 @@ body.details-active {
 }
 
 #ui.details-active {
-  width: min(960px, 100%);
-  padding: clamp(1.5rem, 7vw, 3rem);
+  width: 100%;
+  max-width: none;
+  padding: 0;
+  margin: 0;
 }
 
 #gallery-ui.details-active {
@@ -485,6 +486,7 @@ body.details-active {
             rgba(28, 4, 8, 0.92)));
   background-size: cover;
   background-position: center;
+  margin-inline: 0;
 }
 
 .details-gradient {
@@ -497,10 +499,10 @@ body.details-active {
 
 .details-copy {
   position: relative;
-  padding: clamp(2rem, 6vw, 3.25rem);
+  padding: clamp(1.35rem, 4.8vw, 2.6rem);
   width: 100%;
   display: grid;
-  gap: clamp(1rem, 3vw, 1.75rem);
+  gap: clamp(0.85rem, 2.8vw, 1.6rem);
   backdrop-filter: blur(14px);
   background: linear-gradient(180deg, rgba(18, 3, 5, 0.2) 0%,
       rgba(44, 6, 11, 0.85) 55%, rgba(21, 3, 6, 0.92) 100%);
@@ -526,10 +528,10 @@ body.details-active {
 #details-screen {
   --details-cover: linear-gradient(160deg, rgba(71, 11, 17, 0.92),
       rgba(32, 4, 8, 0.95));
+  --details-inline-padding: clamp(0.6rem, 3.5vw, 1.2rem);
   min-height: 100dvh;
-  padding: clamp(0.5rem, 5vw, 1.25rem) clamp(0.75rem, 5vw, 1.85rem)
-    clamp(2.25rem, 8vw, 3.25rem);
-  gap: clamp(1.75rem, 5vw, 2.5rem);
+  padding: clamp(0.55rem, 3vw, 0.95rem) 0 clamp(1.85rem, 6.5vw, 2.85rem);
+  gap: clamp(1.4rem, 4vw, 2.25rem);
   position: relative;
   overflow-y: auto;
   align-items: stretch;
@@ -539,7 +541,7 @@ body.details-active {
   position: sticky;
   top: 0;
   z-index: 4;
-  padding: clamp(0.9rem, 4vw, 1.35rem) clamp(1rem, 6vw, 1.85rem);
+  padding: clamp(0.85rem, 3.75vw, 1.25rem) clamp(0.9rem, 5vw, 1.6rem);
   margin: 0;
   background: linear-gradient(135deg, rgba(163, 32, 42, 0.26),
       rgba(62, 9, 16, 0.82));
@@ -555,8 +557,8 @@ body.details-active {
   width: 100%;
   display: flex;
   gap: clamp(1rem, 4vw, 1.5rem);
-  padding: 0 clamp(0.5rem, 4vw, 0.75rem);
-  margin: 0 calc(clamp(0.5rem, 4vw, 0.75rem) * -1);
+  padding: 0 var(--details-inline-padding);
+  margin: 0 calc(var(--details-inline-padding) * -1);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
