@@ -33,17 +33,19 @@ body {
     linear-gradient(160deg, var(--bg-primary), var(--bg-secondary));
   color: var(--text-primary);
   min-height: 100dvh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: clamp(0.85rem, 4.5vw, 1.65rem);
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 body.details-active {
   min-height: 100dvh;
+  height: auto;
   align-items: stretch;
   justify-content: flex-start;
   padding: 0;
