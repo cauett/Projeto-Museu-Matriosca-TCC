@@ -19,6 +19,10 @@
   box-sizing: border-box;
 }
 
+#native-webxr-button {
+  display: none !important;
+}
+
 html,
 body {
   width: 100%;
@@ -61,6 +65,18 @@ body {
   gap: clamp(1.75rem, 4vw, 2.5rem);
   justify-items: center;
   margin-inline: auto;
+}
+
+#ui.details-active {
+  width: min(720px, 100%);
+  padding: clamp(1.25rem, 6vw, 2.5rem);
+}
+
+#gallery-ui.details-active {
+  max-width: none;
+  width: 100%;
+  gap: clamp(2rem, 6vw, 3rem);
+  justify-items: stretch;
 }
 
 .screen {
@@ -477,25 +493,27 @@ body {
   padding: clamp(2rem, 6vw, 3.25rem);
   width: 100%;
   display: grid;
-  gap: clamp(0.85rem, 2vw, 1.25rem);
+  gap: clamp(1rem, 3vw, 1.75rem);
   backdrop-filter: blur(14px);
   background: linear-gradient(180deg, rgba(18, 3, 5, 0.2) 0%,
       rgba(44, 6, 11, 0.85) 55%, rgba(21, 3, 6, 0.92) 100%);
-  text-align: center;
-  justify-items: center;
+  text-align: left;
+  justify-items: start;
+  align-items: start;
 }
 
 .details-copy h2 {
   margin: 0;
-  font-size: clamp(1.9rem, 7vw, 2.6rem);
+  font-size: clamp(2.3rem, 6.5vw, 3rem);
   color: var(--accent-strong);
 }
 
 .details-copy p {
   margin: 0;
-  max-width: 48ch;
+  max-width: 60ch;
   color: var(--text-muted);
-  line-height: 1.65;
+  font-size: clamp(1rem, 3vw, 1.1rem);
+  line-height: 1.75;
 }
 
 #details-screen {
@@ -507,7 +525,7 @@ body {
   gap: clamp(1.5rem, 4vw, 2.25rem);
   position: relative;
   overflow-y: auto;
-  align-items: center;
+  align-items: stretch;
 }
 
 #details-screen .screen-header {
@@ -518,6 +536,7 @@ body {
   margin: 0 calc(clamp(1rem, 5vw, 1.5rem) * -1);
   background: linear-gradient(180deg, rgba(21, 3, 6, 0.85) 60%, rgba(21, 3, 6, 0));
   backdrop-filter: blur(18px);
+  justify-content: flex-start;
   margin-bottom: clamp(1rem, 4vw, 1.5rem);
 }
 
@@ -547,7 +566,7 @@ body {
 }
 
 .obra-item {
-  min-width: min(260px, 75vw);
+  min-width: min(320px, 80vw);
   background: linear-gradient(165deg, rgba(54, 8, 14, 0.95), rgba(21, 3, 6, 0.9));
   border-radius: 24px;
   padding: 1.25rem;
@@ -587,6 +606,7 @@ body {
   background: linear-gradient(160deg, rgba(62, 9, 16, 0.9), rgba(26, 4, 7, 0.9));
   border: 1px solid var(--card-border);
   box-shadow: var(--shadow-card);
+  width: 100%;
 }
 
 #start-ar-btn {
@@ -624,6 +644,7 @@ body {
   color: var(--accent-strong);
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .sr-only {

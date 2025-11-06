@@ -25,7 +25,10 @@ export async function setupARScene(THREE, ARButton, onSelect) {
   const arButton = ARButton.createButton(renderer, {
     requiredFeatures: ["hit-test"],
   });
+  arButton.id = "native-webxr-button";
   arButton.style.display = "none";
+  arButton.setAttribute("aria-hidden", "true");
+  arButton.tabIndex = -1;
   document.body.appendChild(arButton);
 
   // Iluminação

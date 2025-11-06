@@ -266,6 +266,8 @@ export const exibicoes = [
 
 // UI
 export function initUI(startCallback) {
+  const uiContainer = document.getElementById("ui");
+  const galleryRoot = document.getElementById("gallery-ui");
   const introScreen = document.getElementById("intro-screen");
   const carouselScreen = document.getElementById("carousel-screen");
   const detailsScreen = document.getElementById("details-screen");
@@ -301,6 +303,14 @@ export function initUI(startCallback) {
         screen.classList.remove("active");
       }
     });
+
+    const isDetails = screenEl === detailsScreen;
+    if (uiContainer) {
+      uiContainer.classList.toggle("details-active", isDetails);
+    }
+    if (galleryRoot) {
+      galleryRoot.classList.toggle("details-active", isDetails);
+    }
   }
 
   function coverImageFor(exibicao) {
@@ -418,9 +428,11 @@ export function initUI(startCallback) {
     goToSlide(currentIndex, { behavior: "auto" });
   });
 
-  backToIntroBtn.addEventListener("click", () => {
-    setActiveScreen(introScreen);
-  });
+  if (backToIntroBtn) {
+    backToIntroBtn.addEventListener("click", () => {
+      setActiveScreen(introScreen);
+    });
+  }
 
   voltarBtn.addEventListener("click", () => {
     setActiveScreen(carouselScreen);
