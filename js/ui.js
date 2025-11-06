@@ -311,6 +311,9 @@ export function initUI(startCallback) {
     if (galleryRoot) {
       galleryRoot.classList.toggle("details-active", isDetails);
     }
+    if (document?.body) {
+      document.body.classList.toggle("details-active", isDetails);
+    }
   }
 
   function coverImageFor(exibicao) {
