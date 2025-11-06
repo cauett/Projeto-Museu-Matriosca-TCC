@@ -1,6 +1,7 @@
 // Tamanho padrão das obras
 const DEFAULT_OBRA_SIZE = { w: 0.42, h: 0.42, d: 0.04 };
-const SERTAO_OBRA_SIZE = { w: 0.62, h: 0.4, d: 0.035 };
+// Sertão Monumental reduzido (~15%) para não ficar "gigantesco"
+const SERTAO_OBRA_SIZE = { w: 0.53, h: 0.34, d: 0.03 };
 export const TESOUROS_VIVOS_OBRA_SIZE = { w: 0.18, h: 0.18, d: 0.028 };
 
 function mapObras(
@@ -54,66 +55,60 @@ const linhasDaVidaObras = [
 // Exposição "Sertão Monumental"
 const sertaoAutor = "Acervo Sertão Monumental";
 const sertaoMonumentalObras = [
-  // === Linha 1 (y: 0.6) — ORDEM INVERTIDA, posições preservadas ===
+  // === Linha 1 — ORDEM INVERTIDA, MAIS PRÓXIMA AO CENTRO ===
   {
-    // era o 2º; agora vem primeiro (à esquerda)
     titulo: "Ponte Metálica de Quixeramobim",
     arquivo: "sertao-monumental/sertao-02.jpeg",
-    position: { x: -0.55, y: 0.6, z: -0.025 },
+    position: { x: -0.38, y: 0.36, z: -0.025 }, // y antes: 0.50
   },
   {
-    // era o 1º; agora vem depois (à direita)
     titulo: "Geossítio Gruta de São Francisco",
     arquivo: "sertao-monumental/sertao-01.jpeg",
-    position: { x: 0.55, y: 0.6, z: -0.025 },
+    position: { x: 0.38, y: 0.36, z: -0.025 }, // y antes: 0.50
   },
 
-  // === Linha 2 (y: 0.1) — ORDEM INVERTIDA + ESPAÇAMENTO EQUALIZADO ===
+  // === Linha 2 — CENTRAL ===
   {
-    // último vira primeiro (mais à esquerda)
     titulo: "Açude Cedro",
     arquivo: "sertao-monumental/sertao-05.jpeg",
-    position: { x: -1.05, y: 0.0, z: -0.025 },
+    position: { x: -0.78, y: 0.0, z: -0.025 },
   },
   {
     titulo: "Rio Quixeramobim",
     arquivo: "sertao-monumental/sertao-04.jpeg",
-    position: { x: -0.35, y: 0.0, z: -0.025 },
+    position: { x: -0.26, y: 0.0, z: -0.025 },
   },
   {
     titulo: "Geossítio Gruta do Magé",
     arquivo: "sertao-monumental/sertao-03.jpeg",
-    position: { x: 0.35, y: 0.0, z: -0.025 },
+    position: { x: 0.26, y: 0.0, z: -0.025 },
   },
   {
-    // primeiro vira último (mais à direita)
     titulo: "Geossítio Gnaisse Milonítico",
     arquivo: "sertao-monumental/sertao-06.jpeg",
-    position: { x: 1.05, y: -0.0, z: -0.025 },
+    position: { x: 0.78, y: 0.0, z: -0.025 },
   },
 
-  // === Linha 3 (y: -0.55) — ORDEM INVERTIDA + ESPAÇAMENTO EQUALIZADO ===
+  // === Linha 3 — ORDEM INVERTIDA, MAIS PRÓXIMA AO CENTRO ===
   {
-    // último vira primeiro (mais à esquerda)
     titulo: "Geossítio Pedra do Letreiro",
     arquivo: "sertao-monumental/sertao-10.jpeg",
-    position: { x: -1.05, y: -0.55, z: -0.025 },
+    position: { x: -0.78, y: -0.36, z: -0.025 }, // y antes: -0.55
   },
   {
     titulo: "Serra do Padre",
     arquivo: "sertao-monumental/sertao-09.jpeg",
-    position: { x: -0.35, y: -0.55, z: -0.025 },
+    position: { x: -0.26, y: -0.36, z: -0.025 }, // y antes: -0.55
   },
   {
     titulo: "Geossítio Pedra do Cruzeiro",
     arquivo: "sertao-monumental/sertao-08.jpeg",
-    position: { x: 0.35, y: -0.55, z: -0.025 },
+    position: { x: 0.26, y: -0.36, z: -0.025 }, // y antes: -0.55
   },
   {
-    // primeiro vira último (mais à direita)
     titulo: "Pedra da Gaveta",
     arquivo: "sertao-monumental/sertao-07.jpeg",
-    position: { x: 1.05, y: -0.55, z: -0.025 },
+    position: { x: 0.78, y: -0.36, z: -0.025 }, // y antes: -0.55
   },
 ];
 
