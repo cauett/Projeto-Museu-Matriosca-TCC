@@ -394,6 +394,9 @@ export function initUI(startCallback) {
     setActiveScreen(detailsScreen);
     tituloEl.textContent = exibicao.titulo;
     descEl.textContent = exibicao.descricao;
+    const heroCover = coverImageFor(exibicao);
+    detailsScreen.style.setProperty("--details-cover", `url(${heroCover})`);
+    detailsScreen.scrollTo({ top: 0, behavior: "auto" });
     obrasLista.innerHTML = "";
 
     exibicao.obras.forEach((obra) => {
