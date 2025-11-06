@@ -1,17 +1,18 @@
 :root {
-  --bg-primary: #070b1a;
-  --bg-secondary: #121c35;
-  --accent: #f6b17a;
-  --accent-soft: rgba(246, 177, 122, 0.25);
-  --text-primary: #f4f4f7;
-  --text-muted: rgba(244, 244, 247, 0.75);
-  --card-bg: rgba(10, 16, 33, 0.65);
-  --card-border: rgba(255, 255, 255, 0.06);
-  --surface: rgba(12, 19, 40, 0.85);
-  --glass-stroke: rgba(255, 255, 255, 0.1);
-  --shadow-soft: 0 24px 54px rgba(0, 0, 0, 0.45);
-  --shadow-card: 0 16px 32px rgba(0, 0, 0, 0.32);
-  --transition: 200ms ease;
+  --bg-primary: #070711;
+  --bg-secondary: #111226;
+  --accent: #ffb15f;
+  --accent-strong: #ff7756;
+  --accent-soft: rgba(255, 177, 95, 0.22);
+  --text-primary: #f5f5f9;
+  --text-muted: rgba(245, 245, 249, 0.72);
+  --card-bg: rgba(15, 17, 34, 0.78);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --surface: rgba(18, 20, 42, 0.92);
+  --glass-stroke: rgba(255, 255, 255, 0.14);
+  --shadow-soft: 0 26px 60px rgba(0, 0, 0, 0.48);
+  --shadow-card: 0 18px 36px rgba(7, 10, 23, 0.48);
+  --transition: 220ms ease;
 }
 
 * {
@@ -22,34 +23,27 @@ body {
   margin: 0;
   font-family: "Manrope", "Inter", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top right, #18213f 0%, #070b1a 55%,
-      #04070f 100%);
+  background: radial-gradient(circle at 20% 20%, rgba(255, 164, 92, 0.14), transparent 55%),
+    linear-gradient(160deg, rgba(6, 7, 18, 0.95), rgba(8, 10, 22, 0.98)),
+    url("../img/sertao-monumental/sertao-02.jpeg") center / cover fixed;
+  background-color: var(--bg-primary);
   color: var(--text-primary);
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 #ui {
-  position: fixed;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(145deg, rgba(7, 11, 26, 0.92),
-      rgba(10, 15, 28, 0.88)),
-    url("https://images.unsplash.com/photo-1529421300300-23418098792c?auto=format&fit=crop&w=1600&q=80")
-      center / cover;
-  backdrop-filter: blur(24px);
-  padding: clamp(1.5rem, 4vw, 3rem);
-  overflow-y: auto;
-  z-index: 1000;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: clamp(1.25rem, 4vw, 2.25rem);
 }
 
 #gallery-ui {
-  width: min(960px, 100%);
+  width: min(440px, 100%);
   display: grid;
-  gap: clamp(2rem, 5vw, 3rem);
+  gap: clamp(1.75rem, 4vw, 2.5rem);
 }
 
 .screen {
@@ -76,49 +70,104 @@ body {
 
 .intro-card {
   position: relative;
-  padding: clamp(2rem, 5vw, 3.5rem);
-  border-radius: 36px;
-  background: linear-gradient(135deg, rgba(9, 15, 35, 0.9),
-      rgba(14, 22, 45, 0.78));
-  border: 1px solid var(--glass-stroke);
+  padding: clamp(2.25rem, 7vw, 3.5rem) clamp(2rem, 7vw, 3rem);
+  border-radius: 42px;
+  background: linear-gradient(150deg, rgba(15, 18, 38, 0.95),
+      rgba(14, 17, 32, 0.82));
+  border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: var(--shadow-soft);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 5vw, 2.75rem);
+}
+
+.intro-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.75rem, 5vw, 2.5rem);
+}
+
+.intro-text {
+  display: grid;
+  justify-items: center;
   text-align: center;
+  gap: 0.75rem;
 }
 
-.logo-orb {
-  width: clamp(120px, 22vw, 180px);
-  aspect-ratio: 1;
-  margin: 0 auto 2rem auto;
-  border-radius: 50%;
-  background: radial-gradient(circle at 25% 25%, #ffe7c3 0%,
-      rgba(255, 215, 164, 0.4) 55%, rgba(255, 190, 130, 0.05) 100%);
+.logo-mark {
   position: relative;
-  box-shadow: 0 32px 48px rgba(255, 188, 117, 0.35);
+  width: clamp(148px, 52vw, 184px);
+  aspect-ratio: 1;
+  border-radius: 36% 36% 48% 48% / 45% 45% 55% 55%;
+  background:
+      linear-gradient(140deg, rgba(6, 7, 18, 0.25), rgba(12, 12, 28, 0.7)),
+      url("../img/tesouros-vivos/tesouro-6.jpeg") center / cover;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 25px 40px rgba(8, 10, 22, 0.55);
+  isolation: isolate;
 }
 
-.logo-orb::after {
+.logo-mark::before {
   content: "";
   position: absolute;
-  inset: 16%;
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.15);
+  inset: 4%;
+  border-radius: inherit;
+  background:
+      radial-gradient(circle at 18% 25%, rgba(255, 192, 118, 0.35), transparent 55%),
+      url("../img/sertao-monumental/sertao-04.jpeg") center / cover;
   mix-blend-mode: screen;
+  opacity: 0.85;
+  filter: saturate(1.1);
+}
+
+.logo-ring,
+.logo-core {
+  position: absolute;
+  border-radius: 50%;
+  backdrop-filter: blur(22px);
+}
+
+.logo-ring {
+  width: 74%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 0 25px rgba(255, 188, 125, 0.2);
+}
+
+.logo-core {
+  width: 46%;
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(255, 220, 165, 0.85) 0%,
+      rgba(255, 155, 90, 0.55) 65%, rgba(255, 120, 86, 0.3) 100%);
+  box-shadow: 0 0 32px rgba(255, 160, 84, 0.45);
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.32em;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
 }
 
 .intro-text h1 {
-  font-size: clamp(2.5rem, 8vw, 3.5rem);
+  font-size: clamp(2.4rem, 9vw, 3.2rem);
   font-weight: 800;
-  letter-spacing: 0.05em;
-  margin: 0 0 0.75rem 0;
+  letter-spacing: 0.04em;
+  margin: 0.25rem 0 0.85rem 0;
 }
 
 .subtitle {
   color: var(--text-muted);
-  font-size: clamp(1rem, 3vw, 1.15rem);
-  line-height: 1.7;
-  margin: 0 auto;
-  max-width: 28ch;
+  font-size: clamp(1rem, 3.4vw, 1.12rem);
+  line-height: 1.65;
+  margin: 0;
+  text-align: center;
+  max-width: 30ch;
 }
 
 #enter-gallery-btn,
@@ -134,19 +183,55 @@ body {
 }
 
 #enter-gallery-btn {
-  margin: clamp(2rem, 6vw, 3rem) auto 0 auto;
-  padding: 1rem 2.75rem;
-  border-radius: 999px;
+  width: 100%;
+  padding: 1.05rem;
+  border-radius: 18px;
   font-size: 0.95rem;
-  color: #0a1021;
-  background: linear-gradient(135deg, #ffe0b5 0%, #f6b17a 40%, #ff8f70 100%);
-  box-shadow: 0 18px 32px rgba(246, 177, 122, 0.45);
+  color: #0a0916;
+  background: linear-gradient(140deg, #ffd79e 0%, #ffb15f 45%, #ff7756 100%);
+  box-shadow: 0 22px 36px rgba(255, 142, 86, 0.35);
 }
 
 #enter-gallery-btn:hover,
 #enter-gallery-btn:focus-visible {
   transform: translateY(-3px);
-  box-shadow: 0 22px 40px rgba(246, 177, 122, 0.6);
+  box-shadow: 0 24px 44px rgba(255, 142, 86, 0.48);
+}
+
+.intro-actions {
+  display: grid;
+  gap: 1rem;
+  text-align: center;
+}
+
+.intro-footnote {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  position: relative;
+  animation: pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 177, 95, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(255, 177, 95, 0);
+  }
 }
 
 .screen-header {
@@ -185,35 +270,41 @@ body {
 
 .carousel {
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 1rem;
-  align-items: center;
+  gap: clamp(1.5rem, 4vw, 2rem);
+  position: relative;
 }
 
 .carousel-window {
-  overflow: hidden;
-  border-radius: 28px;
-  border: 1px solid var(--glass-stroke);
-  background: rgba(12, 19, 40, 0.7);
-  box-shadow: var(--shadow-card);
+  overflow-x: auto;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(10, 13, 26, 0.45);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  padding: clamp(1.5rem, 4vw, 1.75rem) 0 clamp(1rem, 3vw, 1.5rem) 0;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 calc((100% - clamp(260px, 72vw, 320px)) / 2);
+  -webkit-overflow-scrolling: touch;
 }
 
 #carousel-track {
   display: flex;
-  transition: transform 400ms ease;
-  will-change: transform;
+  gap: clamp(1.2rem, 4vw, 1.75rem);
+  padding: 0 clamp(1.5rem, 8vw, 3rem);
 }
 
 .exibicao-slide {
-  min-width: min(320px, 80vw);
+  flex: 0 0 clamp(260px, 72vw, 320px);
   aspect-ratio: 3 / 4;
   position: relative;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   color: var(--text-primary);
-  padding: 2.5rem;
+  padding: clamp(1.6rem, 5vw, 2.4rem);
   overflow: hidden;
+  border-radius: 28px;
+  scroll-snap-align: center;
+  transition: transform 320ms ease, box-shadow 320ms ease, opacity 220ms ease;
 }
 
 .exibicao-slide::before {
@@ -229,10 +320,17 @@ body {
   opacity: 0.8;
 }
 
+.exibicao-slide.active {
+  transform: translateY(-6px) scale(1.015);
+  box-shadow: 0 24px 36px rgba(0, 0, 0, 0.4);
+}
+
 .slide-content {
   position: relative;
   text-align: center;
   z-index: 1;
+  display: grid;
+  gap: 0.45rem;
 }
 
 .slide-content h3 {
@@ -256,10 +354,14 @@ body {
   background: rgba(9, 14, 31, 0.6);
   color: var(--text-primary);
   font-size: 2rem;
-  display: grid;
+  display: none;
   place-items: center;
   cursor: pointer;
   transition: background var(--transition), transform var(--transition);
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  z-index: 2;
 }
 
 .carousel-nav:hover,
@@ -268,42 +370,50 @@ body {
   transform: translateY(-1px);
 }
 
+#carousel-prev {
+  left: 0.25rem;
+}
+
+#carousel-next {
+  right: 0.25rem;
+}
+
 #carousel-info {
-  text-align: center;
-  padding: 1.5rem 1rem 0 1rem;
+  text-align: left;
+  padding: 0 0.5rem;
   display: grid;
   gap: 0.75rem;
 }
 
 #carousel-title {
   margin: 0;
-  font-size: clamp(1.35rem, 4vw, 1.75rem);
+  font-size: clamp(1.4rem, 5vw, 1.85rem);
   font-weight: 700;
 }
 
 #carousel-description {
-  margin: 0 auto;
-  max-width: 46ch;
+  margin: 0;
+  max-width: 38ch;
   color: var(--text-muted);
   line-height: 1.6;
 }
 
 #view-details-btn {
-  justify-self: center;
-  margin-top: 0.5rem;
-  padding: 0.85rem 2.5rem;
-  border-radius: 999px;
-  background: linear-gradient(135deg, rgba(246, 177, 122, 0.15) 0%,
-      rgba(246, 177, 122, 0.35) 100%);
+  justify-self: start;
+  margin-top: 0.25rem;
+  padding: 0.85rem 2rem;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255, 177, 95, 0.2) 0%,
+      rgba(255, 119, 86, 0.45) 100%);
   color: var(--text-primary);
-  border: 1px solid rgba(246, 177, 122, 0.4);
-  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 177, 95, 0.4);
+  backdrop-filter: blur(6px);
 }
 
 #view-details-btn:hover,
 #view-details-btn:focus-visible {
-  background: linear-gradient(135deg, rgba(246, 177, 122, 0.35) 0%,
-      rgba(246, 177, 122, 0.55) 100%);
+  background: linear-gradient(135deg, rgba(255, 177, 95, 0.4) 0%,
+      rgba(255, 119, 86, 0.6) 100%);
   transform: translateY(-2px);
 }
 
@@ -331,7 +441,7 @@ body {
   position: relative;
   border-radius: 32px;
   overflow: hidden;
-  min-height: clamp(240px, 40vw, 320px);
+  min-height: clamp(220px, 42vw, 300px);
   display: flex;
   align-items: flex-end;
   border: 1px solid var(--glass-stroke);
@@ -358,9 +468,10 @@ body {
   font-size: clamp(2rem, 6vw, 2.6rem);
 }
 
+
 .details-copy p {
   margin: 0;
-  max-width: 52ch;
+  max-width: 46ch;
   color: var(--text-muted);
   line-height: 1.7;
 }
@@ -368,7 +479,7 @@ body {
 #obras-lista {
   display: flex;
   gap: 1.25rem;
-  padding: clamp(1.75rem, 4vw, 2.25rem) 0;
+  padding: clamp(1.75rem, 5vw, 2.25rem) clamp(0.75rem, 4vw, 1.5rem);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
@@ -471,49 +582,47 @@ body {
   border: 0;
 }
 
-@media (max-width: 768px) {
-  .screen-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.75rem;
+@media (min-width: 640px) {
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-  .screen-header h2 {
+  #ui {
     width: 100%;
-    text-align: left;
-  }
-
-  .carousel {
-    grid-template-columns: 1fr;
+    min-height: 100vh;
+    padding-block: 3rem;
   }
 
   .carousel-nav {
-    order: -1;
-    justify-self: center;
+    display: grid;
   }
 
-  .carousel-nav + .carousel-window {
-    order: 2;
-  }
-
-  #carousel-track {
-    justify-content: center;
+  .carousel {
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
   }
 
   .carousel-window {
-    border-radius: 24px;
+    padding-block: clamp(1.75rem, 3vw, 2.25rem);
   }
 
-  .details-hero {
-    min-height: 220px;
+  #carousel-info {
+    text-align: center;
+    justify-items: center;
   }
 
-  #obras-lista {
-    padding-inline: 0.25rem;
+  #view-details-btn {
+    justify-self: center;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 420px) {
+  .intro-card {
+    border-radius: 32px;
+  }
+
   #start-ar-btn {
     width: 76px;
     height: 76px;

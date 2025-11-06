@@ -363,6 +363,32 @@ export function initUI(startCallback) {
     centerCurrentSlide(behavior);
   }
 
+  function nearestSlideFromScroll() {
+    if (!carouselWindow) return currentIndex;
+    const windowCenter = carouselWindow.scrollLeft + carouselWindow.clientWidth / 2;
+    let closestIndex = currentIndex;
+    let minDistance = Number.POSITIVE_INFINITY;
+
+    slides.forEach((slide, idx) => {
+      const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
+      const distance = Math.abs(slideCenter - windowCenter);
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIndex = idx;
+      }
+    });
+
+    return closestIndex;
+  }
+
+  function syncCarouselToScroll() {
+    const nearestIndex = nearestSlideFromScroll();
+    if (nearestIndex !== currentIndex) {
+      currentIndex = nearestIndex;
+      updateCarouselUI();
+    }
+  }
+
   function showExibicao(exibicao) {
     currentExibicao = exibicao;
     setActiveScreen(detailsScreen);
@@ -410,6 +436,12 @@ export function initUI(startCallback) {
   });
 
   window.addEventListener("resize", () => centerCurrentSlide("auto"));
+
+  if (carouselWindow) {
+    carouselWindow.addEventListener("scroll", syncCarouselToScroll, {
+      passive: true,
+    });
+  }
 
   // Estado inicial
   setActiveScreen(introScreen);
