@@ -22,11 +22,17 @@ export async function setupARScene(THREE, ARButton, onSelect) {
 
 
   // Criar e esconder o ARButton para acionamento no novo botão
-  const arButton = ARButton.createButton(renderer, {
+  const arElement = ARButton.createButton(renderer, {
     requiredFeatures: ["hit-test"],
   });
-  arButton.style.display = "none";
-  document.body.appendChild(arButton);
+  let arButton = null;
+
+  if (arElement.tagName === "BUTTON") {
+    arElement.style.display = "none";
+    arElement.setAttribute("aria-hidden", "true");
+    document.body.appendChild(arElement);
+    arButton = arElement;
+  }
 
   // Iluminação
   scene.add(new THREE.HemisphereLight(0xffffff, 0x444444, 1));

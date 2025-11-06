@@ -1,15 +1,40 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
 import { ARButton } from "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/webxr/ARButton.js";
 import { setupARScene } from "./ar-setup.js";
-import { onSelect, configureWallUtils, isWallPlaced, setExibicaoAtiva } from "./wall-utils.js";
+import {
+  onSelect,
+  configureWallUtils,
+  isWallPlaced,
+  setExibicaoAtiva,
+} from "./wall-utils.js";
 import { initUI } from "./ui.js";
 
 let camera, scene, renderer, controller, reticle, arButton;
-let hitTestSource = null, localSpace = null;
+let hitTestSource = null,
+  localSpace = null,
+  sessionStarted = false,
+  pendingExibicao = null;
+
+function tryStartARSession() {
+  if (!pendingExibicao) return;
+  if (!arButton) return;
+  if (arButton.tagName !== "BUTTON") {
+    pendingExibicao = null;
+    return;
+  }
+  if (sessionStarted) {
+    pendingExibicao = null;
+    return;
+  }
+  arButton.click();
+  sessionStarted = true;
+  pendingExibicao = null;
+}
 
 initUI((exibicaoSelecionada) => {
   setExibicaoAtiva(exibicaoSelecionada); // envia a exibição para wall-utils
-  arButton.click(); // inicia AR
+  pendingExibicao = exibicaoSelecionada;
+  tryStartARSession();
 });
 
 (async function init() {
@@ -20,6 +45,11 @@ initUI((exibicaoSelecionada) => {
   controller = sceneObjects.controller;
   reticle = sceneObjects.reticle;
   arButton = sceneObjects.arButton;
+
+  if (pendingExibicao) {
+    setExibicaoAtiva(pendingExibicao);
+  }
+  tryStartARSession();
 
   configureWallUtils({
     THREELib: THREE,

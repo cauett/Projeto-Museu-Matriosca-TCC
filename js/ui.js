@@ -271,7 +271,6 @@ export function initUI(startCallback) {
   const detailsScreen = document.getElementById("details-screen");
 
   const enterGalleryBtn = document.getElementById("enter-gallery-btn");
-  const backToIntroBtn = document.getElementById("back-to-intro");
   const voltarBtn = document.getElementById("voltar-btn");
 
   const carouselWindow = document.querySelector(".carousel-window");
@@ -286,10 +285,10 @@ export function initUI(startCallback) {
   const tituloEl = document.getElementById("exibicao-titulo");
   const descEl = document.getElementById("exibicao-descricao");
   const obrasLista = document.getElementById("obras-lista");
-  const startBtn = document.getElementById("start-ar-btn");
 
   let currentExibicao = exibicoes[0];
   let currentIndex = 0;
+  let hasTriggeredAR = false;
 
   const screens = [introScreen, carouselScreen, detailsScreen];
 
@@ -410,16 +409,15 @@ export function initUI(startCallback) {
       obrasLista.appendChild(div);
     });
 
-    startBtn.onclick = () => startCallback(exibicao);
+    if (typeof startCallback === "function") {
+      startCallback(exibicao, { alreadyStarted: hasTriggeredAR });
+      hasTriggeredAR = true;
+    }
   }
 
   enterGalleryBtn.addEventListener("click", () => {
     setActiveScreen(carouselScreen);
     goToSlide(currentIndex, { behavior: "auto" });
-  });
-
-  backToIntroBtn.addEventListener("click", () => {
-    setActiveScreen(introScreen);
   });
 
   voltarBtn.addEventListener("click", () => {
