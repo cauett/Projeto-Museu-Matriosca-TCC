@@ -266,29 +266,109 @@ export const exibicoes = [
 
 // UI
 export function initUI(startCallback) {
-  const exibicoesContainer = document.getElementById("exibicoes");
-  const detalhesEl = document.getElementById("exibicao-detalhes");
+  const introScreen = document.getElementById("intro-screen");
+  const carouselScreen = document.getElementById("carousel-screen");
+  const detailsScreen = document.getElementById("details-screen");
+
+  const enterGalleryBtn = document.getElementById("enter-gallery-btn");
+  const backToIntroBtn = document.getElementById("back-to-intro");
+  const voltarBtn = document.getElementById("voltar-btn");
+
+  const carouselWindow = document.querySelector(".carousel-window");
+  const carouselTrack = document.getElementById("carousel-track");
+  const carouselPrev = document.getElementById("carousel-prev");
+  const carouselNext = document.getElementById("carousel-next");
+  const carouselTitle = document.getElementById("carousel-title");
+  const carouselDescription = document.getElementById("carousel-description");
+  const viewDetailsBtn = document.getElementById("view-details-btn");
+  const carouselIndicators = document.getElementById("carousel-indicators");
+
   const tituloEl = document.getElementById("exibicao-titulo");
   const descEl = document.getElementById("exibicao-descricao");
   const obrasLista = document.getElementById("obras-lista");
-  const voltarBtn = document.getElementById("voltar-btn");
   const startBtn = document.getElementById("start-ar-btn");
 
-  exibicoes.forEach((exib) => {
-    const card = document.createElement("div");
-    card.className = "exibicao-card";
-    card.innerHTML = `<h3>${exib.titulo}</h3><p>${exib.descricao}</p>`;
-    card.addEventListener("click", () => showExibicao(exib));
-    exibicoesContainer.appendChild(card);
+  let currentExibicao = exibicoes[0];
+  let currentIndex = 0;
+
+  const screens = [introScreen, carouselScreen, detailsScreen];
+
+  function setActiveScreen(screenEl) {
+    screens.forEach((screen) => {
+      if (screen === screenEl) {
+        screen.classList.add("active");
+      } else {
+        screen.classList.remove("active");
+      }
+    });
+  }
+
+  function coverImageFor(exibicao) {
+    const primeiraObra = exibicao.obras.find((obra) => Boolean(obra.url));
+    return primeiraObra?.url ?? "https://images.unsplash.com/photo-1529421300300-23418098792c?auto=format&fit=crop&w=800&q=80";
+  }
+
+  const slides = exibicoes.map((exibicao, index) => {
+    const slide = document.createElement("article");
+    slide.className = "exibicao-slide";
+    slide.style.background = `url(${coverImageFor(exibicao)}) center/cover no-repeat`;
+
+    slide.innerHTML = `
+      <div class="slide-content">
+        <span>${String(index + 1).padStart(2, "0")}</span>
+        <h3>${exibicao.titulo}</h3>
+      </div>
+    `;
+
+    slide.addEventListener("click", () => showExibicao(exibicao));
+    carouselTrack.appendChild(slide);
+    return slide;
   });
 
+  const dots = exibicoes.map((_, index) => {
+    const dot = document.createElement("div");
+    dot.className = "carousel-dot";
+    dot.addEventListener("click", () => goToSlide(index));
+    carouselIndicators.appendChild(dot);
+    return dot;
+  });
+
+  function centerCurrentSlide(behavior = "smooth") {
+    if (!carouselWindow) return;
+    const activeSlide = slides[currentIndex];
+    if (!activeSlide) return;
+    const offset =
+      activeSlide.offsetLeft -
+      (carouselWindow.clientWidth - activeSlide.clientWidth) / 2;
+    carouselWindow.scrollTo({ left: offset, behavior });
+  }
+
+  function updateCarouselUI() {
+    slides.forEach((slide, idx) => {
+      slide.classList.toggle("active", idx === currentIndex);
+    });
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle("active", idx === currentIndex);
+    });
+
+    currentExibicao = exibicoes[currentIndex];
+    carouselTitle.textContent = currentExibicao.titulo;
+    carouselDescription.textContent = currentExibicao.descricao;
+  }
+
+  function goToSlide(index, { behavior } = { behavior: "smooth" }) {
+    const total = exibicoes.length;
+    currentIndex = ((index % total) + total) % total;
+    updateCarouselUI();
+    centerCurrentSlide(behavior);
+  }
+
   function showExibicao(exibicao) {
-    exibicoesContainer.style.display = "none";
-    detalhesEl.style.display = "block";
+    currentExibicao = exibicao;
+    setActiveScreen(detailsScreen);
     tituloEl.textContent = exibicao.titulo;
     descEl.textContent = exibicao.descricao;
     obrasLista.innerHTML = "";
-    document.getElementById("intro-section").style.display = "none";
 
     exibicao.obras.forEach((obra) => {
       const div = document.createElement("div");
@@ -304,9 +384,34 @@ export function initUI(startCallback) {
     startBtn.onclick = () => startCallback(exibicao);
   }
 
-  voltarBtn.onclick = () => {
-    detalhesEl.style.display = "none";
-    exibicoesContainer.style.display = "flex";
-    document.getElementById("intro-section").style.display = "block";
-  };
+  enterGalleryBtn.addEventListener("click", () => {
+    setActiveScreen(carouselScreen);
+    goToSlide(currentIndex, { behavior: "auto" });
+  });
+
+  backToIntroBtn.addEventListener("click", () => {
+    setActiveScreen(introScreen);
+  });
+
+  voltarBtn.addEventListener("click", () => {
+    setActiveScreen(carouselScreen);
+  });
+
+  carouselPrev.addEventListener("click", () => {
+    goToSlide(currentIndex - 1, { behavior: "smooth" });
+  });
+
+  carouselNext.addEventListener("click", () => {
+    goToSlide(currentIndex + 1, { behavior: "smooth" });
+  });
+
+  viewDetailsBtn.addEventListener("click", () => {
+    showExibicao(currentExibicao);
+  });
+
+  window.addEventListener("resize", () => centerCurrentSlide("auto"));
+
+  // Estado inicial
+  setActiveScreen(introScreen);
+  goToSlide(0, { behavior: "auto" });
 }
