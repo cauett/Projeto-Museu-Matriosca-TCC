@@ -68,35 +68,56 @@ export function onSelect() {
     const obras = exibicaoAtiva.obras;
 
     obras.forEach((obra, idx) => {
-      // leve nudge em Z para evitar z-fighting visual entre quadros
+      // micro nudge em Z para evitar z-fighting
       const zNudge = (idx % 3) * 0.0006; // 0, 0.0006, 0.0012
       const pos = { ...obra.position, z: (obra.position?.z ?? 0) + zNudge };
 
       addQuadro(group, obra.url, pos, obra.size, quadroTipo);
 
+      // label do autor, com deslocamento proporcional ao tamanho do quadro
+      const h = obra.size?.h || 0.36;
       const labelZOffset =
         quadroTipo === "fotografia" ? pos.z + 0.012 : pos.z + 0.021;
       addAutorLabel(scene, group, obra.autor, {
         x: pos.x,
-        y: pos.y - (obra.size?.h || 0.45) / 2 - 0.12,
+        y: pos.y - h / 2 - 0.12,
         z: labelZOffset,
       });
     });
 
-    // distribuição automática por linha para garantir respiro
+    // distribuição automática: centrada e com gap uniforme
     spreadByRows(group, {
-      minGapX: "auto", // calcula gap proporcional à largura média da linha
-      rowSnap: 0.08, // tolerância para agrupar por linha (eixo Y)
-      edgePadding: 0.03, // folga nas extremidades da linha
+      minGapX: "auto", // gap calculado a partir da largura média
+      rowSnap: 0.08, // tolerância de agrupamento por Y
     });
   }
 }
 
-/** Agrupa quadros por linha (Y aproximado) e garante gap mínimo entre larguras externas. */
-function spreadByRows(
-  parentGroup,
-  { minGapX = "auto", rowSnap = 0.08, edgePadding = 0.03 } = {},
-) {
+/** Calcula um size refinado por tipo de quadro para manter realismo (fotografias um pouco menores). */
+function normalizeSize(size, quadroTipo) {
+  const base = { w: 0.36, h: 0.36, d: 0.035, ...(size || {}) };
+
+  // fator de escala suave por tipo
+  let scale = 1.0;
+  if (quadroTipo === "fotografia")
+    scale = 0.84; // fotos levemente menores e realistas
+  else if (quadroTipo === "molduraPreta")
+    scale = 0.92; // moldura leve um pouco menor
+  else scale = 0.94; // canvas branco padrão um pouco menor
+
+  return {
+    w: base.w * scale,
+    h: base.h * scale,
+    d: base.d,
+  };
+}
+
+/**
+ * Agrupa quadros por linha (Y aproximado) e distribui cada linha com:
+ * - gap uniforme (auto ou fixo)
+ * - centrados entre si (linha inteira centrada em X=0)
+ */
+function spreadByRows(parentGroup, { minGapX = "auto", rowSnap = 0.08 } = {}) {
   const frames = parentGroup.children.filter(
     (c) => c.userData?.kind === "quadro",
   );
@@ -109,57 +130,44 @@ function spreadByRows(
   }
 
   for (const [, row] of rowsMap) {
+    if (row.length === 0) continue;
+
+    // ordena por X atual só para termos uma ordem consistente
     row.sort((a, b) => a.position.x - b.position.x);
 
-    // gap auto: 25–35% da largura média das molduras da linha (c/ travas)
-    let gap = 0.12;
-    if (minGapX === "auto") {
-      const widths = row.map((n) => n.userData?.outerW ?? 0.25);
-      const avgW =
-        widths.reduce((s, w) => s + w, 0) / Math.max(widths.length, 1);
-      gap = Math.max(0.06, Math.min(0.35 * avgW, 0.14));
-    } else if (typeof minGapX === "number") {
-      gap = minGapX;
-    }
-
     const widths = row.map((n) => n.userData?.outerW ?? 0.25);
+    const avgW = widths.reduce((s, w) => s + w, 0) / Math.max(widths.length, 1);
 
-    // empurra da esquerda para a direita garantindo gap
-    for (let i = 1; i < row.length; i++) {
-      const left = row[i - 1];
-      const right = row[i];
-      const wL = widths[i - 1];
-      const wR = widths[i];
-
-      const leftEdge = left.position.x + wL / 2;
-      const rightEdge = right.position.x - wR / 2;
-      const currentGap = rightEdge - leftEdge;
-
-      if (currentGap < gap) {
-        right.position.x += gap - currentGap;
-      }
+    // gap automático: fração da largura média (um pouco menor que antes)
+    let gap = 0.1; // default reduzido
+    if (minGapX === "auto") {
+      // antes: clamp 0.06..0.14 com fator 0.30
+      // agora: clamp 0.045..0.10 com fator 0.22 (mais compacto)
+      gap = Math.max(0.045, Math.min(0.1, 0.22 * avgW));
+    } else if (typeof minGapX === "number") {
+      gap = Math.max(0.02, minGapX);
     }
 
-    // folga nas pontas da linha
-    if (row.length >= 2) {
-      row[0].position.x -= edgePadding;
-      row[row.length - 1].position.x += edgePadding;
-    }
+    const totalFramesW = widths.reduce((s, w) => s + w, 0);
+    const totalWidth = totalFramesW + gap * (row.length - 1);
 
-    // micro separação no Z por ordem (reforça leitura individual)
-    row.forEach((f, i) => {
-      f.position.z += i * 0.0003;
-    });
+    // início em -metade, de modo que a linha fique centrada em X=0
+    let cursorX = -totalWidth / 2;
+
+    for (let i = 0; i < row.length; i++) {
+      const w = widths[i];
+      const targetCenter = cursorX + w / 2;
+      // posiciona quadro
+      row[i].position.x = targetCenter;
+      // micro separação no Z por ordem (reforça leitura individual)
+      row[i].position.z += i * 0.0003;
+      // avança cursor
+      cursorX += w + (i < row.length - 1 ? gap : 0);
+    }
   }
 }
 
-function addQuadro(
-  group,
-  textureURL,
-  position,
-  size = { w: 0.45, h: 0.45, d: 0.04 },
-  quadroTipo = "moldura",
-) {
+function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
   const loader = new THREE.TextureLoader();
   loader.load(textureURL, (texture) => {
     texture.encoding = THREE.sRGBEncoding;
@@ -176,6 +184,9 @@ function addQuadro(
       polygonOffsetUnits: -1,
     };
 
+    // aplica normalização de tamanho por tipo (fotografias um pouco menores)
+    const nSize = normalizeSize(size, quadroTipo);
+
     // ===== TIPO FOTOGRAFIA — papel com janela (anel extrudado) e foto recuada =====
     if (quadroTipo === "fotografia") {
       const photoGroup = new THREE.Group();
@@ -184,14 +195,14 @@ function addQuadro(
       photoGroup.rotation.y = Math.PI;
 
       // parâmetros visuais finos/realistas
-      const paperBorder = 0.012; // borda visível ao redor da foto (~1.2 cm)
-      const paperThick = 0.0042; // espessura do papel
-      const photoRecess = 0.001; // recuo da foto atrás da face frontal
-      const cornerRadius = Math.min(size.w, size.h) * 0.06;
+      const paperBorder = 0.01; // ~1 cm de borda
+      const paperThick = 0.0042;
+      const photoRecess = 0.0012;
+      const cornerRadius = Math.min(nSize.w, nSize.h) * 0.06;
 
       // dimensões
-      const paperW = size.w + paperBorder * 2;
-      const paperH = size.h + paperBorder * 2;
+      const paperW = nSize.w + paperBorder * 2;
+      const paperH = nSize.h + paperBorder * 2;
 
       // materiais
       const paperMaterial = new THREE.MeshPhysicalMaterial({
@@ -241,8 +252,8 @@ function addQuadro(
       // 1) PAPEL como ANEL EXTRUDADO (recorte central = janela)
       const outerShape = roundedRectShape(paperW, paperH, cornerRadius);
       const innerShape = roundedRectShape(
-        size.w,
-        size.h,
+        nSize.w,
+        nSize.h,
         Math.max(0, cornerRadius - paperBorder),
       );
       outerShape.holes.push(innerShape);
@@ -260,7 +271,7 @@ function addQuadro(
       photoGroup.add(paperMesh);
 
       // 2) FOTO (atrás da janela, recuada)
-      const photoGeo = new THREE.PlaneGeometry(size.w, size.h);
+      const photoGeo = new THREE.PlaneGeometry(nSize.w, nSize.h);
       const photoMesh = new THREE.Mesh(photoGeo, photoMaterial);
       // a face frontal do papel está em +paperThick/2; foto fica um pouco atrás
       photoMesh.position.set(0, 0, paperThick / 2 - photoRecess);
@@ -268,7 +279,7 @@ function addQuadro(
       photoGroup.add(photoMesh);
 
       // 3) FITAS discretas nos cantos superiores
-      const tapeW = Math.min(size.w, size.h) * 0.24;
+      const tapeW = Math.min(nSize.w, nSize.h) * 0.22;
       const tapeH = tapeW * 0.18;
       function addTape(px, py, rot) {
         const g = new THREE.PlaneGeometry(tapeW, tapeH);
@@ -298,13 +309,13 @@ function addQuadro(
 
       // dimensões da “caixa”
       const frameThickness = 0.018; // barras finas
-      const frameDepth = Math.max(size.d ?? 0.028, 0.028) + 0.012;
+      const frameDepth = Math.max(nSize.d ?? 0.028, 0.028) + 0.012;
       const matOverlap = 0.012; // pouca cobertura
 
-      const outerW = size.w + frameThickness * 2;
-      const outerH = size.h + frameThickness * 2;
-      const innerW = Math.max(size.w - matOverlap * 2, 0.01);
-      const innerH = Math.max(size.h - matOverlap * 2, 0.01);
+      const outerW = nSize.w + frameThickness * 2;
+      const outerH = nSize.h + frameThickness * 2;
+      const innerW = Math.max(nSize.w - matOverlap * 2, 0.01);
+      const innerH = Math.max(nSize.h - matOverlap * 2, 0.01);
 
       const frameMaterial = new THREE.MeshStandardMaterial({
         color: 0x111111,
@@ -367,7 +378,7 @@ function addQuadro(
       const recess = 0.003;
       const artZ = frameDepth / 2 - recess;
       const artwork = new THREE.Mesh(
-        new THREE.PlaneGeometry(size.w, size.h),
+        new THREE.PlaneGeometry(nSize.w, nSize.h),
         artworkMaterial,
       );
       artwork.position.set(0, 0, artZ);
@@ -427,10 +438,10 @@ function addQuadro(
     ];
 
     const quadroBox = new THREE.Mesh(
-      new THREE.BoxGeometry(size.w, size.h, size.d),
+      new THREE.BoxGeometry(nSize.w, nSize.h, nSize.d),
       materials,
     );
-    quadroBox.userData = { kind: "quadro", outerW: size.w };
+    quadroBox.userData = { kind: "quadro", outerW: nSize.w };
     quadroBox.castShadow = true;
     quadroBox.receiveShadow = true;
     quadroBox.position.set(position.x, position.y, position.z);
@@ -464,7 +475,16 @@ function addAutorLabel(
     map: texture,
     transparent: true,
   });
-  const geometry = new THREE.PlaneGeometry(0.9, 0.2);
+
+  // tenta achar a largura externa do último quadro adicionado para dimensionar o label
+  const lastFrame = [...parent.children]
+    .reverse()
+    .find((c) => c.userData?.outerW);
+  const baseW = lastFrame?.userData?.outerW ?? 0.6;
+  const labelW = Math.max(0.35, Math.min(0.9, baseW * 0.7));
+  const labelH = labelW * (128 / 512);
+
+  const geometry = new THREE.PlaneGeometry(labelW, labelH);
 
   const mesh = new THREE.Mesh(geometry, material);
   mesh.position.set(offset.x, offset.y, offset.z);
