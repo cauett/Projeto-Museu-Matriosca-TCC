@@ -2,8 +2,12 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <title>Museu Matriosca - Exibições</title>
+    <title>Casa de Saberes Cego Aderaldo - Museu Matriosca</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap"
+    />
     <link rel="stylesheet" href="css/style.css" />
     <script type="module" src="js/main.js"></script>
   </head>
@@ -11,31 +15,86 @@
     <div id="ui">
       <div id="gallery-ui">
         <!-- Tela inicial -->
-        <div id="intro-section">
-          <h1>Museu Matriosca</h1>
-          <p class="subtitle">Escolha uma exibição para iniciar a experiência.</p>
-        </div>
+        <section id="intro-screen" class="screen active">
+          <div class="intro-card">
+            <div class="intro-hero">
+              <img
+                src="img/casa-saberes-logo.svg"
+                alt="Casa de Saberes Cego Aderaldo"
+                class="brand-logo"
+              />
+              <div class="intro-text">
+                <p class="eyebrow">Casa de Saberes Cego Aderaldo</p>
+                <h1>Museu Matriosca</h1>
+                <p class="subtitle">
+                  Uma jornada sensorial pelas memórias do sertão com arte,
+                  tradição e realidade aumentada.
+                </p>
+              </div>
+            </div>
+            <div class="intro-actions">
+              <button id="enter-gallery-btn" type="button">Explorar agora</button>
+              <div class="intro-footnote">
+                <span class="pulse"></span>
+                <span>Arraste para escolher a exposição</span>
+              </div>
+            </div>
+          </div>
+        </section>
 
-        <div id="exibicoes">
-          <!-- Preenchido dinamicamente pelo ui.js -->
-        </div>
+        <!-- Carrossel das exposições -->
+        <section id="carousel-screen" class="screen">
+          <header class="screen-header">
+            <button id="back-to-intro" class="ghost-btn" type="button">
+              Voltar
+            </button>
+            <h2>Escolha a exposição</h2>
+          </header>
+          <div class="carousel">
+            <button id="carousel-prev" class="carousel-nav" type="button">
+              <span aria-hidden="true">‹</span>
+              <span class="sr-only">Exposição anterior</span>
+            </button>
+            <div class="carousel-window">
+              <div id="carousel-track">
+                <!-- Slides inseridos via ui.js -->
+              </div>
+            </div>
+            <button id="carousel-next" class="carousel-nav" type="button">
+              <span aria-hidden="true">›</span>
+              <span class="sr-only">Próxima exposição</span>
+            </button>
+          </div>
+          <div id="carousel-info">
+            <h3 id="carousel-title"></h3>
+            <p id="carousel-description"></p>
+            <button id="view-details-btn" type="button">Explorar exposição</button>
+          </div>
+          <div id="carousel-indicators" aria-hidden="true"></div>
+        </section>
 
-        <!-- Detalhes da exibição selecionada -->
-        <div id="exibicao-detalhes" style="display: none;">
-          <h2 id="exibicao-titulo"></h2>
-          <p id="exibicao-descricao"></p>
-
+        <!-- Detalhes da exposição selecionada -->
+        <section id="details-screen" class="screen">
+          <header class="screen-header">
+            <button id="voltar-btn" class="ghost-btn" type="button">
+              ← Exposições
+            </button>
+          </header>
+          <div class="details-hero">
+            <div class="details-gradient"></div>
+            <div class="details-copy">
+              <h2 id="exibicao-titulo"></h2>
+              <p id="exibicao-descricao"></p>
+            </div>
+          </div>
           <div id="obras-lista">
             <!-- Obras e autores aparecem aqui -->
           </div>
-
           <div id="start-wrapper">
             <button id="start-ar-btn" type="button"></button>
-            <span class="start-label">Iniciar AR</span>
+            <span class="start-label">Iniciar experiência em RA</span>
           </div>
-
-          <button id="voltar-btn">← Voltar às Exibições</button>
-        </div>
+        </section>
       </div>
     </div>
   </body>
