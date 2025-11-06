@@ -271,7 +271,8 @@ export function initUI(startCallback) {
   const detailsScreen = document.getElementById("details-screen");
 
   const enterGalleryBtn = document.getElementById("enter-gallery-btn");
-  const voltarBtn = document.getElementById("voltar-btn");
+  const startArBtn = document.getElementById("start-ar-btn");
+  const arStatusEl = document.getElementById("ar-status");
 
   const carouselWindow = document.querySelector(".carousel-window");
   const carouselTrack = document.getElementById("carousel-track");
@@ -289,6 +290,7 @@ export function initUI(startCallback) {
   let currentExibicao = exibicoes[0];
   let currentIndex = 0;
   let hasTriggeredAR = false;
+  let arSupported = null;
 
   const screens = [introScreen, carouselScreen, detailsScreen];
 
@@ -307,14 +309,12 @@ export function initUI(startCallback) {
     return primeiraObra?.url ?? "https://images.unsplash.com/photo-1529421300300-23418098792c?auto=format&fit=crop&w=800&q=80";
   }
 
-  const slides = exibicoes.map((exibicao, index) => {
+  const slides = exibicoes.map((exibicao) => {
     const slide = document.createElement("article");
     slide.className = "exibicao-slide";
-    slide.style.background = `url(${coverImageFor(exibicao)}) center/cover no-repeat`;
-
     slide.innerHTML = `
+      <img src="${coverImageFor(exibicao)}" alt="${exibicao.titulo}" />
       <div class="slide-content">
-        <span>${String(index + 1).padStart(2, "0")}</span>
         <h3>${exibicao.titulo}</h3>
       </div>
     `;
@@ -397,6 +397,12 @@ export function initUI(startCallback) {
     detailsScreen.style.setProperty("--details-cover", `url(${heroCover})`);
     detailsScreen.scrollTo({ top: 0, behavior: "auto" });
     obrasLista.innerHTML = "";
+    if (arStatusEl) {
+      arStatusEl.textContent = "";
+    }
+    if (startArBtn) {
+      startArBtn.disabled = !arSupported;
+    }
 
     exibicao.obras.forEach((obra) => {
       const div = document.createElement("div");
@@ -409,19 +415,12 @@ export function initUI(startCallback) {
       obrasLista.appendChild(div);
     });
 
-    if (typeof startCallback === "function") {
-      startCallback(exibicao, { alreadyStarted: hasTriggeredAR });
-      hasTriggeredAR = true;
-    }
+    hasTriggeredAR = false;
   }
 
   enterGalleryBtn.addEventListener("click", () => {
     setActiveScreen(carouselScreen);
     goToSlide(currentIndex, { behavior: "auto" });
-  });
-
-  voltarBtn.addEventListener("click", () => {
-    setActiveScreen(carouselScreen);
   });
 
   carouselPrev.addEventListener("click", () => {
@@ -444,7 +443,57 @@ export function initUI(startCallback) {
     });
   }
 
+  if (startArBtn) {
+    startArBtn.addEventListener("click", () => {
+      if (arStatusEl) {
+        arStatusEl.textContent = "";
+      }
+      if (typeof startCallback === "function") {
+        startCallback(currentExibicao, { alreadyStarted: hasTriggeredAR });
+        hasTriggeredAR = true;
+      }
+    });
+  }
+
   // Estado inicial
   setActiveScreen(introScreen);
   goToSlide(0, { behavior: "auto" });
+
+  function setARAvailability({ supported, message } = { supported: true }) {
+    if (typeof supported === "undefined" || supported === null) {
+      arSupported = null;
+      if (startArBtn) {
+        startArBtn.disabled = true;
+        startArBtn.textContent = "Verificando dispositivo...";
+      }
+      if (arStatusEl) {
+        arStatusEl.textContent = message ?? "";
+      }
+      return;
+    }
+
+    arSupported = Boolean(supported);
+    if (startArBtn) {
+      startArBtn.disabled = !arSupported;
+      startArBtn.textContent = arSupported
+        ? "Iniciar realidade aumentada"
+        : "AR indisponível";
+    }
+    if (arStatusEl) {
+      arStatusEl.textContent = message ?? (arSupported
+        ? ""
+        : "Realidade aumentada não suportada neste dispositivo.");
+    }
+  }
+
+  function showARUnavailableFeedback(message) {
+    if (!arStatusEl) return;
+    arStatusEl.textContent =
+      message ?? "Não foi possível iniciar a realidade aumentada.";
+  }
+
+  return {
+    setARAvailability,
+    showARUnavailableFeedback,
+  };
 }

@@ -13,29 +13,51 @@ let camera, scene, renderer, controller, reticle, arButton;
 let hitTestSource = null,
   localSpace = null,
   sessionStarted = false,
-  pendingExibicao = null;
+  pendingExibicao = null,
+  startRequested = false,
+  arSupported = null;
+
+const uiControls = initUI((exibicaoSelecionada) => {
+  setExibicaoAtiva(exibicaoSelecionada); // envia a exibição para wall-utils
+  pendingExibicao = exibicaoSelecionada;
+  startRequested = true;
+  tryStartARSession();
+});
+
+const {
+  setARAvailability = () => {},
+  showARUnavailableFeedback = () => {},
+} = uiControls ?? {};
+setARAvailability({
+  supported: null,
+  message: "Verificando compatibilidade do dispositivo...",
+});
 
 function tryStartARSession() {
-  if (!pendingExibicao) return;
-  if (!arButton) return;
-  if (arButton.tagName !== "BUTTON") {
+  if (!startRequested || !pendingExibicao) return;
+  if (arSupported === null || !arButton) {
+    return;
+  }
+  if (!arSupported || !arButton || arButton.tagName !== "BUTTON") {
+    showARUnavailableFeedback(
+      !arSupported
+        ? "Realidade aumentada não suportada neste dispositivo."
+        : "Não foi possível iniciar a realidade aumentada."
+    );
+    startRequested = false;
     pendingExibicao = null;
     return;
   }
   if (sessionStarted) {
+    startRequested = false;
     pendingExibicao = null;
     return;
   }
   arButton.click();
   sessionStarted = true;
+  startRequested = false;
   pendingExibicao = null;
 }
-
-initUI((exibicaoSelecionada) => {
-  setExibicaoAtiva(exibicaoSelecionada); // envia a exibição para wall-utils
-  pendingExibicao = exibicaoSelecionada;
-  tryStartARSession();
-});
 
 (async function init() {
   const sceneObjects = await setupARScene(THREE, ARButton, onSelect);
@@ -45,6 +67,20 @@ initUI((exibicaoSelecionada) => {
   controller = sceneObjects.controller;
   reticle = sceneObjects.reticle;
   arButton = sceneObjects.arButton;
+
+  if (arButton && arButton.tagName === "BUTTON") {
+    const text = (arButton.textContent || "").toLowerCase();
+    arSupported = !text.includes("not supported");
+    arButton.style.display = "none";
+    arButton.setAttribute("aria-hidden", "true");
+  } else {
+    arSupported = false;
+  }
+
+  setARAvailability({
+    supported: arSupported,
+    message: arSupported ? "" : "Realidade aumentada não suportada neste dispositivo.",
+  });
 
   if (pendingExibicao) {
     setExibicaoAtiva(pendingExibicao);

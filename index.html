@@ -71,17 +71,16 @@
 
         <!-- Detalhes da exposição selecionada -->
         <section id="details-screen" class="screen">
-          <header class="screen-header">
-            <button id="voltar-btn" class="ghost-btn" type="button">
-              ← Exposições
-            </button>
-          </header>
           <div class="details-hero">
             <div class="details-gradient"></div>
             <div class="details-copy">
               <h2 id="exibicao-titulo"></h2>
               <p id="exibicao-descricao"></p>
             </div>
+          </div>
+          <div class="details-actions">
+            <button id="start-ar-btn" type="button">Iniciar realidade aumentada</button>
+            <p id="ar-status" role="status" aria-live="polite"></p>
           </div>
           <div id="obras-lista">
             <!-- Obras e autores aparecem aqui -->
