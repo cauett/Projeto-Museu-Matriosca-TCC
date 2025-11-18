@@ -272,6 +272,13 @@ export function initUI(startCallback) {
   const carouselScreen = document.getElementById("carousel-screen");
   const detailsScreen = document.getElementById("details-screen");
 
+  const ROUTES = {
+    INTRO: "intro",
+    CAROUSEL: "exposicoes",
+    DETAILS: "detalhes",
+  };
+  let navigationIndex = 0;
+
   const enterGalleryBtn = document.getElementById("enter-gallery-btn");
   const backToIntroBtn = document.getElementById("back-to-intro");
   const voltarBtn = document.getElementById("voltar-btn");
@@ -295,6 +302,43 @@ export function initUI(startCallback) {
 
   const screens = [introScreen, carouselScreen, detailsScreen];
 
+  function buildHash(screen, exibicaoId) {
+    if (screen === ROUTES.DETAILS && exibicaoId) {
+      return `#${ROUTES.DETAILS}/${exibicaoId}`;
+    }
+    return `#${screen}`;
+  }
+
+  function navigateTo(screen, { exibicaoId = null, replace = false } = {}) {
+    const hash = buildHash(screen, exibicaoId);
+    const state = { screen, exibicaoId, index: navigationIndex };
+    if (replace) {
+      window.history.replaceState(state, "", hash);
+      return;
+    }
+
+    const nextIndex = navigationIndex + 1;
+    window.history.pushState({ screen, exibicaoId, index: nextIndex }, "", hash);
+    navigationIndex = nextIndex;
+  }
+
+  function findExibicaoById(id) {
+    return exibicoes.find((ex) => ex.id === id);
+  }
+
+  function parseHash() {
+    const hash = window.location.hash.replace(/^#/, "");
+    if (!hash) return { screen: ROUTES.INTRO };
+
+    const [screen, exibicaoId] = hash.split("/");
+    if (screen === ROUTES.CAROUSEL) return { screen };
+    if (screen === ROUTES.DETAILS) {
+      return { screen, exibicaoId: exibicaoId ?? exibicoes[0].id };
+    }
+
+    return { screen: ROUTES.INTRO };
+  }
+
   function setActiveScreen(screenEl) {
     screens.forEach((screen) => {
       if (screen === screenEl) {
@@ -314,6 +358,44 @@ export function initUI(startCallback) {
     if (document?.body) {
       document.body.classList.toggle("details-active", isDetails);
     }
+  }
+
+  function goToIntro({ updateHistory = true, replace = false } = {}) {
+    setActiveScreen(introScreen);
+    if (updateHistory) {
+      navigateTo(ROUTES.INTRO, { replace });
+    }
+  }
+
+  function goToCarousel({ updateHistory = true, replace = false } = {}) {
+    setActiveScreen(carouselScreen);
+    goToSlide(currentIndex, { behavior: "auto" });
+    if (updateHistory) {
+      navigateTo(ROUTES.CAROUSEL, { replace });
+    }
+  }
+
+  function renderDetails(exibicao) {
+    setActiveScreen(detailsScreen);
+    tituloEl.textContent = exibicao.titulo;
+    descEl.textContent = exibicao.descricao;
+    const heroCover = coverImageFor(exibicao);
+    detailsScreen.style.setProperty("--details-cover", `url(${heroCover})`);
+    detailsScreen.scrollTo({ top: 0, behavior: "auto" });
+    obrasLista.innerHTML = "";
+
+    exibicao.obras.forEach((obra) => {
+      const div = document.createElement("div");
+      div.className = "obra-item";
+      div.innerHTML = `
+        <img src="${obra.url}" alt="${obra.titulo}" />
+        <div class="title">${obra.titulo}</div>
+        ${obra.autor ? `<div class="autor">${obra.autor}</div>` : ""}
+      `;
+      obrasLista.appendChild(div);
+    });
+
+    startBtn.onclick = () => startCallback(exibicao);
   }
 
   function coverImageFor(exibicao) {
@@ -402,43 +484,36 @@ export function initUI(startCallback) {
     }
   }
 
-  function showExibicao(exibicao) {
+  function showExibicao(exibicao, { updateHistory = true, replace = false } = {}) {
     currentExibicao = exibicao;
-    setActiveScreen(detailsScreen);
-    tituloEl.textContent = exibicao.titulo;
-    descEl.textContent = exibicao.descricao;
-    const heroCover = coverImageFor(exibicao);
-    detailsScreen.style.setProperty("--details-cover", `url(${heroCover})`);
-    detailsScreen.scrollTo({ top: 0, behavior: "auto" });
-    obrasLista.innerHTML = "";
-
-    exibicao.obras.forEach((obra) => {
-      const div = document.createElement("div");
-      div.className = "obra-item";
-      div.innerHTML = `
-        <img src="${obra.url}" alt="${obra.titulo}" />
-        <div class="title">${obra.titulo}</div>
-        ${obra.autor ? `<div class="autor">${obra.autor}</div>` : ""}
-      `;
-      obrasLista.appendChild(div);
-    });
-
-    startBtn.onclick = () => startCallback(exibicao);
+    const exibicaoIndex = exibicoes.findIndex((ex) => ex.id === exibicao.id);
+    if (exibicaoIndex >= 0) {
+      currentIndex = exibicaoIndex;
+      updateCarouselUI();
+    }
+    renderDetails(exibicao);
+    if (updateHistory) {
+      navigateTo(ROUTES.DETAILS, { exibicaoId: exibicao.id, replace });
+    }
   }
 
   enterGalleryBtn.addEventListener("click", () => {
-    setActiveScreen(carouselScreen);
-    goToSlide(currentIndex, { behavior: "auto" });
+    goToCarousel();
   });
 
   if (backToIntroBtn) {
     backToIntroBtn.addEventListener("click", () => {
-      setActiveScreen(introScreen);
+      goToIntro();
     });
   }
 
   voltarBtn.addEventListener("click", () => {
-    setActiveScreen(carouselScreen);
+    if (navigationIndex > 0) {
+      window.history.back();
+      return;
+    }
+
+    goToCarousel({ replace: true });
   });
 
   carouselPrev.addEventListener("click", () => {
@@ -461,7 +536,42 @@ export function initUI(startCallback) {
     });
   }
 
-  // Estado inicial
-  setActiveScreen(introScreen);
   goToSlide(0, { behavior: "auto" });
+
+  const initialRoute = parseHash();
+
+  function applyRoute(route, { fromHistory = false } = {}) {
+    switch (route.screen) {
+      case ROUTES.CAROUSEL:
+        goToCarousel({ updateHistory: !fromHistory });
+        break;
+      case ROUTES.DETAILS: {
+        const exibicao =
+          findExibicaoById(route.exibicaoId) ?? exibicoes[0];
+        showExibicao(exibicao, { updateHistory: !fromHistory });
+        break;
+      }
+      case ROUTES.INTRO:
+      default:
+        goToIntro({ updateHistory: !fromHistory });
+        break;
+    }
+  }
+
+  applyRoute(initialRoute, { fromHistory: true });
+  window.history.replaceState(
+    {
+      screen: initialRoute.screen,
+      exibicaoId: initialRoute.exibicaoId ?? null,
+      index: navigationIndex,
+    },
+    "",
+    buildHash(initialRoute.screen, initialRoute.exibicaoId ?? null),
+  );
+
+  window.addEventListener("popstate", (event) => {
+    const state = event.state ?? { screen: ROUTES.INTRO };
+    navigationIndex = state.index ?? 0;
+    applyRoute(state, { fromHistory: true });
+  });
 }
