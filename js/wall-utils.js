@@ -2,8 +2,12 @@
 let THREE, camera, scene, reticle;
 let wallPlaced = false;
 let exibicaoAtiva = null;
+let activeWall = null;
 
-import { getWallTextureFromVideo } from "./video-utils.js";
+import {
+  getWallTextureFromVideo,
+  createFallbackWallTexture,
+} from "./video-utils.js";
 
 export function configureWallUtils({
   THREELib,
@@ -23,7 +27,8 @@ export function setExibicaoAtiva(exibicao) {
 
 export function onSelect() {
   if (reticle.visible && !wallPlaced && exibicaoAtiva) {
-    const wallTexture = getWallTextureFromVideo(THREE);
+    const wallTexture =
+      getWallTextureFromVideo(THREE) || createFallbackWallTexture(THREE);
 
     const wall = new THREE.Mesh(
       new THREE.PlaneGeometry(2.5, 1.5),
@@ -58,6 +63,7 @@ export function onSelect() {
     );
 
     scene.add(wall);
+    activeWall = wall;
     wallPlaced = true;
     reticle.visible = false;
 
@@ -494,4 +500,25 @@ function addAutorLabel(
 
 export function isWallPlaced() {
   return wallPlaced;
+}
+
+export function resetWallPlacement() {
+  wallPlaced = false;
+  if (activeWall && scene) {
+    scene.remove(activeWall);
+    activeWall.traverse?.((child) => {
+      if (Array.isArray(child.material)) {
+        child.material.forEach((mat) => mat?.dispose?.());
+      } else if (child.material?.dispose) {
+        child.material.dispose();
+      }
+      if (child.geometry?.dispose) {
+        child.geometry.dispose();
+      }
+    });
+    activeWall = null;
+  }
+  if (reticle) {
+    reticle.visible = true;
+  }
 }

@@ -1,5 +1,3 @@
-import { initVideoStream } from "./video-utils.js";
-
 export async function setupARScene(THREE, ARButton, onSelect) {
   const container = document.createElement("div");
   document.body.appendChild(container);
@@ -12,13 +10,21 @@ export async function setupARScene(THREE, ARButton, onSelect) {
     20
   );
 
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  const renderer = new THREE.WebGLRenderer({
+    antialias: false,
+    alpha: true,
+    powerPreference: "high-performance",
+  });
   renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio ?? 1, 1.5));
   renderer.xr.enabled = true;
+  renderer.shadowMap.enabled = false;
   container.appendChild(renderer.domElement);
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.physicallyCorrectLights = true;
+  if (renderer.xr.setFoveation) {
+    renderer.xr.setFoveation(0.8);
+  }
 
 
   // Criar e esconder o ARButton para acionamento no novo botão
@@ -57,9 +63,6 @@ export async function setupARScene(THREE, ARButton, onSelect) {
   const controller = renderer.xr.getController(0);
   controller.addEventListener("select", onSelect);
   scene.add(controller);
-
-  // Iniciar vídeo para capturar textura
-  await initVideoStream();
 
   // Retornar todos os objetos úteis
   return {

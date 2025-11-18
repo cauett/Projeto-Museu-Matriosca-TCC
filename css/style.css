@@ -53,6 +53,14 @@ body.details-active {
   padding: 0;
 }
 
+body.ar-active {
+  background: #000;
+}
+
+body.ar-active #ui {
+  display: none;
+}
+
 #ui {
   position: relative;
   width: min(420px, 100%);
@@ -638,7 +646,7 @@ body.details-active {
   margin-top: clamp(1.5rem, 6vw, 2.5rem);
   padding: clamp(1.5rem, 6vw, 2.5rem) clamp(1rem, 6vw, 1.75rem);
   border-radius: 28px;
-    background:
+  background:
     linear-gradient(160deg, rgba(62, 9, 16, 0.55), rgba(26, 4, 7, 0.35)),
     rgba(18, 3, 5, 0.35);
   border: 1px solid rgba(214, 102, 112, 0.25);
@@ -656,6 +664,12 @@ body.details-active {
   box-shadow: 0 0 0 6px rgba(163, 32, 42, 0.25),
     0 28px 42px rgba(0, 0, 0, 0.55);
   position: relative;
+}
+
+#start-ar-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 #start-ar-btn::after {
@@ -683,6 +697,74 @@ body.details-active {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   text-align: center;
+}
+
+#ar-status-message {
+  min-height: 1.25rem;
+  margin: 0;
+  font-size: 0.85rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+#ar-status-message.warning {
+  color: #ffd5d9;
+}
+
+#ar-status-message.error {
+  color: #ff9aa6;
+}
+
+#ar-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 1.5rem;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.55));
+  transition: opacity var(--transition);
+  z-index: 10;
+}
+
+#ar-overlay[hidden] {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.ar-overlay-content {
+  pointer-events: auto;
+  width: min(420px, 100%);
+  background: rgba(18, 3, 5, 0.75);
+  border-radius: 24px;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  color: var(--accent-strong);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.45);
+}
+
+#ar-overlay-status {
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.35;
+}
+
+#exit-ar-btn {
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 0.6rem 1.2rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  cursor: pointer;
 }
 
 .sr-only {

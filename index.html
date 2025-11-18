@@ -89,8 +89,17 @@
           <div id="start-wrapper">
             <button id="start-ar-btn" type="button"></button>
             <span class="start-label">Iniciar experiência em RA</span>
+            <p id="ar-status-message" role="status" aria-live="polite"></p>
           </div>
         </section>
+      </div>
+    </div>
+    <div id="ar-overlay" aria-live="polite" hidden>
+      <div class="ar-overlay-content">
+        <p id="ar-overlay-status">Aponte a câmera para uma parede e toque para posicionar.</p>
+        <button id="exit-ar-btn" type="button" aria-label="Sair da realidade aumentada">
+          Sair da RA
+        </button>
       </div>
     </div>
   </body>
