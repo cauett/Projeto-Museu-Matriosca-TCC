@@ -7,7 +7,7 @@ import { initUI } from "./ui.js";
 let camera, scene, renderer, controller, reticle, arButton;
 let hitTestSource = null, localSpace = null;
 
-initUI((exibicaoSelecionada) => {
+const { showDetailsScreen } = initUI((exibicaoSelecionada) => {
   setExibicaoAtiva(exibicaoSelecionada); // envia a exibição para wall-utils
   arButton.click(); // inicia AR
 });
@@ -34,6 +34,23 @@ initUI((exibicaoSelecionada) => {
     hitTestSource = await session.requestHitTestSource({ space: localSpace });
 
     document.getElementById("ui").style.display = "none";
+  });
+
+  renderer.xr.addEventListener("sessionend", () => {
+    hitTestSource = null;
+    localSpace = null;
+    if (reticle) {
+      reticle.visible = false;
+    }
+
+    const ui = document.getElementById("ui");
+    if (ui) {
+      ui.style.display = "";
+    }
+
+    if (typeof showDetailsScreen === "function") {
+      showDetailsScreen();
+    }
   });
 
   renderer.setAnimationLoop((timestamp, frame) => {

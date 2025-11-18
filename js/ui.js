@@ -464,4 +464,10 @@ export function initUI(startCallback) {
   // Estado inicial
   setActiveScreen(introScreen);
   goToSlide(0, { behavior: "auto" });
+
+  function showDetailsScreen() {
+    setActiveScreen(detailsScreen);
+  }
+
+  return { showDetailsScreen };
 }
