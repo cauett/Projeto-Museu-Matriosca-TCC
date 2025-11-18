@@ -40,11 +40,24 @@ export async function setupARScene(THREE, onSelect) {
   scene.add(spotLight);
 
   // Retículo
-  const ringGeometry = new THREE.RingGeometry(0.05, 0.06, 32).rotateX(-Math.PI / 2);
-  const reticle = new THREE.Mesh(
-    ringGeometry,
-    new THREE.MeshBasicMaterial({ color: 0x00ff00 })
-  );
+  const reticleMaterial = new THREE.MeshBasicMaterial({
+    color: 0x19ff73,
+    transparent: true,
+    opacity: 0.95,
+    side: THREE.DoubleSide,
+    depthWrite: false,
+    depthTest: false,
+    toneMapped: false,
+  });
+  const reticle = new THREE.Group();
+  const ringGeometry = new THREE.RingGeometry(0.045, 0.06, 48).rotateX(-Math.PI / 2);
+  const innerCircle = new THREE.CircleGeometry(0.01, 24).rotateX(-Math.PI / 2);
+  const outerRing = new THREE.Mesh(ringGeometry, reticleMaterial);
+  const centerDot = new THREE.Mesh(innerCircle, reticleMaterial.clone());
+  outerRing.renderOrder = 999;
+  centerDot.renderOrder = 999;
+  reticle.add(outerRing);
+  reticle.add(centerDot);
   reticle.matrixAutoUpdate = false;
   reticle.visible = false;
   scene.add(reticle);

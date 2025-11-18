@@ -22,6 +22,7 @@ const arStatusMessage = document.getElementById("ar-status-message");
 const arOverlay = document.getElementById("ar-overlay");
 const arOverlayStatus = document.getElementById("ar-overlay-status");
 const exitArBtn = document.getElementById("exit-ar-btn");
+const closeArBtn = document.getElementById("close-ar-btn");
 
 setStartButtonEnabled(false);
 setArStatus(
@@ -30,9 +31,9 @@ setArStatus(
 );
 detectWebXRSupport();
 
-if (exitArBtn) {
-  exitArBtn.addEventListener("click", () => endCurrentSession());
-}
+[exitArBtn, closeArBtn].forEach((btn) => {
+  btn?.addEventListener("click", () => endCurrentSession());
+});
 
 window.addEventListener("video-stream-error", () => {
   requestingSession = false;
