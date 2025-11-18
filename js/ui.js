@@ -442,6 +442,12 @@ export function initUI(startCallback) {
         exibicaoId: state.exibicaoId ?? exibicaoById()?.id,
       };
     }
+    if (state.screen === "ar") {
+      return {
+        screen: "ar",
+        exibicaoId: state.exibicaoId ?? exibicaoById()?.id,
+      };
+    }
     if (state.screen === "carousel") {
       const index = typeof state.index === "number" ? state.index : currentIndex;
       return { screen: "carousel", index };
@@ -452,6 +458,9 @@ export function initUI(startCallback) {
   function hashForState(state) {
     if (state.screen === "details" && state.exibicaoId) {
       return `#detalhes-${state.exibicaoId}`;
+    }
+    if (state.screen === "ar" && state.exibicaoId) {
+      return `#ar-${state.exibicaoId}`;
     }
     if (state.screen === "carousel") {
       return "#carousel";
@@ -470,6 +479,9 @@ export function initUI(startCallback) {
   function renderState(state) {
     const normalized = normalizeState(state);
     if (normalized.screen === "details") {
+      const exibicao = exibicaoById(normalized.exibicaoId);
+      showExibicao(exibicao);
+    } else if (normalized.screen === "ar") {
       const exibicao = exibicaoById(normalized.exibicaoId);
       showExibicao(exibicao);
     } else if (normalized.screen === "carousel") {
@@ -499,6 +511,9 @@ export function initUI(startCallback) {
     if (!hash) return null;
     if (hash.startsWith("detalhes-")) {
       return { screen: "details", exibicaoId: hash.replace("detalhes-", "") };
+    }
+    if (hash.startsWith("ar-")) {
+      return { screen: "ar", exibicaoId: hash.replace("ar-", "") };
     }
     if (hash === "carousel") return { screen: "carousel" };
     if (hash === "intro") return { screen: "intro" };
@@ -548,7 +563,17 @@ export function initUI(startCallback) {
   const initialState = parseStateFromHash() ?? DEFAULT_STATE;
   navigateTo(initialState, { replace: true });
 
+  function pushArState(exibicaoId, options = {}) {
+    if (!exibicaoId && currentExibicao) {
+      exibicaoId = currentExibicao.id;
+    }
+    if (!exibicaoId) return;
+    recordHistory({ screen: "ar", exibicaoId }, options);
+  }
+
   return {
     reopenDetails,
+    getCurrentExibicao: () => currentExibicao,
+    pushArState,
   };
 }

@@ -9,11 +9,23 @@ let hitTestSource = null, localSpace = null;
 const arOverlay = document.getElementById("ar-overlay");
 const arBackBtn = document.getElementById("ar-back-btn");
 let arBackButtonHandler = null;
+let activeXRSession = null;
+let arStateActive = false;
+let arClosingViaHistory = false;
 
 const uiApi = initUI((exibicaoSelecionada) => {
   setExibicaoAtiva(exibicaoSelecionada); // envia a exibição para wall-utils
   arButton.click(); // inicia AR
 });
+
+function handleHistoryNavigationDuringAR(event) {
+  if (!activeXRSession || !arStateActive) return;
+  if (event.state?.screen === "ar") return;
+  arClosingViaHistory = true;
+  activeXRSession.end();
+}
+
+window.addEventListener("popstate", handleHistoryNavigationDuringAR);
 
 (async function init() {
   const sceneObjects = await setupARScene(THREE, ARButton, onSelect);
@@ -33,8 +45,18 @@ const uiApi = initUI((exibicaoSelecionada) => {
 
   renderer.xr.addEventListener("sessionstart", async () => {
     const session = renderer.xr.getSession();
+    activeXRSession = session;
+    arClosingViaHistory = false;
     localSpace = await session.requestReferenceSpace("viewer");
     hitTestSource = await session.requestHitTestSource({ space: localSpace });
+
+    const exibicaoAtual = uiApi?.getCurrentExibicao?.();
+    if (exibicaoAtual) {
+      uiApi?.pushArState?.(exibicaoAtual.id);
+      arStateActive = true;
+    } else {
+      arStateActive = false;
+    }
 
     const uiLayer = document.getElementById("ui");
     if (uiLayer) {
@@ -50,7 +72,12 @@ const uiApi = initUI((exibicaoSelecionada) => {
       arBackBtn.disabled = false;
       arBackButtonHandler = () => {
         arBackBtn.disabled = true;
-        session.end();
+        if (arStateActive && window.history.length > 1) {
+          arClosingViaHistory = true;
+          window.history.back();
+        } else {
+          session.end();
+        }
       };
       arBackBtn.addEventListener("click", arBackButtonHandler);
     }
@@ -69,6 +96,19 @@ const uiApi = initUI((exibicaoSelecionada) => {
         arBackBtn.disabled = false;
         arBackButtonHandler = null;
       }
+      const shouldPopHistory = arStateActive && !arClosingViaHistory;
+      activeXRSession = null;
+      hitTestSource = null;
+      localSpace = null;
+      arStateActive = false;
+      if (
+        shouldPopHistory &&
+        window.history.state?.screen === "ar" &&
+        window.history.length > 1
+      ) {
+        window.history.back();
+      }
+      arClosingViaHistory = false;
       uiApi?.reopenDetails({ replaceHistory: true });
     };
 
