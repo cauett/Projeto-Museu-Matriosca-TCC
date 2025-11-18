@@ -333,7 +333,9 @@ export function initUI(startCallback) {
       </div>
     `;
 
-    slide.addEventListener("click", () => showExibicao(exibicao));
+    slide.addEventListener("click", () =>
+      navigateTo({ screen: "details", exibicaoId: exibicao.id }),
+    );
     carouselTrack.appendChild(slide);
     return slide;
   });
@@ -426,19 +428,91 @@ export function initUI(startCallback) {
     startBtn.onclick = () => startCallback(exibicao);
   }
 
+  const DEFAULT_STATE = { screen: "intro" };
+
+  function exibicaoById(id) {
+    return exibicoes.find((item) => item.id === id) ?? exibicoes[0];
+  }
+
+  function normalizeState(state) {
+    if (!state) return { ...DEFAULT_STATE };
+    if (state.screen === "details") {
+      return {
+        screen: "details",
+        exibicaoId: state.exibicaoId ?? exibicaoById()?.id,
+      };
+    }
+    if (state.screen === "carousel") {
+      const index = typeof state.index === "number" ? state.index : currentIndex;
+      return { screen: "carousel", index };
+    }
+    return { ...DEFAULT_STATE };
+  }
+
+  function hashForState(state) {
+    if (state.screen === "details" && state.exibicaoId) {
+      return `#detalhes-${state.exibicaoId}`;
+    }
+    if (state.screen === "carousel") {
+      return "#carousel";
+    }
+    return "#intro";
+  }
+
+  function recordHistory(state, { replace = false } = {}) {
+    if (!window?.history?.pushState) return;
+    const normalized = normalizeState(state);
+    const method = replace ? "replaceState" : "pushState";
+    const baseUrl = `${window.location.pathname}${window.location.search}`;
+    window.history[method](normalized, "", `${baseUrl}${hashForState(normalized)}`);
+  }
+
+  function renderState(state) {
+    const normalized = normalizeState(state);
+    if (normalized.screen === "details") {
+      const exibicao = exibicaoById(normalized.exibicaoId);
+      showExibicao(exibicao);
+    } else if (normalized.screen === "carousel") {
+      setActiveScreen(carouselScreen);
+      goToSlide(normalized.index, { behavior: "auto" });
+    } else {
+      setActiveScreen(introScreen);
+    }
+    return normalized;
+  }
+
+  function navigateTo(state, { replace = false } = {}) {
+    const normalized = renderState(state);
+    recordHistory(normalized, { replace });
+  }
+
+  function parseStateFromHash() {
+    const hash = window.location.hash?.slice(1);
+    if (!hash) return null;
+    if (hash.startsWith("detalhes-")) {
+      return { screen: "details", exibicaoId: hash.replace("detalhes-", "") };
+    }
+    if (hash === "carousel") return { screen: "carousel" };
+    if (hash === "intro") return { screen: "intro" };
+    return null;
+  }
+
+  window.addEventListener("popstate", (event) => {
+    renderState(event.state ?? DEFAULT_STATE);
+  });
+
   enterGalleryBtn.addEventListener("click", () => {
-    setActiveScreen(carouselScreen);
-    goToSlide(currentIndex, { behavior: "auto" });
+    navigateTo({ screen: "carousel", index: currentIndex });
   });
 
   if (backToIntroBtn) {
     backToIntroBtn.addEventListener("click", () => {
-      setActiveScreen(introScreen);
+      navigateTo({ screen: "intro" });
     });
   }
 
   voltarBtn.addEventListener("click", () => {
-    setActiveScreen(carouselScreen);
+    navigateTo({ screen: "carousel", index: currentIndex });
   });
 
   carouselPrev.addEventListener("click", () => {
@@ -450,7 +524,7 @@ export function initUI(startCallback) {
   });
 
   viewDetailsBtn.addEventListener("click", () => {
-    showExibicao(currentExibicao);
+    navigateTo({ screen: "details", exibicaoId: currentExibicao.id });
   });
 
   window.addEventListener("resize", () => centerCurrentSlide("auto"));
@@ -462,6 +536,7 @@ export function initUI(startCallback) {
   }
 
   // Estado inicial
-  setActiveScreen(introScreen);
   goToSlide(0, { behavior: "auto" });
+  const initialState = parseStateFromHash() ?? DEFAULT_STATE;
+  navigateTo(initialState, { replace: true });
 }
