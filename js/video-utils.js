@@ -26,6 +26,11 @@ export async function initVideoStream() {
     return false;
   }
 
+  if (streamRef && videoReady) {
+    window.dispatchEvent(new CustomEvent("video-stream-ready"));
+    return true;
+  }
+
   try {
     streamRef = await navigator.mediaDevices.getUserMedia({
       video: { facingMode: "environment" },
@@ -105,6 +110,10 @@ export function stopVideoStream() {
     streamRef.getTracks().forEach((track) => track.stop());
     streamRef = null;
     videoReady = false;
+  }
+  if (video) {
+    video.pause?.();
+    video.srcObject = null;
   }
 }
 

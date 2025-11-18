@@ -1,4 +1,4 @@
-export async function setupARScene(THREE, ARButton, onSelect) {
+export async function setupARScene(THREE, onSelect) {
   const container = document.createElement("div");
   document.body.appendChild(container);
 
@@ -26,16 +26,6 @@ export async function setupARScene(THREE, ARButton, onSelect) {
     renderer.xr.setFoveation(0.8);
   }
 
-
-  // Criar e esconder o ARButton para acionamento no novo botão
-  const arButton = ARButton.createButton(renderer, {
-    requiredFeatures: ["hit-test"],
-  });
-  arButton.id = "native-webxr-button";
-  arButton.style.display = "none";
-  arButton.setAttribute("aria-hidden", "true");
-  arButton.tabIndex = -1;
-  document.body.appendChild(arButton);
 
   // Iluminação
   scene.add(new THREE.HemisphereLight(0xffffff, 0x444444, 1));
@@ -71,6 +61,5 @@ export async function setupARScene(THREE, ARButton, onSelect) {
     renderer,
     controller,
     reticle,
-    arButton,
   };
 }

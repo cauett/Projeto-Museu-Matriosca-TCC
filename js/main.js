@@ -1,5 +1,4 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
-import { ARButton } from "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/webxr/ARButton.js";
 import { setupARScene } from "./ar-setup.js";
 import {
   onSelect,
@@ -8,15 +7,15 @@ import {
   setExibicaoAtiva,
   resetWallPlacement,
 } from "./wall-utils.js";
-import { initVideoStream } from "./video-utils.js";
+import { initVideoStream, stopVideoStream } from "./video-utils.js";
 import { initUI } from "./ui.js";
 
-let camera, scene, renderer, controller, reticle, arButton;
+let camera, scene, renderer, controller, reticle;
 let hitTestSource = null, localSpace = null;
 let xrSession = null;
 let webxrSupported = false;
 let arSceneReady = false;
-let videoRequested = false;
+let requestingSession = false;
 
 const startArBtn = document.getElementById("start-ar-btn");
 const arStatusMessage = document.getElementById("ar-status-message");
@@ -36,6 +35,11 @@ if (exitArBtn) {
 }
 
 window.addEventListener("video-stream-error", () => {
+  requestingSession = false;
+  startArBtn?.removeAttribute("aria-busy");
+  if (!xrSession) {
+    setStartButtonEnabled(webxrSupported);
+  }
   setArStatus(
     "Não foi possível acessar a câmera. Autorize o uso ou tente outro navegador.",
     "error",
@@ -60,23 +64,26 @@ initUI((exibicaoSelecionada) => {
     return;
   }
 
-  if (!arSceneReady || !arButton) {
+  if (!arSceneReady || !renderer) {
     setArStatus("Carregando recursos de RA...", "warning");
     return;
   }
 
+  if (xrSession || requestingSession) {
+    return;
+  }
+
   startArBtn?.setAttribute("aria-busy", "true");
-  arButton.click(); // inicia AR
+  beginArRequest();
 });
 
 (async function init() {
-  const sceneObjects = await setupARScene(THREE, ARButton, onSelect);
+  const sceneObjects = await setupARScene(THREE, onSelect);
   camera = sceneObjects.camera;
   scene = sceneObjects.scene;
   renderer = sceneObjects.renderer;
   controller = sceneObjects.controller;
   reticle = sceneObjects.reticle;
-  arButton = sceneObjects.arButton;
   arSceneReady = true;
 
   configureWallUtils({
@@ -88,14 +95,14 @@ initUI((exibicaoSelecionada) => {
 
   renderer.xr.addEventListener("sessionstart", async () => {
     xrSession = renderer.xr.getSession();
+    requestingSession = false;
+    startArBtn?.removeAttribute("aria-busy");
     try {
       localSpace = await xrSession.requestReferenceSpace("viewer");
       hitTestSource = await xrSession.requestHitTestSource({ space: localSpace });
     } catch (error) {
       console.error("Não foi possível iniciar o hit test:", error);
     }
-
-    await ensureVideoStream();
     sessionBecameActive();
   });
 
@@ -140,6 +147,8 @@ function onWindowResize() {
 }
 
 function sessionBecameActive() {
+  requestingSession = false;
+  startArBtn?.removeAttribute("aria-busy");
   document.body.classList.add("ar-active");
   toggleOverlay(true);
   setStartButtonEnabled(false);
@@ -147,6 +156,8 @@ function sessionBecameActive() {
 }
 
 function sessionBecameInactive() {
+  requestingSession = false;
+  stopVideoStream();
   document.body.classList.remove("ar-active");
   toggleOverlay(false);
   setStartButtonEnabled(webxrSupported);
@@ -190,13 +201,57 @@ function endCurrentSession() {
   }
 }
 
-async function ensureVideoStream() {
-  if (videoRequested) return;
-  videoRequested = true;
-  const ok = await initVideoStream();
-  if (!ok) {
-    videoRequested = false;
+async function beginArRequest() {
+  if (requestingSession || xrSession) return;
+  requestingSession = true;
+  setStartButtonEnabled(false);
+
+  const videoOk = await initVideoStream();
+  if (!videoOk) {
+    requestingSession = false;
+    startArBtn?.removeAttribute("aria-busy");
+    setStartButtonEnabled(webxrSupported);
+    return;
   }
+
+  try {
+    await startImmersiveSession();
+  } catch (error) {
+    requestingSession = false;
+    startArBtn?.removeAttribute("aria-busy");
+    stopVideoStream();
+    setStartButtonEnabled(webxrSupported);
+    handleArStartError(error);
+  }
+}
+
+async function startImmersiveSession() {
+  if (!navigator?.xr || !renderer) {
+    throw new Error("WEBXR_UNAVAILABLE");
+  }
+
+  const sessionInit = { requiredFeatures: ["hit-test"] };
+  if (arOverlay) {
+    sessionInit.optionalFeatures = ["dom-overlay"];
+    sessionInit.domOverlay = { root: arOverlay };
+  }
+
+  const session = await navigator.xr.requestSession("immersive-ar", sessionInit);
+  await renderer.xr.setSession(session);
+  return session;
+}
+
+function handleArStartError(error) {
+  console.error("Falha ao iniciar a experiência de RA", error);
+  let message = "Não foi possível iniciar a realidade aumentada neste dispositivo.";
+  if (error?.name === "NotAllowedError") {
+    message = "Autorize o acesso à câmera e ao sensor de RA para continuar.";
+  } else if (error?.name === "NotSupportedError") {
+    message = "Este aparelho não oferece os recursos necessários para RA com detecção de parede.";
+  } else if (error?.message === "WEBXR_UNAVAILABLE") {
+    message = "A API WebXR não está disponível neste navegador.";
+  }
+  setArStatus(message, "error");
 }
 
 async function detectWebXRSupport() {
