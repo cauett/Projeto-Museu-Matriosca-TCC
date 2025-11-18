@@ -33,15 +33,22 @@ const uiApi = initUI((exibicaoSelecionada) => {
     localSpace = await session.requestReferenceSpace("viewer");
     hitTestSource = await session.requestHitTestSource({ space: localSpace });
 
-    document.getElementById("ui").style.display = "none";
-  });
-
-  renderer.xr.addEventListener("sessionend", () => {
     const uiLayer = document.getElementById("ui");
     if (uiLayer) {
-      uiLayer.style.display = "";
+      uiLayer.dataset.previousDisplay = uiLayer.style.display || "";
+      uiLayer.style.display = "none";
     }
-    uiApi?.reopenDetails({ replaceHistory: true });
+
+    const handleSessionEnd = () => {
+      session.removeEventListener("end", handleSessionEnd);
+      if (uiLayer) {
+        uiLayer.style.display = uiLayer.dataset.previousDisplay || "";
+        delete uiLayer.dataset.previousDisplay;
+      }
+      uiApi?.reopenDetails({ replaceHistory: true });
+    };
+
+    session.addEventListener("end", handleSessionEnd, { once: true });
   });
 
   renderer.setAnimationLoop((timestamp, frame) => {
