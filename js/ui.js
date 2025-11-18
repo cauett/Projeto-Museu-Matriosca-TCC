@@ -486,6 +486,14 @@ export function initUI(startCallback) {
     recordHistory(normalized, { replace });
   }
 
+  function reopenDetails({ replaceHistory = false } = {}) {
+    if (!currentExibicao) return;
+    navigateTo(
+      { screen: "details", exibicaoId: currentExibicao.id },
+      { replace: replaceHistory },
+    );
+  }
+
   function parseStateFromHash() {
     const hash = window.location.hash?.slice(1);
     if (!hash) return null;
@@ -539,4 +547,8 @@ export function initUI(startCallback) {
   goToSlide(0, { behavior: "auto" });
   const initialState = parseStateFromHash() ?? DEFAULT_STATE;
   navigateTo(initialState, { replace: true });
+
+  return {
+    reopenDetails,
+  };
 }
