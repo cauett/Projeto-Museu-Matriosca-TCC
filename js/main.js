@@ -6,10 +6,26 @@ import { initUI } from "./ui.js";
 
 let camera, scene, renderer, controller, reticle, arButton;
 let hitTestSource = null, localSpace = null;
+let pendingARState = null;
+let arStateActive = false;
 
-initUI((exibicaoSelecionada) => {
+const AR_SCREEN_STATE = "ar";
+
+function pushARHistoryState(exibicao) {
+  if (!window?.history?.pushState) return;
+  window.history.pushState(
+    { screen: AR_SCREEN_STATE, exibicaoId: exibicao?.id },
+    "",
+    "#ar",
+  );
+}
+
+const { showDetailsScreen } = initUI((exibicaoSelecionada) => {
   setExibicaoAtiva(exibicaoSelecionada); // envia a exibição para wall-utils
-  arButton.click(); // inicia AR
+  pendingARState = exibicaoSelecionada;
+  if (arButton) {
+    arButton.click(); // inicia AR
+  }
 });
 
 (async function init() {
@@ -34,6 +50,33 @@ initUI((exibicaoSelecionada) => {
     hitTestSource = await session.requestHitTestSource({ space: localSpace });
 
     document.getElementById("ui").style.display = "none";
+
+    if (pendingARState) {
+      pushARHistoryState(pendingARState);
+      arStateActive = true;
+    }
+  });
+
+  renderer.xr.addEventListener("sessionend", () => {
+    hitTestSource = null;
+    localSpace = null;
+    if (reticle) {
+      reticle.visible = false;
+    }
+
+    const ui = document.getElementById("ui");
+    if (ui) {
+      ui.style.display = "";
+    }
+
+    if (arStateActive && window.history.state?.screen === AR_SCREEN_STATE) {
+      window.history.back();
+    } else if (typeof showDetailsScreen === "function") {
+      showDetailsScreen({ skipHistory: true });
+    }
+
+    arStateActive = false;
+    pendingARState = null;
   });
 
   renderer.setAnimationLoop((timestamp, frame) => {
@@ -53,3 +96,10 @@ initUI((exibicaoSelecionada) => {
     renderer.render(scene, camera);
   });
 })();
+
+window.addEventListener("popstate", () => {
+  if (renderer?.xr?.isPresenting) {
+    const session = renderer.xr.getSession();
+    session?.end();
+  }
+});

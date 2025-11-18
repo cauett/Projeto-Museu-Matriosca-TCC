@@ -293,6 +293,12 @@ export function initUI(startCallback) {
   let currentExibicao = exibicoes[0];
   let currentIndex = 0;
 
+  const ScreenState = {
+    INTRO: "intro",
+    CAROUSEL: "carousel",
+    DETAILS: "details",
+  };
+
   const screens = [introScreen, carouselScreen, detailsScreen];
 
   function setActiveScreen(screenEl) {
@@ -402,17 +408,68 @@ export function initUI(startCallback) {
     }
   }
 
-  function showExibicao(exibicao) {
-    currentExibicao = exibicao;
+  function hashForState(screen, exibicaoId) {
+    if (screen === ScreenState.DETAILS && exibicaoId) {
+      return `#detalhes-${exibicaoId}`;
+    }
+    if (screen === ScreenState.CAROUSEL) {
+      return "#exposicoes";
+    }
+    return "#inicio";
+  }
+
+  function updateHistoryState(screen, { replace = false, exibicaoId } = {}) {
+    if (!window?.history?.pushState) return;
+    const state = { screen, exibicaoId };
+    const url = hashForState(screen, exibicaoId);
+    if (replace) {
+      window.history.replaceState(state, "", url);
+    } else {
+      window.history.pushState(state, "", url);
+    }
+  }
+
+  function showIntro(options = {}) {
+    setActiveScreen(introScreen);
+    if (!options.skipHistory) {
+      updateHistoryState(ScreenState.INTRO, {
+        replace: options.replaceHistory,
+      });
+    }
+  }
+
+  function showCarousel(options = {}) {
+    setActiveScreen(carouselScreen);
+    goToSlide(currentIndex, { behavior: "auto" });
+    if (!options.skipHistory) {
+      updateHistoryState(ScreenState.CAROUSEL, {
+        replace: options.replaceHistory,
+      });
+    }
+  }
+
+  function showExibicao(exibicao, options = {}) {
+    if (!exibicao) return;
+
+    const exibicaoIndex = exibicoes.findIndex((item) => item.id === exibicao.id);
+    if (exibicaoIndex >= 0) {
+      currentIndex = exibicaoIndex;
+      updateCarouselUI();
+    } else {
+      currentExibicao = exibicao;
+    }
+
+    const exibicaoAtiva = currentExibicao ?? exibicao;
+
     setActiveScreen(detailsScreen);
-    tituloEl.textContent = exibicao.titulo;
-    descEl.textContent = exibicao.descricao;
-    const heroCover = coverImageFor(exibicao);
+    tituloEl.textContent = exibicaoAtiva.titulo;
+    descEl.textContent = exibicaoAtiva.descricao;
+    const heroCover = coverImageFor(exibicaoAtiva);
     detailsScreen.style.setProperty("--details-cover", `url(${heroCover})`);
     detailsScreen.scrollTo({ top: 0, behavior: "auto" });
     obrasLista.innerHTML = "";
 
-    exibicao.obras.forEach((obra) => {
+    exibicaoAtiva.obras.forEach((obra) => {
       const div = document.createElement("div");
       div.className = "obra-item";
       div.innerHTML = `
@@ -423,22 +480,33 @@ export function initUI(startCallback) {
       obrasLista.appendChild(div);
     });
 
-    startBtn.onclick = () => startCallback(exibicao);
+    startBtn.onclick = () => startCallback(exibicaoAtiva);
+
+    if (!options.skipHistory) {
+      updateHistoryState(ScreenState.DETAILS, {
+        replace: options.replaceHistory,
+        exibicaoId: exibicaoAtiva.id,
+      });
+    }
+  }
+
+  function showExibicaoById(exibicaoId, options = {}) {
+    const exibicao = exibicoes.find((item) => item.id === exibicaoId) ?? exibicoes[0];
+    showExibicao(exibicao, options);
   }
 
   enterGalleryBtn.addEventListener("click", () => {
-    setActiveScreen(carouselScreen);
-    goToSlide(currentIndex, { behavior: "auto" });
+    showCarousel();
   });
 
   if (backToIntroBtn) {
     backToIntroBtn.addEventListener("click", () => {
-      setActiveScreen(introScreen);
+      showIntro();
     });
   }
 
   voltarBtn.addEventListener("click", () => {
-    setActiveScreen(carouselScreen);
+    showCarousel();
   });
 
   carouselPrev.addEventListener("click", () => {
@@ -461,7 +529,48 @@ export function initUI(startCallback) {
     });
   }
 
-  // Estado inicial
-  setActiveScreen(introScreen);
   goToSlide(0, { behavior: "auto" });
+
+  function restoreFromState(state) {
+    if (!state) {
+      showIntro({ skipHistory: true, replaceHistory: true });
+      return;
+    }
+
+    switch (state.screen) {
+      case ScreenState.CAROUSEL:
+        showCarousel({ skipHistory: true });
+        break;
+      case ScreenState.DETAILS:
+        showExibicaoById(state.exibicaoId, { skipHistory: true });
+        break;
+      case ScreenState.INTRO:
+      default:
+        showIntro({ skipHistory: true });
+        break;
+    }
+  }
+
+  const initialState = window.history.state;
+  if (initialState?.screen) {
+    restoreFromState(initialState);
+  } else if (window.location.hash?.startsWith("#detalhes-")) {
+    const exibicaoId = window.location.hash.replace("#detalhes-", "");
+    showExibicaoById(exibicaoId, { replaceHistory: true });
+  } else if (window.location.hash === "#exposicoes") {
+    showCarousel({ replaceHistory: true });
+  } else {
+    showIntro({ replaceHistory: true });
+  }
+
+  window.addEventListener("popstate", (event) => {
+    restoreFromState(event.state);
+  });
+
+  function showDetailsScreen(options = {}) {
+    const exibicaoAlvo = options.exibicao ?? currentExibicao ?? exibicoes[0];
+    showExibicao(exibicaoAlvo, options);
+  }
+
+  return { showDetailsScreen };
 }
