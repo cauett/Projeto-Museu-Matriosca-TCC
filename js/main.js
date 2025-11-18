@@ -6,6 +6,9 @@ import { initUI } from "./ui.js";
 
 let camera, scene, renderer, controller, reticle, arButton;
 let hitTestSource = null, localSpace = null;
+const arOverlay = document.getElementById("ar-overlay");
+const arBackBtn = document.getElementById("ar-back-btn");
+let arBackButtonHandler = null;
 
 const uiApi = initUI((exibicaoSelecionada) => {
   setExibicaoAtiva(exibicaoSelecionada); // envia a exibição para wall-utils
@@ -39,11 +42,32 @@ const uiApi = initUI((exibicaoSelecionada) => {
       uiLayer.style.display = "none";
     }
 
+    if (arOverlay) {
+      arOverlay.hidden = false;
+    }
+
+    if (arBackBtn) {
+      arBackBtn.disabled = false;
+      arBackButtonHandler = () => {
+        arBackBtn.disabled = true;
+        session.end();
+      };
+      arBackBtn.addEventListener("click", arBackButtonHandler);
+    }
+
     const handleSessionEnd = () => {
       session.removeEventListener("end", handleSessionEnd);
       if (uiLayer) {
         uiLayer.style.display = uiLayer.dataset.previousDisplay || "";
         delete uiLayer.dataset.previousDisplay;
+      }
+      if (arOverlay) {
+        arOverlay.hidden = true;
+      }
+      if (arBackBtn && arBackButtonHandler) {
+        arBackBtn.removeEventListener("click", arBackButtonHandler);
+        arBackBtn.disabled = false;
+        arBackButtonHandler = null;
       }
       uiApi?.reopenDetails({ replaceHistory: true });
     };
