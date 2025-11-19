@@ -6,10 +6,45 @@ import { initUI } from "./ui.js";
 
 let camera, scene, renderer, controller, reticle, arButton;
 let hitTestSource = null, localSpace = null;
+let pendingARStart = false;
+
+const uiWrapper = document.getElementById("ui");
+const cameraOverlay = document.getElementById("camera-overlay");
+const cameraBackButton = document.getElementById("camera-back-btn");
+
+const toggleCameraOverlay = (visible) => {
+  if (!cameraOverlay) return;
+  cameraOverlay.setAttribute("aria-hidden", String(!visible));
+  cameraOverlay.classList.toggle("visible", Boolean(visible));
+};
+
+const handleSessionEnd = () => {
+  uiWrapper.style.display = "";
+  toggleCameraOverlay(false);
+};
+
+const requestARStart = () => {
+  if (arButton) {
+    arButton.click();
+  } else {
+    pendingARStart = true;
+  }
+};
+
+if (cameraBackButton) {
+  cameraBackButton.addEventListener("click", () => {
+    const session = renderer?.xr?.getSession();
+    if (session) {
+      session.end();
+    } else {
+      handleSessionEnd();
+    }
+  });
+}
 
 initUI((exibicaoSelecionada) => {
-  setExibicaoAtiva(exibicaoSelecionada); // envia a exibição para wall-utils
-  arButton.click(); // inicia AR
+  setExibicaoAtiva(exibicaoSelecionada);
+  requestARStart();
 });
 
 (async function init() {
@@ -30,11 +65,15 @@ initUI((exibicaoSelecionada) => {
 
   renderer.xr.addEventListener("sessionstart", async () => {
     const session = renderer.xr.getSession();
+    session.addEventListener("end", handleSessionEnd, { once: true });
     localSpace = await session.requestReferenceSpace("viewer");
     hitTestSource = await session.requestHitTestSource({ space: localSpace });
 
-    document.getElementById("ui").style.display = "none";
+    uiWrapper.style.display = "none";
+    toggleCameraOverlay(true);
   });
+
+  renderer.xr.addEventListener("sessionend", handleSessionEnd);
 
   renderer.setAnimationLoop((timestamp, frame) => {
     if (frame && hitTestSource) {
@@ -52,4 +91,8 @@ initUI((exibicaoSelecionada) => {
 
     renderer.render(scene, camera);
   });
+  if (pendingARStart && arButton) {
+    arButton.click();
+    pendingARStart = false;
+  }
 })();
