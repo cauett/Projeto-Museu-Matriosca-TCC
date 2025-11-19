@@ -7,6 +7,21 @@ import { initUI } from "./ui.js";
 let camera, scene, renderer, controller, reticle, arButton;
 let hitTestSource = null, localSpace = null;
 
+const uiWrapper = document.getElementById("ui");
+const cameraBackButton = document.getElementById("camera-back-btn");
+
+if (cameraBackButton) {
+  cameraBackButton.addEventListener("click", () => {
+    const session = renderer?.xr?.getSession();
+    if (session) {
+      session.end();
+    } else {
+      uiWrapper.style.display = "";
+      cameraBackButton.classList.remove("visible");
+    }
+  });
+}
+
 initUI((exibicaoSelecionada) => {
   setExibicaoAtiva(exibicaoSelecionada); // envia a exibição para wall-utils
   arButton.click(); // inicia AR
@@ -33,7 +48,13 @@ initUI((exibicaoSelecionada) => {
     localSpace = await session.requestReferenceSpace("viewer");
     hitTestSource = await session.requestHitTestSource({ space: localSpace });
 
-    document.getElementById("ui").style.display = "none";
+    uiWrapper.style.display = "none";
+    cameraBackButton?.classList.add("visible");
+  });
+
+  renderer.xr.addEventListener("sessionend", () => {
+    uiWrapper.style.display = "";
+    cameraBackButton?.classList.remove("visible");
   });
 
   renderer.setAnimationLoop((timestamp, frame) => {

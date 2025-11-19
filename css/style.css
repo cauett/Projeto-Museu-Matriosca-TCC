@@ -47,6 +47,35 @@ body {
   overflow-x: hidden;
 }
 
+#camera-back-btn {
+  position: fixed;
+  top: clamp(0.85rem, 4vw, 1.5rem);
+  left: clamp(0.85rem, 4vw, 1.5rem);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.65rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(17, 2, 5, 0.8);
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  transition: background var(--transition), transform var(--transition);
+}
+
+#camera-back-btn.visible {
+  display: inline-flex;
+}
+
+#camera-back-btn:active {
+  transform: scale(0.98);
+}
+
 body.details-active {
   align-items: stretch;
   justify-content: flex-start;
