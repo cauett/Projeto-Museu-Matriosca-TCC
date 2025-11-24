@@ -3,6 +3,7 @@ const DEFAULT_OBRA_SIZE = { w: 0.42, h: 0.42, d: 0.04 };
 // Sertão Monumental reduzido (~15%) para não ficar "gigantesco"
 const SERTAO_OBRA_SIZE = { w: 0.53, h: 0.34, d: 0.03 };
 export const TESOUROS_VIVOS_OBRA_SIZE = { w: 0.18, h: 0.18, d: 0.028 };
+const AVES_CEARENSES_OBRA_SIZE = { w: 0.32, h: 0.42, d: 0.038 };
 
 function mapObras(
   itens,
@@ -109,6 +110,66 @@ const sertaoMonumentalObras = [
     titulo: "Pedra da Gaveta",
     arquivo: "sertao-monumental/sertao-07.jpeg",
     position: { x: 0.78, y: -0.36, z: -0.025 }, // y antes: -0.55
+  },
+];
+
+// Exposição "Retratos do Voo — Aves Cearenses"
+const avesCearensesAutor = "Alefe Queiroz";
+const avesCearensesObras = [
+  // Linha superior (3 quadros)
+  {
+    titulo: "Aves Cearenses 01",
+    arquivo: "aves-cearenses/ave-1.jpeg",
+    position: { x: -0.58, y: 0.46, z: -0.025 },
+  },
+  {
+    titulo: "Aves Cearenses 02",
+    arquivo: "aves-cearenses/ave-2.jpeg",
+    position: { x: 0, y: 0.46, z: -0.025 },
+  },
+  {
+    titulo: "Aves Cearenses 03",
+    arquivo: "aves-cearenses/ave-3.jpeg",
+    position: { x: 0.58, y: 0.46, z: -0.025 },
+  },
+
+  // Linha central (5 quadros)
+  {
+    titulo: "Aves Cearenses 04",
+    arquivo: "aves-cearenses/ave-4.jpeg",
+    position: { x: -0.8, y: 0, z: -0.025 },
+  },
+  {
+    titulo: "Aves Cearenses 05",
+    arquivo: "aves-cearenses/ave-5.jpeg",
+    position: { x: -0.4, y: 0, z: -0.025 },
+  },
+  {
+    titulo: "Aves Cearenses 06",
+    arquivo: "aves-cearenses/ave-6.jpeg",
+    position: { x: 0, y: 0, z: -0.025 },
+  },
+  {
+    titulo: "Aves Cearenses 07",
+    arquivo: "aves-cearenses/ave-7.jpeg",
+    position: { x: 0.4, y: 0, z: -0.025 },
+  },
+  {
+    titulo: "Aves Cearenses 08",
+    arquivo: "aves-cearenses/ave-8.jpeg",
+    position: { x: 0.8, y: 0, z: -0.025 },
+  },
+
+  // Linha inferior (2 quadros com espaço central)
+  {
+    titulo: "Aves Cearenses 09",
+    arquivo: "aves-cearenses/ave-9.jpeg",
+    position: { x: -0.58, y: -0.46, z: -0.025 },
+  },
+  {
+    titulo: "Aves Cearenses 10",
+    arquivo: "aves-cearenses/ave-10.jpeg",
+    position: { x: 0.58, y: -0.46, z: -0.025 },
   },
 ];
 
@@ -261,6 +322,18 @@ export const exibicoes = [
       size: TESOUROS_VIVOS_OBRA_SIZE,
     }),
     quadroTipo: "molduraPreta",
+  },
+  {
+    id: "exibicao4",
+    titulo: "Retratos do Voo — Aves Cearenses",
+    descricao:
+      "A exposição convida o público a contemplar a beleza e a diversidade das aves que habitam o Ceará, celebrando o amor pela avifauna e o compromisso com a natureza local. Cada desenho registra e compartilha o encanto dessas espécies, reforçando a conexão entre arte, natureza e cultura. Curadoria e desenhos: Alefe Queiroz.",
+    obras: mapObras(avesCearensesObras, {
+      autor: avesCearensesAutor,
+      size: AVES_CEARENSES_OBRA_SIZE,
+    }),
+    quadroTipo: "molduraMadeira",
+    autoSpread: false,
   },
 ];
 

@@ -86,10 +86,12 @@ export function onSelect() {
     });
 
     // distribuição automática: centrada e com gap uniforme
-    spreadByRows(group, {
-      minGapX: "auto", // gap calculado a partir da largura média
-      rowSnap: 0.08, // tolerância de agrupamento por Y
-    });
+    if (exibicaoAtiva.autoSpread !== false) {
+      spreadByRows(group, {
+        minGapX: "auto", // gap calculado a partir da largura média
+        rowSnap: 0.08, // tolerância de agrupamento por Y
+      });
+    }
   }
 }
 
@@ -103,6 +105,8 @@ function normalizeSize(size, quadroTipo) {
     scale = 0.84; // fotos levemente menores e realistas
   else if (quadroTipo === "molduraPreta")
     scale = 0.92; // moldura leve um pouco menor
+  else if (quadroTipo === "molduraMadeira")
+    scale = 0.96; // moldura rústica mais espessa
   else scale = 0.94; // canvas branco padrão um pouco menor
 
   return {
@@ -186,6 +190,9 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
 
     // aplica normalização de tamanho por tipo (fotografias um pouco menores)
     const nSize = normalizeSize(size, quadroTipo);
+
+    const woodTexture =
+      quadroTipo === "molduraMadeira" ? createWoodTexture(THREE) : null;
 
     // ===== TIPO FOTOGRAFIA — papel com janela (anel extrudado) e foto recuada =====
     if (quadroTipo === "fotografia") {
@@ -412,6 +419,98 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
       return;
     }
 
+    // ===== TIPO MOLDURA DE MADEIRA RÚSTICA =====
+    if (quadroTipo === "molduraMadeira") {
+      const frameGroup = new THREE.Group();
+      frameGroup.userData = { kind: "quadro" };
+      frameGroup.position.set(position.x, position.y, position.z);
+      frameGroup.rotation.y = Math.PI;
+
+      const frameThickness = 0.026;
+      const frameDepth = Math.max(nSize.d ?? 0.032, 0.032) + 0.014;
+      const matOverlap = 0.014;
+
+      const outerW = nSize.w + frameThickness * 2;
+      const outerH = nSize.h + frameThickness * 2;
+      const innerW = Math.max(nSize.w - matOverlap * 2, 0.01);
+      const innerH = Math.max(nSize.h - matOverlap * 2, 0.01);
+
+      const frameMaterial = new THREE.MeshStandardMaterial({
+        map: woodTexture,
+        color: 0xc29b67,
+        roughness: 0.75,
+        metalness: 0.08,
+      });
+      const matteMaterial = new THREE.MeshStandardMaterial({
+        color: 0xf4efe6,
+        roughness: 0.92,
+        metalness: 0.0,
+        side: THREE.DoubleSide,
+        ...POLY_OFFSET,
+      });
+      const artworkMaterial = new THREE.MeshStandardMaterial({
+        map: texture,
+        color: 0xffffff,
+        roughness: 0.62,
+        metalness: 0.0,
+        side: THREE.FrontSide,
+        ...POLY_OFFSET,
+      });
+
+      // moldura em anel extrudado com textura de madeira
+      const ringShape = new THREE.Shape();
+      ringShape.moveTo(-outerW / 2, -outerH / 2);
+      ringShape.lineTo(outerW / 2, -outerH / 2);
+      ringShape.lineTo(outerW / 2, outerH / 2);
+      ringShape.lineTo(-outerW / 2, outerH / 2);
+      ringShape.lineTo(-outerW / 2, -outerH / 2);
+
+      const hole = new THREE.Path();
+      hole.moveTo(-innerW / 2, -innerH / 2);
+      hole.lineTo(innerW / 2, -innerH / 2);
+      hole.lineTo(innerW / 2, innerH / 2);
+      hole.lineTo(-innerW / 2, innerH / 2);
+      hole.lineTo(-innerW / 2, -innerH / 2);
+      ringShape.holes.push(hole);
+
+      const ringGeo = new THREE.ExtrudeGeometry(ringShape, {
+        depth: frameDepth,
+        bevelEnabled: false,
+      });
+      ringGeo.translate(0, 0, -frameDepth / 2);
+
+      const frameRing = new THREE.Mesh(ringGeo, frameMaterial);
+      frameRing.castShadow = true;
+      frameRing.receiveShadow = true;
+      frameGroup.add(frameRing);
+
+      // fundo claro para destacar o desenho
+      const backCover = new THREE.Mesh(
+        new THREE.PlaneGeometry(innerW, innerH),
+        matteMaterial,
+      );
+      backCover.position.set(0, 0, -frameDepth / 2 + 0.0006);
+      backCover.receiveShadow = true;
+      frameGroup.add(backCover);
+
+      const recess = 0.0024;
+      const artZ = frameDepth / 2 - recess;
+      const artwork = new THREE.Mesh(
+        new THREE.PlaneGeometry(nSize.w, nSize.h),
+        artworkMaterial,
+      );
+      artwork.position.set(0, 0, artZ);
+      artwork.castShadow = false;
+      artwork.receiveShadow = false;
+      frameGroup.add(artwork);
+
+      frameGroup.castShadow = true;
+      frameGroup.receiveShadow = true;
+      frameGroup.userData.outerW = outerW;
+      group.add(frameGroup);
+      return;
+    }
+
     // ===== TIPO “moldura” branca (canvas) =====
     const canvasMaterial = new THREE.MeshStandardMaterial({
       map: texture,
@@ -448,6 +547,48 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
     quadroBox.rotation.y = Math.PI;
     group.add(quadroBox);
   });
+}
+
+function createWoodTexture(THREE) {
+  const canvas = document.createElement("canvas");
+  const size = 512;
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext("2d");
+
+  ctx.fillStyle = "#c8a26b";
+  ctx.fillRect(0, 0, size, size);
+
+  // veios verticais simples com ruído suave
+  for (let x = 0; x < size; x += 6) {
+    const hue = 35 + Math.sin(x * 0.08) * 6;
+    const light = 48 + Math.random() * 18;
+    ctx.fillStyle = `hsl(${hue}, 46%, ${light}%)`;
+    const offset = (Math.random() - 0.5) * 8;
+    ctx.fillRect(x + offset, 0, 4, size);
+  }
+
+  // pequenos nós
+  for (let i = 0; i < 18; i++) {
+    const radius = 8 + Math.random() * 12;
+    const x = Math.random() * size;
+    const y = Math.random() * size;
+    const gradient = ctx.createRadialGradient(x, y, 2, x, y, radius);
+    gradient.addColorStop(0, "rgba(110, 80, 40, 0.65)");
+    gradient.addColorStop(1, "rgba(110, 80, 40, 0)");
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.anisotropy = 8;
+  texture.repeat.set(1.8, 1.8);
+  texture.encoding = THREE.sRGBEncoding;
+  return texture;
 }
 
 function addAutorLabel(
