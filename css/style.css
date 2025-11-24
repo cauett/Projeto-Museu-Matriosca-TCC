@@ -47,6 +47,27 @@ body {
   overflow-x: hidden;
 }
 
+.skip-link {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--accent);
+  color: #ffffff;
+  border-radius: 12px;
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform var(--transition), box-shadow var(--transition);
+  z-index: 10;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
 body.details-active {
   align-items: stretch;
   justify-content: flex-start;
@@ -336,6 +357,9 @@ body.details-active {
 }
 
 .exibicao-slide {
+  border: none;
+  cursor: pointer;
+  text-align: left;
   flex: 0 0 clamp(260px, 72vw, 320px);
   aspect-ratio: 3 / 4;
   position: relative;
@@ -348,6 +372,12 @@ body.details-active {
   border-radius: 28px;
   scroll-snap-align: center;
   transition: transform 320ms ease, box-shadow 320ms ease, opacity 220ms ease;
+}
+
+.exibicao-slide:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 3px;
+  transform: translateY(-4px) scale(1.01);
 }
 
 .exibicao-slide::before {
@@ -477,12 +507,23 @@ body.details-active {
   height: 9px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   transition: transform var(--transition), background var(--transition);
 }
 
 .carousel-dot.active {
   transform: scale(1.15);
   background: var(--accent);
+}
+
+.carousel-dot:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 2px;
 }
 
 .details-hero {
@@ -694,6 +735,19 @@ body.details-active {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .screen {
+    animation: none;
+  }
 }
 
 @media (min-width: 640px) {

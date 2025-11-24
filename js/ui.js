@@ -289,6 +289,7 @@ export function initUI(startCallback) {
   const carouselNext = document.getElementById("carousel-next");
   const carouselTitle = document.getElementById("carousel-title");
   const carouselDescription = document.getElementById("carousel-description");
+  const carouselInfo = document.getElementById("carousel-info");
   const viewDetailsBtn = document.getElementById("view-details-btn");
   const carouselIndicators = document.getElementById("carousel-indicators");
 
@@ -339,12 +340,33 @@ export function initUI(startCallback) {
     return { screen: ROUTES.INTRO };
   }
 
+  function focusHeading(screenEl) {
+    const heading = screenEl?.querySelector("h1, h2, h3");
+    if (!heading) return;
+
+    const previousTabIndex = heading.getAttribute("tabindex");
+    heading.setAttribute("tabindex", "-1");
+    heading.focus({ preventScroll: true });
+    heading.addEventListener(
+      "blur",
+      () => {
+        if (previousTabIndex) {
+          heading.setAttribute("tabindex", previousTabIndex);
+          return;
+        }
+        heading.removeAttribute("tabindex");
+      },
+      { once: true },
+    );
+  }
+
   function setActiveScreen(screenEl) {
     screens.forEach((screen) => {
-      if (screen === screenEl) {
-        screen.classList.add("active");
-      } else {
-        screen.classList.remove("active");
+      const isActive = screen === screenEl;
+      screen.classList.toggle("active", isActive);
+      screen.setAttribute("aria-hidden", String(!isActive));
+      if (isActive) {
+        focusHeading(screen);
       }
     });
 
@@ -404,8 +426,10 @@ export function initUI(startCallback) {
   }
 
   const slides = exibicoes.map((exibicao, index) => {
-    const slide = document.createElement("article");
+    const slide = document.createElement("button");
     slide.className = "exibicao-slide";
+    slide.type = "button";
+    slide.setAttribute("aria-label", `Explorar ${exibicao.titulo}`);
     slide.style.background = `url(${coverImageFor(exibicao)}) center/cover no-repeat`;
 
     slide.innerHTML = `
@@ -420,9 +444,11 @@ export function initUI(startCallback) {
     return slide;
   });
 
-  const dots = exibicoes.map((_, index) => {
-    const dot = document.createElement("div");
+  const dots = exibicoes.map((exibicao, index) => {
+    const dot = document.createElement("button");
+    dot.type = "button";
     dot.className = "carousel-dot";
+    dot.setAttribute("aria-label", `Ir para ${exibicao.titulo}`);
     dot.addEventListener("click", () => goToSlide(index));
     carouselIndicators.appendChild(dot);
     return dot;
@@ -441,14 +467,22 @@ export function initUI(startCallback) {
   function updateCarouselUI() {
     slides.forEach((slide, idx) => {
       slide.classList.toggle("active", idx === currentIndex);
+      slide.setAttribute("aria-current", idx === currentIndex ? "true" : "false");
     });
     dots.forEach((dot, idx) => {
       dot.classList.toggle("active", idx === currentIndex);
+      dot.setAttribute("aria-current", idx === currentIndex ? "true" : "false");
     });
 
     currentExibicao = exibicoes[currentIndex];
     carouselTitle.textContent = currentExibicao.titulo;
     carouselDescription.textContent = currentExibicao.descricao;
+    if (carouselInfo) {
+      carouselInfo.setAttribute(
+        "aria-label",
+        `Exposição ${currentExibicao.titulo}. ${currentExibicao.descricao}`,
+      );
+    }
   }
 
   function goToSlide(index, { behavior } = { behavior: "smooth" }) {
@@ -476,12 +510,22 @@ export function initUI(startCallback) {
     return closestIndex;
   }
 
+  let scrollRaf = null;
+
   function syncCarouselToScroll() {
     const nearestIndex = nearestSlideFromScroll();
     if (nearestIndex !== currentIndex) {
       currentIndex = nearestIndex;
       updateCarouselUI();
     }
+  }
+
+  function onCarouselScroll() {
+    if (scrollRaf) return;
+    scrollRaf = requestAnimationFrame(() => {
+      scrollRaf = null;
+      syncCarouselToScroll();
+    });
   }
 
   function showExibicao(exibicao, { updateHistory = true, replace = false } = {}) {
@@ -531,7 +575,7 @@ export function initUI(startCallback) {
   window.addEventListener("resize", () => centerCurrentSlide("auto"));
 
   if (carouselWindow) {
-    carouselWindow.addEventListener("scroll", syncCarouselToScroll, {
+    carouselWindow.addEventListener("scroll", onCarouselScroll, {
       passive: true,
     });
   }

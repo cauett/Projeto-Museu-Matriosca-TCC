@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <title>Casa de Saberes Cego Aderaldo - Museu Matriosca</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Experiência acessível e imersiva do Museu Matriosca com exposições em realidade aumentada."
+    />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap"
@@ -12,10 +16,11 @@
     <script type="module" src="js/main.js"></script>
   </head>
   <body>
-    <div id="ui">
+    <a class="skip-link" href="#ui">Pular para o conteúdo principal</a>
+    <main id="ui" role="main" aria-label="Navegação pelas exposições" tabindex="-1">
       <div id="gallery-ui">
         <!-- Tela inicial -->
-        <section id="intro-screen" class="screen active">
+        <section id="intro-screen" class="screen active" tabindex="-1">
           <div class="intro-card">
             <div class="intro-hero">
               <img
@@ -25,7 +30,7 @@
               />
               <div class="intro-text">
                 <p class="eyebrow">Casa de Saberes Cego Aderaldo</p>
-                <h1>Museu Matriosca</h1>
+                <h1 id="intro-title">Museu Matriosca</h1>
                 <p class="subtitle">
                   Uma jornada pelo acervo de 2025 com arte e realidade aumentada.
                 </p>
@@ -38,7 +43,12 @@
         </section>
 
         <!-- Carrossel das exposições -->
-        <section id="carousel-screen" class="screen">
+        <section
+          id="carousel-screen"
+          class="screen"
+          aria-label="Seleção de exposições"
+          tabindex="-1"
+        >
           <header class="screen-header">
             <h2>Escolha a exposição</h2>
           </header>
@@ -61,16 +71,21 @@
             <span class="pulse"></span>
             <span>Arraste para escolher a exposição</span>
           </div>
-          <div id="carousel-info">
+          <div id="carousel-info" aria-live="polite" aria-atomic="true">
             <h3 id="carousel-title"></h3>
             <p id="carousel-description"></p>
             <button id="view-details-btn" type="button">Explorar exposição</button>
           </div>
-          <div id="carousel-indicators" aria-hidden="true"></div>
+          <div id="carousel-indicators" aria-label="Navegação do carrossel"></div>
         </section>
 
         <!-- Detalhes da exposição selecionada -->
-        <section id="details-screen" class="screen">
+        <section
+          id="details-screen"
+          class="screen"
+          aria-label="Detalhes da exposição selecionada"
+          tabindex="-1"
+        >
           <header class="screen-header">
             <button id="voltar-btn" class="ghost-btn" type="button">
               ← Exposições
@@ -87,11 +102,13 @@
             <!-- Obras e autores aparecem aqui -->
           </div>
           <div id="start-wrapper">
-            <button id="start-ar-btn" type="button"></button>
-            <span class="start-label">Iniciar experiência em RA</span>
+            <button id="start-ar-btn" type="button" aria-describedby="start-label">
+              <span class="sr-only">Iniciar experiência em realidade aumentada</span>
+            </button>
+            <span id="start-label" class="start-label">Iniciar experiência em RA</span>
           </div>
         </section>
       </div>
-    </div>
+    </main>
   </body>
 </html>
