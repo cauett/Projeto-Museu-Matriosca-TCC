@@ -137,12 +137,12 @@ const avesCearensesObras = [
   {
     titulo: "Aves Cearenses 04",
     arquivo: "aves-cearenses/ave-4.jpeg",
-    position: { x: -0.8, y: 0, z: -0.025 },
+    position: { x: -0.9, y: 0, z: -0.025 },
   },
   {
     titulo: "Aves Cearenses 05",
     arquivo: "aves-cearenses/ave-5.jpeg",
-    position: { x: -0.4, y: 0, z: -0.025 },
+    position: { x: -0.45, y: 0, z: -0.025 },
   },
   {
     titulo: "Aves Cearenses 06",
@@ -152,24 +152,24 @@ const avesCearensesObras = [
   {
     titulo: "Aves Cearenses 07",
     arquivo: "aves-cearenses/ave-7.jpeg",
-    position: { x: 0.4, y: 0, z: -0.025 },
+    position: { x: 0.45, y: 0, z: -0.025 },
   },
   {
     titulo: "Aves Cearenses 08",
     arquivo: "aves-cearenses/ave-8.jpeg",
-    position: { x: 0.8, y: 0, z: -0.025 },
+    position: { x: 0.9, y: 0, z: -0.025 },
   },
 
   // Linha inferior (2 quadros com espaço central)
   {
     titulo: "Aves Cearenses 09",
     arquivo: "aves-cearenses/ave-9.jpeg",
-    position: { x: -0.58, y: -0.46, z: -0.025 },
+    position: { x: -0.55, y: -0.46, z: -0.025 },
   },
   {
     titulo: "Aves Cearenses 10",
     arquivo: "aves-cearenses/ave-10.jpeg",
-    position: { x: 0.58, y: -0.46, z: -0.025 },
+    position: { x: 0.55, y: -0.46, z: -0.025 },
   },
 ];
 
@@ -327,7 +327,7 @@ export const exibicoes = [
     id: "exibicao4",
     titulo: "Retratos do Voo — Aves Cearenses",
     descricao:
-      "A exposição convida o público a contemplar a beleza e a diversidade das aves que habitam o Ceará, celebrando o amor pela avifauna e o compromisso com a natureza local. Cada desenho registra e compartilha o encanto dessas espécies, reforçando a conexão entre arte, natureza e cultura. Curadoria e desenhos: Alefe Queiroz.",
+      "Mostra que convida o público a contemplar a beleza e a diversidade das aves que habitam o Ceará, celebrando o amor pela avifauna e o cuidado com a natureza local.",
     obras: mapObras(avesCearensesObras, {
       autor: avesCearensesAutor,
       size: AVES_CEARENSES_OBRA_SIZE,
