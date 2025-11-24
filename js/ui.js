@@ -56,7 +56,7 @@ const linhasDaVidaObras = [
 // Exposição "Sertão Monumental"
 const sertaoAutor = "Acervo Sertão Monumental";
 const sertaoMonumentalObras = [
-  // === Linha 1 — ORDEM INVERTIDA, MAIS PRÓXIMA AO CENTRO ===
+  // === Linha 1
   {
     titulo: "Ponte Metálica de Quixeramobim",
     arquivo: "sertao-monumental/sertao-02.jpeg",
@@ -68,7 +68,7 @@ const sertaoMonumentalObras = [
     position: { x: 0.38, y: 0.36, z: -0.025 }, // y antes: 0.50
   },
 
-  // === Linha 2 — CENTRAL ===
+  // === Linha 2
   {
     titulo: "Açude Cedro",
     arquivo: "sertao-monumental/sertao-05.jpeg",
@@ -90,7 +90,7 @@ const sertaoMonumentalObras = [
     position: { x: 0.78, y: 0.0, z: -0.025 },
   },
 
-  // === Linha 3 — ORDEM INVERTIDA, MAIS PRÓXIMA AO CENTRO ===
+  // === Linha 3
   {
     titulo: "Geossítio Pedra do Letreiro",
     arquivo: "sertao-monumental/sertao-10.jpeg",
@@ -118,58 +118,58 @@ const avesCearensesAutor = "Alefe Queiroz";
 const avesCearensesObras = [
   // Linha superior (3 quadros)
   {
-    titulo: "Aves Cearenses 01",
+    titulo: "Sucuruá-de-barriga-vermelha",
     arquivo: "aves-cearenses/ave-1.jpeg",
-    position: { x: -0.58, y: 0.46, z: -0.025 },
+    position: { x: -0.58, y: 0.54, z: -0.025 },
   },
   {
-    titulo: "Aves Cearenses 02",
+    titulo: "Pica-pau ocráceo",
     arquivo: "aves-cearenses/ave-2.jpeg",
-    position: { x: 0, y: 0.46, z: -0.025 },
+    position: { x: 0, y: 0.54, z: -0.025 },
   },
   {
-    titulo: "Aves Cearenses 03",
+    titulo: "Carcará",
     arquivo: "aves-cearenses/ave-3.jpeg",
-    position: { x: 0.58, y: 0.46, z: -0.025 },
+    position: { x: 0.58, y: 0.54, z: -0.025 },
   },
 
   // Linha central (5 quadros)
   {
-    titulo: "Aves Cearenses 04",
+    titulo: "Rabo-branco-rubro",
     arquivo: "aves-cearenses/ave-4.jpeg",
     position: { x: -0.96, y: 0, z: -0.025 },
   },
   {
-    titulo: "Aves Cearenses 05",
+    titulo: "Chorozinho-da-caatinga",
     arquivo: "aves-cearenses/ave-5.jpeg",
     position: { x: -0.48, y: 0, z: -0.025 },
   },
   {
-    titulo: "Aves Cearenses 06",
+    titulo: "Urutau",
     arquivo: "aves-cearenses/ave-6.jpeg",
     position: { x: 0, y: 0, z: -0.025 },
   },
   {
-    titulo: "Aves Cearenses 07",
+    titulo: "Pompeu",
     arquivo: "aves-cearenses/ave-7.jpeg",
     position: { x: 0.48, y: 0, z: -0.025 },
   },
   {
-    titulo: "Aves Cearenses 08",
+    titulo: "Cara-suja",
     arquivo: "aves-cearenses/ave-8.jpeg",
     position: { x: 0.96, y: 0, z: -0.025 },
   },
 
-  // Linha inferior (2 quadros com espaço central)
+  // Linha inferior (2 quadros)
   {
-    titulo: "Aves Cearenses 09",
+    titulo: "Picapauzinho-da-caatinga",
     arquivo: "aves-cearenses/ave-9.jpeg",
-    position: { x: -0.48, y: -0.46, z: -0.025 },
+    position: { x: -0.48, y: -0.54, z: -0.025 },
   },
   {
-    titulo: "Aves Cearenses 10",
+    titulo: "Bacurauzinho-da-caatinga",
     arquivo: "aves-cearenses/ave-10.jpeg",
-    position: { x: 0.48, y: -0.46, z: -0.025 },
+    position: { x: 0.48, y: -0.54, z: -0.025 },
   },
 ];
 
@@ -325,7 +325,7 @@ export const exibicoes = [
   },
   {
     id: "exibicao4",
-    titulo: "Retratos do Voo — Aves Cearenses",
+    titulo: "Retratos do Voo",
     descricao:
       "Mostra que convida o público a contemplar a beleza e a diversidade das aves que habitam o Ceará, celebrando o amor pela avifauna e o cuidado com a natureza local.",
     obras: mapObras(avesCearensesObras, {
