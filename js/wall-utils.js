@@ -426,9 +426,9 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
       frameGroup.position.set(position.x, position.y, position.z);
       frameGroup.rotation.y = Math.PI;
 
-      const frameThickness = 0.026;
+      const frameThickness = 0.018;
       const frameDepth = Math.max(nSize.d ?? 0.032, 0.032) + 0.014;
-      const matOverlap = 0.014;
+      const matOverlap = 0.012;
 
       const outerW = nSize.w + frameThickness * 2;
       const outerH = nSize.h + frameThickness * 2;
