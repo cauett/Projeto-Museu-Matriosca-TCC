@@ -6,6 +6,8 @@ export const TESOUROS_VIVOS_OBRA_SIZE = { w: 0.18, h: 0.18, d: 0.028 };
 const AVES_CEARENSES_OBRA_SIZE = { w: 0.32, h: 0.42, d: 0.038 };
 const COTIDIANO_OBRA_SIZE = { w: 0.32, h: 0.42, d: 0.035 };
 const COTIDIANO_MIDDLE_SIZE = { w: 0.36, h: 0.47, d: 0.035 };
+const QUIXADA_VERTICAL_SIZE = { w: 0.52, h: 0.92, d: 0.04 };
+const QUIXADA_HORIZONTAL_SIZE = { w: 1.24, h: 0.74, d: 0.04 };
 
 
 function mapObras(
@@ -358,6 +360,32 @@ const tesourosVivosObras = [
   },
 ];
 
+// Exposição "Quixadá Fantástico"
+const quixadaFantasticoAutor = "Bruno Joe";
+const quixadaFantasticoObras = [
+  {
+    titulo: "Fantasia 1",
+    arquivo: "quixas-fantastico/fantasia-1.jpeg",
+    autor: quixadaFantasticoAutor,
+    position: { x: -0.98, y: 0.08, z: -0.025 },
+    size: QUIXADA_VERTICAL_SIZE,
+  },
+  {
+    titulo: "Fantasia 2",
+    arquivo: "quixas-fantastico/fantasia-2.jpeg",
+    autor: quixadaFantasticoAutor,
+    position: { x: 0, y: 0.08, z: -0.025 },
+    size: QUIXADA_HORIZONTAL_SIZE,
+  },
+  {
+    titulo: "Fantasia 3",
+    arquivo: "quixas-fantastico/fantasia-3.jpeg",
+    autor: quixadaFantasticoAutor,
+    position: { x: 0.98, y: 0.08, z: -0.025 },
+    size: QUIXADA_VERTICAL_SIZE,
+  },
+];
+
 // Export das exposições (usando o mapper genérico)
 export const exibicoes = [
   {
@@ -412,6 +440,17 @@ export const exibicoes = [
       size: COTIDIANO_OBRA_SIZE,
     }),
     quadroTipo: "molduraPreta",
+  },
+  {
+    id: "exibicao6",
+    titulo: "Quixadá Fantástico",
+    descricao:
+      "Cartografia afetiva e surreal de paisagens icônicas de Quixadá, pintadas com cores vibrantes que misturam mito e sertão.",
+    obras: mapObras(quixadaFantasticoObras, {
+      autor: quixadaFantasticoAutor,
+    }),
+    quadroTipo: "molduraMadeira",
+    autoSpread: false,
   },
 ];
 
