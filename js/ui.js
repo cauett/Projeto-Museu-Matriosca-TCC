@@ -404,7 +404,7 @@ export const exibicoes = [
     id: "exibicao5",
     titulo: "Cotidiano",
     descricao:
-      "Sequência de fotografias que revela, com delicadeza, como o comum guarda camadas de afeto e memória — convite de Fábricia Teodoro para notar o extraordinário nas pequenas repetições do dia a dia.",
+      "Sequência de fotografias que revela, com delicadeza, como o comum guarda camadas de afeto e memória.",
     obras: mapObras(cotidianoObras, {
       autor: cotidianoAutor,
       size: COTIDIANO_OBRA_SIZE,
