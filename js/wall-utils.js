@@ -22,7 +22,8 @@ export function setExibicaoAtiva(exibicao) {
 }
 
 export function onSelect() {
-  if (reticle.visible && !wallPlaced && exibicaoAtiva) {
+  if (reticle.visible && !wallPlaced) {
+    const exibicao = exibicaoAtiva ?? { obras: [], quadroTipo: "moldura" };
     const wallTexture = getWallTextureFromVideo(THREE);
 
     const wall = new THREE.Mesh(
@@ -64,8 +65,8 @@ export function onSelect() {
     const group = new THREE.Group();
     wall.add(group);
 
-    const quadroTipo = exibicaoAtiva.quadroTipo ?? "moldura";
-    const obras = exibicaoAtiva.obras;
+    const quadroTipo = exibicao.quadroTipo ?? "moldura";
+    const obras = exibicao.obras ?? [];
 
     obras.forEach((obra, idx) => {
       // micro nudge em Z para evitar z-fighting
@@ -86,7 +87,7 @@ export function onSelect() {
     });
 
     // distribuição automática: centrada e com gap uniforme
-    if (exibicaoAtiva.autoSpread !== false) {
+    if (obras.length > 0 && exibicao.autoSpread !== false) {
       spreadByRows(group, {
         minGapX: "auto", // gap calculado a partir da largura média
         rowSnap: 0.08, // tolerância de agrupamento por Y

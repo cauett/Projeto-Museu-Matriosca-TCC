@@ -1,5 +1,69 @@
 export let video, canvas, ctx;
 
+// Detecta superfícies lisas com cor predominante para liberar o retículo
+// mesmo quando não há pontos de feature suficientes para o hit test.
+export function detectFlatWallPresence({
+  size = 64,
+  varianceThreshold = 420,
+  dominanceThreshold = 0.62,
+  tolerance = 16,
+} = {}) {
+  const w = video?.videoWidth;
+  const h = video?.videoHeight;
+  if (!w || !h) return { detected: false };
+
+  canvas.width = size;
+  canvas.height = size;
+
+  const half = size / 2;
+  ctx.drawImage(video, w / 2 - half, h / 2 - half, size, size, 0, 0, size, size);
+
+  const { data } = ctx.getImageData(0, 0, size, size);
+  const totalPixels = size * size;
+
+  let sumR = 0,
+    sumG = 0,
+    sumB = 0;
+
+  for (let i = 0; i < data.length; i += 4) {
+    sumR += data[i];
+    sumG += data[i + 1];
+    sumB += data[i + 2];
+  }
+
+  const avgR = sumR / totalPixels;
+  const avgG = sumG / totalPixels;
+  const avgB = sumB / totalPixels;
+
+  // Variância baixa indica poucos detalhes/ruído — provável parede lisa
+  let variance = 0;
+  let dominantCount = 0;
+
+  for (let i = 0; i < data.length; i += 4) {
+    const dr = data[i] - avgR;
+    const dg = data[i + 1] - avgG;
+    const db = data[i + 2] - avgB;
+
+    variance += dr * dr + dg * dg + db * db;
+
+    if (Math.abs(dr) < tolerance && Math.abs(dg) < tolerance && Math.abs(db) < tolerance) {
+      dominantCount++;
+    }
+  }
+
+  const normVariance = variance / totalPixels;
+  const dominantRatio = dominantCount / totalPixels;
+
+  const detected = normVariance < varianceThreshold && dominantRatio > dominanceThreshold;
+
+  return {
+    detected,
+    dominantRatio,
+    normVariance,
+    avgColor: { r: avgR, g: avgG, b: avgB },
+  };
+}
+
 export async function initVideoStream() {
   video = document.createElement("video");
   video.setAttribute("autoplay", "");
