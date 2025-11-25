@@ -1,12 +1,16 @@
 export let video, canvas, ctx;
 
+// estado suavizado para evitar flicker ao detectar paredes lisas
+let smoothConfidence = 0;
+
 // Detecta superfícies lisas com cor predominante para liberar o retículo
 // mesmo quando não há pontos de feature suficientes para o hit test.
 export function detectFlatWallPresence({
-  size = 64,
-  varianceThreshold = 420,
-  dominanceThreshold = 0.62,
-  tolerance = 16,
+  size = 96,
+  varianceThreshold = 2800,
+  dominanceThreshold = 0.45,
+  tolerance = 28,
+  smoothing = 0.82,
 } = {}) {
   const w = video?.videoWidth;
   const h = video?.videoHeight;
@@ -54,13 +58,24 @@ export function detectFlatWallPresence({
   const normVariance = variance / totalPixels;
   const dominantRatio = dominantCount / totalPixels;
 
-  const detected = normVariance < varianceThreshold && dominantRatio > dominanceThreshold;
+  // Combina uniformidade (baixa variância) e proporção dominante em uma confiança suavizada.
+  const uniformityScore = Math.max(0, 1 - normVariance / varianceThreshold);
+  const dominanceScore = Math.min(1, dominantRatio / (dominanceThreshold || 1));
+  const rawConfidence = 0.6 * uniformityScore + 0.4 * dominanceScore;
+
+  smoothConfidence = smoothing * smoothConfidence + (1 - smoothing) * rawConfidence;
+
+  const detected =
+    smoothConfidence > 0.55 ||
+    (uniformityScore > 0.75 && dominantRatio > dominanceThreshold * 0.9);
 
   return {
     detected,
     dominantRatio,
     normVariance,
     avgColor: { r: avgR, g: avgG, b: avgB },
+    smoothConfidence,
+    uniformityScore,
   };
 }
 
