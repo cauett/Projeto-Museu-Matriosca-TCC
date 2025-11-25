@@ -6,8 +6,8 @@ export const TESOUROS_VIVOS_OBRA_SIZE = { w: 0.18, h: 0.18, d: 0.028 };
 const AVES_CEARENSES_OBRA_SIZE = { w: 0.32, h: 0.42, d: 0.038 };
 const COTIDIANO_OBRA_SIZE = { w: 0.32, h: 0.42, d: 0.035 };
 const COTIDIANO_MIDDLE_SIZE = { w: 0.36, h: 0.47, d: 0.035 };
-const QUIXADA_VERTICAL_SIZE = { w: 0.38, h: 0.62, d: 0.04 };
-const QUIXADA_HORIZONTAL_SIZE = { w: 0.9, h: 0.5, d: 0.04 };
+const QUIXADA_VERTICAL_SIZE = { w: 0.52, h: 0.92, d: 0.04 };
+const QUIXADA_HORIZONTAL_SIZE = { w: 1.24, h: 0.74, d: 0.04 };
 
 
 function mapObras(
@@ -367,7 +367,7 @@ const quixadaFantasticoObras = [
     titulo: "Fantasia 1",
     arquivo: "quixas-fantastico/fantasia-1.jpeg",
     autor: quixadaFantasticoAutor,
-    position: { x: -0.7, y: 0.08, z: -0.025 },
+    position: { x: -0.98, y: 0.08, z: -0.025 },
     size: QUIXADA_VERTICAL_SIZE,
   },
   {
@@ -381,7 +381,7 @@ const quixadaFantasticoObras = [
     titulo: "Fantasia 3",
     arquivo: "quixas-fantastico/fantasia-3.jpeg",
     autor: quixadaFantasticoAutor,
-    position: { x: 0.7, y: 0.08, z: -0.025 },
+    position: { x: 0.98, y: 0.08, z: -0.025 },
     size: QUIXADA_VERTICAL_SIZE,
   },
 ];
