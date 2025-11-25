@@ -8,13 +8,13 @@ let smoothConfidence = 0;
 export function detectFlatWallPresence({
   size = 156,
   tiles = 3,
-  edgeThreshold = 16,
-  edgeDensityMax = 0.18,
-  luminanceVarianceMax = 6600,
-  chromaVarianceMax = 2800,
-  tileEdgeMax = 0.22,
-  tileVarianceMax = 8800,
-  smoothing = 0.78,
+  edgeThreshold = 14,
+  edgeDensityMax = 0.2,
+  luminanceVarianceMax = 6800,
+  chromaVarianceMax = 3200,
+  tileEdgeMax = 0.23,
+  tileVarianceMax = 9200,
+  smoothing = 0.8,
 } = {}) {
   const w = video?.videoWidth;
   const h = video?.videoHeight;
@@ -23,8 +23,11 @@ export function detectFlatWallPresence({
   canvas.width = size;
   canvas.height = size;
 
-  const half = size / 2;
-  ctx.drawImage(video, w / 2 - half, h / 2 - half, size, size, 0, 0, size, size);
+  // usa o maior quadrado possível do frame para cobrir a parede inteira vista pela câmera
+  const sampleSide = Math.min(w, h);
+  const offsetX = (w - sampleSide) / 2;
+  const offsetY = (h - sampleSide) / 2;
+  ctx.drawImage(video, offsetX, offsetY, sampleSide, sampleSide, 0, 0, size, size);
 
   const { data } = ctx.getImageData(0, 0, size, size);
   const totalPixels = size * size;
@@ -163,21 +166,24 @@ export function detectFlatWallPresence({
   const chromaSmoothness = Math.max(0, 1 - normChromaVariance / chromaVarianceMax);
   const edgeSimplicity = Math.max(0, 1 - edgeDensity / edgeDensityMax);
   const surfaceCoverage = Math.min(1, (coverageLowEdge + coverageLowVariance) / 2);
+  const coverageBoost = surfaceCoverage > 0.72 ? 0.08 : 0;
 
   // Peso maior para uniformidade, ausência de bordas e cobertura espacial.
   const rawConfidence =
-    0.32 * uniformityScore +
-    0.3 * edgeSimplicity +
-    0.22 * surfaceCoverage +
-    0.16 * chromaSmoothness;
+    0.3 * uniformityScore +
+    0.28 * edgeSimplicity +
+    0.24 * surfaceCoverage +
+    0.18 * chromaSmoothness +
+    coverageBoost;
 
   smoothConfidence = smoothing * smoothConfidence + (1 - smoothing) * rawConfidence;
 
+  const coverageStrong = surfaceCoverage > 0.7 && edgeSimplicity > 0.5;
   const detected =
-    smoothConfidence > 0.5 ||
-    (surfaceCoverage > 0.66 && edgeSimplicity > 0.58) ||
-    (uniformityScore > 0.62 && surfaceCoverage > 0.55) ||
-    (edgeDensity < edgeDensityMax * 0.92 && normLumVariance < luminanceVarianceMax * 0.92);
+    smoothConfidence > 0.48 ||
+    coverageStrong ||
+    (uniformityScore > 0.6 && surfaceCoverage > 0.56) ||
+    (edgeDensity < edgeDensityMax * 0.95 && normLumVariance < luminanceVarianceMax * 0.95);
 
   return {
     detected,
