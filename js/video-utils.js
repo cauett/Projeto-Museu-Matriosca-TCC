@@ -6,12 +6,15 @@ let smoothConfidence = 0;
 // Detecta superfícies lisas de forma mais robusta, usando luminância, bordas e
 // variação cromática em vez de depender de uma cor sólida específica.
 export function detectFlatWallPresence({
-  size = 128,
-  edgeThreshold = 18,
-  edgeDensityMax = 0.14,
-  luminanceVarianceMax = 5400,
-  chromaVarianceMax = 2200,
-  smoothing = 0.86,
+  size = 156,
+  tiles = 3,
+  edgeThreshold = 16,
+  edgeDensityMax = 0.18,
+  luminanceVarianceMax = 6600,
+  chromaVarianceMax = 2800,
+  tileEdgeMax = 0.22,
+  tileVarianceMax = 8800,
+  smoothing = 0.78,
 } = {}) {
   const w = video?.videoWidth;
   const h = video?.videoHeight;
@@ -93,19 +96,88 @@ export function detectFlatWallPresence({
 
   const edgeDensity = strongEdges / totalPixels;
 
+  // Avalia textura local em um grid (tiles) para garantir que qualquer região ampla
+  // da parede seja reconhecida, não apenas o centro.
+  const tileSize = Math.floor(size / tiles);
+  let tilesLowEdge = 0;
+  let tilesLowVariance = 0;
+
+  for (let ty = 0; ty < tiles; ty++) {
+    for (let tx = 0; tx < tiles; tx++) {
+      let tileEdges = 0;
+      let tileLumVar = 0;
+      let tileCount = 0;
+
+      // média local
+      let tileSumL = 0;
+      for (let y = 1; y < tileSize - 1; y++) {
+        for (let x = 1; x < tileSize - 1; x++) {
+          const gx = tx * tileSize + x;
+          const gy = ty * tileSize + y;
+          const idx = gy * width + gx;
+          const l = luminances[idx];
+          tileSumL += l;
+          tileCount++;
+        }
+      }
+      const tileAvg = tileSumL / Math.max(tileCount, 1);
+
+      for (let y = 1; y < tileSize - 1; y++) {
+        for (let x = 1; x < tileSize - 1; x++) {
+          const gx = tx * tileSize + x;
+          const gy = ty * tileSize + y;
+          const idx = gy * width + gx;
+
+          const gxGrad =
+            -luminances[idx - width - 1] - 2 * luminances[idx - 1] -
+            luminances[idx + width - 1] +
+            luminances[idx - width + 1] + 2 * luminances[idx + 1] +
+            luminances[idx + width + 1];
+          const gyGrad =
+            -luminances[idx - width - 1] - 2 * luminances[idx - width] -
+            luminances[idx - width + 1] +
+            luminances[idx + width - 1] + 2 * luminances[idx + width] +
+            luminances[idx + width + 1];
+          const mag = Math.abs(gxGrad) + Math.abs(gyGrad);
+          if (mag > edgeThreshold) tileEdges++;
+
+          const d = luminances[idx] - tileAvg;
+          tileLumVar += d * d;
+        }
+      }
+
+      const tilePixels = (tileSize - 2) * (tileSize - 2);
+      const tileEdgeDensity = tileEdges / Math.max(tilePixels, 1);
+      const tileVariance = tileLumVar / Math.max(tilePixels, 1);
+
+      if (tileEdgeDensity < tileEdgeMax) tilesLowEdge++;
+      if (tileVariance < tileVarianceMax) tilesLowVariance++;
+    }
+  }
+
+  const tilesSampled = tiles * tiles;
+  const coverageLowEdge = tilesLowEdge / tilesSampled;
+  const coverageLowVariance = tilesLowVariance / tilesSampled;
+
   const uniformityScore = Math.max(0, 1 - normLumVariance / luminanceVarianceMax);
   const chromaSmoothness = Math.max(0, 1 - normChromaVariance / chromaVarianceMax);
   const edgeSimplicity = Math.max(0, 1 - edgeDensity / edgeDensityMax);
+  const surfaceCoverage = Math.min(1, (coverageLowEdge + coverageLowVariance) / 2);
 
-  // Peso maior para uniformidade e ausência de bordas, cromática apenas suaviza.
-  const rawConfidence = 0.45 * uniformityScore + 0.4 * edgeSimplicity + 0.15 * chromaSmoothness;
+  // Peso maior para uniformidade, ausência de bordas e cobertura espacial.
+  const rawConfidence =
+    0.32 * uniformityScore +
+    0.3 * edgeSimplicity +
+    0.22 * surfaceCoverage +
+    0.16 * chromaSmoothness;
 
   smoothConfidence = smoothing * smoothConfidence + (1 - smoothing) * rawConfidence;
 
   const detected =
-    smoothConfidence > 0.52 ||
-    (uniformityScore > 0.7 && edgeSimplicity > 0.65) ||
-    (edgeDensity < edgeDensityMax * 0.75 && normLumVariance < luminanceVarianceMax * 0.9);
+    smoothConfidence > 0.5 ||
+    (surfaceCoverage > 0.66 && edgeSimplicity > 0.58) ||
+    (uniformityScore > 0.62 && surfaceCoverage > 0.55) ||
+    (edgeDensity < edgeDensityMax * 0.92 && normLumVariance < luminanceVarianceMax * 0.92);
 
   return {
     detected,
@@ -116,6 +188,7 @@ export function detectFlatWallPresence({
     normLumVariance,
     normChromaVariance,
     smoothConfidence,
+    surfaceCoverage,
     avgColor: { r: avgR, g: avgG, b: avgB },
   };
 }
