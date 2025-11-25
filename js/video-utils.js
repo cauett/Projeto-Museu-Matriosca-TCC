@@ -3,14 +3,15 @@ export let video, canvas, ctx;
 // estado suavizado para evitar flicker ao detectar paredes lisas
 let smoothConfidence = 0;
 
-// Detecta superfícies lisas com cor predominante para liberar o retículo
-// mesmo quando não há pontos de feature suficientes para o hit test.
+// Detecta superfícies lisas de forma mais robusta, usando luminância, bordas e
+// variação cromática em vez de depender de uma cor sólida específica.
 export function detectFlatWallPresence({
-  size = 96,
-  varianceThreshold = 2800,
-  dominanceThreshold = 0.45,
-  tolerance = 28,
-  smoothing = 0.82,
+  size = 128,
+  edgeThreshold = 18,
+  edgeDensityMax = 0.14,
+  luminanceVarianceMax = 5400,
+  chromaVarianceMax = 2200,
+  smoothing = 0.86,
 } = {}) {
   const w = video?.videoWidth;
   const h = video?.videoHeight;
@@ -25,57 +26,97 @@ export function detectFlatWallPresence({
   const { data } = ctx.getImageData(0, 0, size, size);
   const totalPixels = size * size;
 
+  // Pré-calcula luminância para medir variação de intensidade independente de cor.
+  const luminances = new Float32Array(totalPixels);
+  let sumL = 0;
   let sumR = 0,
     sumG = 0,
     sumB = 0;
 
-  for (let i = 0; i < data.length; i += 4) {
-    sumR += data[i];
-    sumG += data[i + 1];
-    sumB += data[i + 2];
+  for (let i = 0, p = 0; i < data.length; i += 4, p++) {
+    const r = data[i];
+    const g = data[i + 1];
+    const b = data[i + 2];
+    const l = 0.299 * r + 0.587 * g + 0.114 * b;
+
+    luminances[p] = l;
+    sumL += l;
+    sumR += r;
+    sumG += g;
+    sumB += b;
   }
 
+  const avgL = sumL / totalPixels;
   const avgR = sumR / totalPixels;
   const avgG = sumG / totalPixels;
   const avgB = sumB / totalPixels;
 
-  // Variância baixa indica poucos detalhes/ruído — provável parede lisa
-  let variance = 0;
-  let dominantCount = 0;
+  // Variação de luminância: baixa textura = parede lisa mesmo com sombra suave.
+  let luminanceVar = 0;
+  for (let i = 0; i < luminances.length; i++) {
+    const d = luminances[i] - avgL;
+    luminanceVar += d * d;
+  }
+  const normLumVariance = luminanceVar / totalPixels;
 
+  // Variação cromática: paredes mudam de tom com sombra, então toleramos mais.
+  let chromaVar = 0;
   for (let i = 0; i < data.length; i += 4) {
     const dr = data[i] - avgR;
     const dg = data[i + 1] - avgG;
     const db = data[i + 2] - avgB;
+    chromaVar += dr * dr + dg * dg + db * db;
+  }
+  const normChromaVariance = chromaVar / totalPixels;
 
-    variance += dr * dr + dg * dg + db * db;
-
-    if (Math.abs(dr) < tolerance && Math.abs(dg) < tolerance && Math.abs(db) < tolerance) {
-      dominantCount++;
+  // Densidade de bordas: paredes lisas têm poucas bordas fortes.
+  let strongEdges = 0;
+  const width = size;
+  const height = size;
+  for (let y = 1; y < height - 1; y++) {
+    for (let x = 1; x < width - 1; x++) {
+      const idx = y * width + x;
+      const gx =
+        -luminances[idx - width - 1] - 2 * luminances[idx - 1] -
+        luminances[idx + width - 1] +
+        luminances[idx - width + 1] + 2 * luminances[idx + 1] +
+        luminances[idx + width + 1];
+      const gy =
+        -luminances[idx - width - 1] - 2 * luminances[idx - width] -
+        luminances[idx - width + 1] +
+        luminances[idx + width - 1] + 2 * luminances[idx + width] +
+        luminances[idx + width + 1];
+      const mag = Math.abs(gx) + Math.abs(gy);
+      if (mag > edgeThreshold) strongEdges++;
     }
   }
 
-  const normVariance = variance / totalPixels;
-  const dominantRatio = dominantCount / totalPixels;
+  const edgeDensity = strongEdges / totalPixels;
 
-  // Combina uniformidade (baixa variância) e proporção dominante em uma confiança suavizada.
-  const uniformityScore = Math.max(0, 1 - normVariance / varianceThreshold);
-  const dominanceScore = Math.min(1, dominantRatio / (dominanceThreshold || 1));
-  const rawConfidence = 0.6 * uniformityScore + 0.4 * dominanceScore;
+  const uniformityScore = Math.max(0, 1 - normLumVariance / luminanceVarianceMax);
+  const chromaSmoothness = Math.max(0, 1 - normChromaVariance / chromaVarianceMax);
+  const edgeSimplicity = Math.max(0, 1 - edgeDensity / edgeDensityMax);
+
+  // Peso maior para uniformidade e ausência de bordas, cromática apenas suaviza.
+  const rawConfidence = 0.45 * uniformityScore + 0.4 * edgeSimplicity + 0.15 * chromaSmoothness;
 
   smoothConfidence = smoothing * smoothConfidence + (1 - smoothing) * rawConfidence;
 
   const detected =
-    smoothConfidence > 0.55 ||
-    (uniformityScore > 0.75 && dominantRatio > dominanceThreshold * 0.9);
+    smoothConfidence > 0.52 ||
+    (uniformityScore > 0.7 && edgeSimplicity > 0.65) ||
+    (edgeDensity < edgeDensityMax * 0.75 && normLumVariance < luminanceVarianceMax * 0.9);
 
   return {
     detected,
-    dominantRatio,
-    normVariance,
-    avgColor: { r: avgR, g: avgG, b: avgB },
-    smoothConfidence,
+    edgeDensity,
     uniformityScore,
+    edgeSimplicity,
+    chromaSmoothness,
+    normLumVariance,
+    normChromaVariance,
+    smoothConfidence,
+    avgColor: { r: avgR, g: avgG, b: avgB },
   };
 }
 
