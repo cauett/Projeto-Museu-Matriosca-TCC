@@ -4,6 +4,9 @@ const DEFAULT_OBRA_SIZE = { w: 0.42, h: 0.42, d: 0.04 };
 const SERTAO_OBRA_SIZE = { w: 0.53, h: 0.34, d: 0.03 };
 export const TESOUROS_VIVOS_OBRA_SIZE = { w: 0.18, h: 0.18, d: 0.028 };
 const AVES_CEARENSES_OBRA_SIZE = { w: 0.32, h: 0.42, d: 0.038 };
+const COTIDIANO_OBRA_SIZE = { w: 0.32, h: 0.42, d: 0.035 };
+const COTIDIANO_MIDDLE_SIZE = { w: 0.36, h: 0.47, d: 0.035 };
+
 
 function mapObras(
   itens,
@@ -173,6 +176,70 @@ const avesCearensesObras = [
   },
 ];
 
+// Exposição "Cotidiano"
+const cotidianoAutor = "Fábricia Teodoro";
+const cotidianoObras = [
+  // Linha superior
+  {
+    titulo: "Cotidiano 1",
+    arquivo: "cotidiano/cotidiano-1.jpeg",
+    position: { x: -0.44, y: 0.5, z: -0.025 },
+    size: COTIDIANO_OBRA_SIZE,
+  },
+  {
+    titulo: "Cotidiano 2",
+    arquivo: "cotidiano/cotidiano-2.jpeg",
+    position: { x: 0, y: 0.5, z: -0.025 },
+    size: COTIDIANO_OBRA_SIZE,
+  },
+  {
+    titulo: "Cotidiano 3",
+    arquivo: "cotidiano/cotidiano-3.jpeg",
+    position: { x: 0.44, y: 0.5, z: -0.025 },
+    size: COTIDIANO_OBRA_SIZE,
+  },
+
+  // Linha do meio
+  {
+    titulo: "Cotidiano 4",
+    arquivo: "cotidiano/cotidiano-4.jpeg",
+    position: { x: -0.44, y: 0, z: -0.025 },
+    size: COTIDIANO_MIDDLE_SIZE,
+  },
+  {
+    titulo: "Cotidiano 5",
+    arquivo: "cotidiano/cotidiano-5.jpeg",
+    position: { x: 0, y: 0, z: -0.025 },
+    size: COTIDIANO_OBRA_SIZE,
+  },
+  {
+    titulo: "Cotidiano 6",
+    arquivo: "cotidiano/cotidiano-6.jpeg",
+    position: { x: 0.44, y: 0, z: -0.025 },
+    size: COTIDIANO_MIDDLE_SIZE,
+  },
+
+  // Linha inferior
+  {
+    titulo: "Cotidiano 7",
+    arquivo: "cotidiano/cotidiano-7.jpeg",
+    position: { x: -0.44, y: -0.5, z: -0.025 },
+    size: COTIDIANO_OBRA_SIZE,
+  },
+  {
+    titulo: "Cotidiano 8",
+    arquivo: "cotidiano/cotidiano-8.jpeg",
+    position: { x: 0, y: -0.5, z: -0.025 },
+    size: COTIDIANO_OBRA_SIZE,
+  },
+  {
+    titulo: "Cotidiano 9",
+    arquivo: "cotidiano/cotidiano-9.jpeg",
+    position: { x: 0.44, y: -0.5, z: -0.025 },
+    size: COTIDIANO_OBRA_SIZE,
+  },
+];
+
 // Exposição "Tesouros Vivos do Ceará"
 const tesourosVivosAutor = "Otávio Menezes";
 const tesourosVivosObras = [
@@ -334,6 +401,17 @@ export const exibicoes = [
     }),
     quadroTipo: "molduraMadeira",
     autoSpread: false,
+  },
+  {
+    id: "exibicao5",
+    titulo: "Cotidiano",
+    descricao:
+      "Sequência de fotografias que revela, com delicadeza, como o comum guarda camadas de afeto e memória.",
+    obras: mapObras(cotidianoObras, {
+      autor: cotidianoAutor,
+      size: COTIDIANO_OBRA_SIZE,
+    }),
+    quadroTipo: "molduraPreta",
   },
 ];
 
