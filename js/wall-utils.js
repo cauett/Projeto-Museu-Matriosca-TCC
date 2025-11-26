@@ -2,7 +2,7 @@
 let THREE, camera, scene, reticle;
 let wallPlaced = false;
 let exibicaoAtiva = null;
-let currentWall = null; // 👈 parede atual da sessão
+let currentWall = null; // parede atual da sessão
 
 import { getWallTextureFromVideo } from "./video-utils.js";
 
@@ -59,7 +59,7 @@ export function onSelect() {
     );
 
     scene.add(wall);
-    currentWall = wall; // 👈 guarda referência da parede atual
+    currentWall = wall; // guarda referência da parede atual
     wallPlaced = true;
     reticle.visible = false;
 
@@ -635,7 +635,7 @@ function addAutorLabel(
   parent.add(mesh);
 }
 
-// 🔥 limpa a parede atual e permite nova interação RA
+// limpa a parede atual e permite nova interação RA
 export function resetWall() {
   if (currentWall && scene) {
     scene.remove(currentWall);
