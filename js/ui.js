@@ -853,8 +853,8 @@ export function initUI(startCallback) {
     speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(texto);
     utterance.lang = "pt-BR";
-    utterance.rate = 0.96;
-    utterance.pitch = 1.0;
+    utterance.rate = 0.98;
+    utterance.pitch = 1.02;
     utterance.volume = 1;
 
     const voices = cachedVoices.length ? cachedVoices : await loadVoices();
