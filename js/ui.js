@@ -363,21 +363,21 @@ const tesourosVivosObras = [
 const quixadaFantasticoAutor = "Bruno Joe";
 const quixadaFantasticoObras = [
   {
-    titulo: "Fantasia 1",
+    titulo: "O Tempo (Pedra do Cruzeiro)",
     arquivo: "quixas-fantastico/fantasia-1.jpeg",
     autor: quixadaFantasticoAutor,
     position: { x: -0.98, y: 0.08, z: -0.025 },
     size: QUIXADA_VERTICAL_SIZE,
   },
   {
-    titulo: "Fantasia 2",
+    titulo: "A Noite (Cedro Fantástico)",
     arquivo: "quixas-fantastico/fantasia-2.jpeg",
     autor: quixadaFantasticoAutor,
     position: { x: 0, y: 0.08, z: -0.025 },
     size: QUIXADA_HORIZONTAL_SIZE,
   },
   {
-    titulo: "Fantasia 3",
+    titulo: "O Des-envolvimento (Pedra da Cabeça do Leão)",
     arquivo: "quixas-fantastico/fantasia-3.jpeg",
     autor: quixadaFantasticoAutor,
     position: { x: 0.98, y: 0.08, z: -0.025 },
