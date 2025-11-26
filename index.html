@@ -82,7 +82,16 @@
               <h2 id="exibicao-titulo"></h2>
               <p id="exibicao-descricao"></p>
               <button id="open-info-btn" class="info-chip" type="button">
-                <span aria-hidden="true">ℹ</span>
+                <svg
+                  aria-hidden="true"
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  focusable="false"
+                >
+                  <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" />
+                  <line x1="12" y1="10" x2="12" y2="16" stroke="currentColor" stroke-width="2" />
+                  <circle cx="12" cy="7" r="1.2" fill="currentColor" />
+                </svg>
                 <span>Informações</span>
               </button>
             </div>
@@ -113,12 +122,42 @@
                 <h3 id="info-modal-title"></h3>
               </div>
               <button id="info-audio-btn" type="button" class="info-audio-btn">
-                <span aria-hidden="true">🔊</span>
+                <svg
+                  aria-hidden="true"
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  focusable="false"
+                >
+                  <path
+                    d="M5 15V9h3.4L14 4.5V19.5L8.4 15H5z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M16.5 8.5c1 .9 1.5 2 1.5 3.5s-.5 2.6-1.5 3.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M18.5 6.5c1.6 1.4 2.5 3.2 2.5 5.5s-.9 4.1-2.5 5.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                  />
+                </svg>
                 <span class="sr-only">Ouvir texto curatorial</span>
               </button>
             </div>
-            <div id="info-metadata" class="info-modal__meta"></div>
-            <div id="info-modal-text" class="info-modal__body"></div>
+            <div class="info-modal__section">
+              <h4>Texto curatorial</h4>
+              <div id="info-modal-text" class="info-modal__body"></div>
+            </div>
+            <div class="info-modal__section">
+              <h4>Créditos</h4>
+              <dl id="info-credits" class="info-modal__credits"></dl>
+            </div>
           </div>
         </div>
 

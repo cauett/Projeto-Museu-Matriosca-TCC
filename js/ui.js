@@ -556,7 +556,7 @@ export function initUI(startCallback) {
   const infoModal = document.getElementById("info-modal");
   const infoModalTitle = document.getElementById("info-modal-title");
   const infoModalText = document.getElementById("info-modal-text");
-  const infoMetadata = document.getElementById("info-metadata");
+  const infoCredits = document.getElementById("info-credits");
   const infoAudioBtn = document.getElementById("info-audio-btn");
 
   let currentExibicao = exibicoes[0];
@@ -733,13 +733,15 @@ export function initUI(startCallback) {
     return [body, meta].filter(Boolean).join(". ").trim();
   }
 
-  function renderMetadata(metadata = []) {
-    if (!infoMetadata) return;
-    infoMetadata.innerHTML = "";
+  function renderCredits(metadata = []) {
+    if (!infoCredits) return;
+    infoCredits.innerHTML = "";
     metadata.forEach((item) => {
-      const line = document.createElement("div");
-      line.innerHTML = `<strong>${item.label}:</strong> <span>${item.value}</span>`;
-      infoMetadata.appendChild(line);
+      const dt = document.createElement("dt");
+      dt.textContent = item.label;
+      const dd = document.createElement("dd");
+      dd.textContent = item.value;
+      infoCredits.append(dt, dd);
     });
   }
 
@@ -765,8 +767,8 @@ export function initUI(startCallback) {
 
     stopInfoAudio();
     infoModalTitle.textContent = exibicao.titulo;
-    renderMetadata(info.metadata);
     renderInfoBody(info.curatorialText);
+    renderCredits(info.metadata);
     infoModal.classList.add("open");
     infoModal.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
@@ -792,8 +794,12 @@ export function initUI(startCallback) {
     const texto = buildAudioText(info);
     if (!texto) return;
 
+    speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(texto);
     utterance.lang = "pt-BR";
+    utterance.rate = 0.96;
+    utterance.pitch = 1.05;
+    utterance.volume = 0.94;
     const voices = speechSynthesis?.getVoices?.() ?? [];
     const femaleVoice = voices.find((v) =>
       /fem|woman|mulher/i.test(v.name) && v.lang.startsWith("pt"),
