@@ -6,6 +6,8 @@ import {
   configureWallUtils,
   isWallPlaced,
   setExibicaoAtiva,
+  updatePreviewWall,
+  hidePreviewWall,
   resetWall, // 👈 ADICIONADO AQUI
 } from "./wall-utils.js";
 import { initUI } from "./ui.js";
@@ -15,6 +17,27 @@ let hitTestSource = null;
 let localSpace = null;
 let referenceSpace = null;
 let arContainer = null;
+
+function getPlaneDimensions(plane) {
+  if (!plane?.polygon || plane.polygon.length < 3) return null;
+
+  let minX = Infinity;
+  let maxX = -Infinity;
+  let minZ = Infinity;
+  let maxZ = -Infinity;
+
+  plane.polygon.forEach((point) => {
+    minX = Math.min(minX, point.x);
+    maxX = Math.max(maxX, point.x);
+    minZ = Math.min(minZ, point.z);
+    maxZ = Math.max(maxZ, point.z);
+  });
+
+  return {
+    width: maxX - minX,
+    height: maxZ - minZ,
+  };
+}
 
 // callback que vem da UI (detalhes da exposição -> botão "Iniciar experiência em RA")
 initUI((exibicaoSelecionada) => {
@@ -104,7 +127,36 @@ function handleSessionEnd() {
   });
 
   renderer.setAnimationLoop((timestamp, frame) => {
-    if (frame && hitTestSource && referenceSpace) {
+    let planePreviewed = false;
+
+    if (frame && referenceSpace && !isWallPlaced()) {
+      const planes = frame.detectedPlanes;
+
+      if (planes && planes.size > 0) {
+        for (const plane of planes) {
+          if (plane.orientation !== "vertical") continue;
+
+          const pose = frame.getPose(plane.planeSpace, referenceSpace);
+          if (!pose) continue;
+
+          const bounds = getPlaneDimensions(plane);
+          const targetSize = bounds
+            ? {
+                w: Math.max(1, Math.min(2.8, bounds.width * 0.9)),
+                h: Math.max(0.8, Math.min(1.8, bounds.height * 0.9)),
+              }
+            : undefined;
+
+          updatePreviewWall(pose.transform.matrix, targetSize);
+          planePreviewed = true;
+          break;
+        }
+      }
+    }
+
+    if (planePreviewed) {
+      reticle.visible = false;
+    } else if (frame && hitTestSource && referenceSpace) {
       const hitTestResults = frame.getHitTestResults(hitTestSource);
 
       if (hitTestResults.length > 0 && !isWallPlaced()) {
@@ -115,7 +167,11 @@ function handleSessionEnd() {
         }
       } else {
         reticle.visible = false;
+        hidePreviewWall();
       }
+    } else {
+      hidePreviewWall();
+      reticle.visible = false;
     }
 
     renderer.render(scene, camera);

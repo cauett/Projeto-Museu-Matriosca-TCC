@@ -24,6 +24,7 @@ export async function setupARScene(THREE, ARButton, onSelect) {
   // Criar e esconder o ARButton para acionamento no novo botão
   const arButton = ARButton.createButton(renderer, {
     requiredFeatures: ["hit-test"],
+    optionalFeatures: ["plane-detection"],
   });
   arButton.id = "native-webxr-button";
   arButton.style.display = "none";

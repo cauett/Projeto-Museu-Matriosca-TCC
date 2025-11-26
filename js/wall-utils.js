@@ -3,6 +3,10 @@ let THREE, camera, scene, reticle;
 let wallPlaced = false;
 let exibicaoAtiva = null;
 let currentWall = null; // parede atual da sessão
+let previewWall = null;
+
+const DEFAULT_WALL_SIZE = { w: 2.5, h: 1.5 };
+let previewSize = { ...DEFAULT_WALL_SIZE };
 
 import { getWallTextureFromVideo } from "./video-utils.js";
 
@@ -22,77 +26,169 @@ export function setExibicaoAtiva(exibicao) {
   exibicaoAtiva = exibicao;
 }
 
+function resolveWallSize(size) {
+  return {
+    w: Math.max(0.8, size?.w ?? DEFAULT_WALL_SIZE.w),
+    h: Math.max(0.5, size?.h ?? DEFAULT_WALL_SIZE.h),
+  };
+}
+
+function matrixToArray(matrix) {
+  if (!matrix) return null;
+  if (Array.isArray(matrix)) return matrix;
+  if (matrix.elements) return matrix.elements;
+  return null;
+}
+
+function createWallWithArtworks({
+  matrix,
+  size,
+  opacity = 1,
+  faceCamera = true,
+}) {
+  if (!exibicaoAtiva) return null;
+
+  const finalSize = resolveWallSize(size);
+  const wallTexture = getWallTextureFromVideo(THREE);
+
+  const wall = new THREE.Mesh(
+    new THREE.PlaneGeometry(finalSize.w, finalSize.h),
+    new THREE.MeshStandardMaterial({
+      map: wallTexture,
+      color: wallTexture ? 0xffffff : 0xcccccc,
+      roughness: 0.8,
+      metalness: 0.1,
+      side: THREE.DoubleSide,
+      transparent: opacity < 1,
+      opacity,
+    }),
+  );
+  wall.receiveShadow = true;
+  wall.matrixAutoUpdate = true;
+
+  const matrixArray = matrixToArray(matrix);
+  if (matrixArray) {
+    if (faceCamera) {
+      const reticlePos = new THREE.Vector3().setFromMatrixPosition(
+        new THREE.Matrix4().fromArray(matrixArray),
+      );
+      const camPos = camera.getWorldPosition(new THREE.Vector3());
+      const lookDir = new THREE.Vector3().subVectors(camPos, reticlePos);
+      lookDir.y = 0;
+      lookDir.normalize();
+
+      wall.position.copy(reticlePos);
+      wall.quaternion.setFromRotationMatrix(
+        new THREE.Matrix4().lookAt(
+          new THREE.Vector3(0, 0, 0),
+          lookDir,
+          new THREE.Vector3(0, 1, 0),
+        ),
+      );
+      wall.updateMatrix();
+      wall.matrixAutoUpdate = false;
+    } else {
+      wall.matrix.fromArray(matrixArray);
+      wall.matrixAutoUpdate = false;
+    }
+  }
+
+  const group = new THREE.Group();
+  wall.add(group);
+
+  const quadroTipo = exibicaoAtiva.quadroTipo ?? "moldura";
+  const obras = exibicaoAtiva.obras;
+
+  obras.forEach((obra, idx) => {
+    const zNudge = (idx % 3) * 0.0006;
+    const pos = { ...obra.position, z: (obra.position?.z ?? 0) + zNudge };
+
+    addQuadro(group, obra.url, pos, obra.size, quadroTipo);
+
+    const h = obra.size?.h || 0.36;
+    const labelZOffset =
+      quadroTipo === "fotografia" ? pos.z + 0.012 : pos.z + 0.021;
+    addAutorLabel(scene, group, obra.autor, {
+      x: pos.x,
+      y: pos.y - h / 2 - 0.12,
+      z: labelZOffset,
+    });
+  });
+
+  if (exibicaoAtiva.autoSpread !== false) {
+    spreadByRows(group, {
+      minGapX: "auto",
+      rowSnap: 0.08,
+    });
+  }
+
+  return wall;
+}
+
+export function updatePreviewWall(matrix, planeSize) {
+  if (wallPlaced || !exibicaoAtiva || !scene) return;
+
+  const desiredSize = resolveWallSize(planeSize);
+  const sizeChanged =
+    Math.abs(desiredSize.w - previewSize.w) > 0.05 ||
+    Math.abs(desiredSize.h - previewSize.h) > 0.05;
+  const matrixArray = matrixToArray(matrix);
+
+  if (!matrixArray) return;
+
+  if (!previewWall || sizeChanged) {
+    if (previewWall) {
+      scene.remove(previewWall);
+    }
+    previewSize = desiredSize;
+    previewWall = createWallWithArtworks({
+      matrix: matrixArray,
+      size: desiredSize,
+      opacity: 0.6,
+      faceCamera: false,
+    });
+    if (previewWall) {
+      scene.add(previewWall);
+      previewWall.visible = true;
+    }
+  } else {
+    previewWall.matrix.fromArray(matrixArray);
+    previewWall.visible = true;
+  }
+}
+
+export function hidePreviewWall() {
+  if (previewWall && !wallPlaced) {
+    previewWall.visible = false;
+  }
+}
+
 export function onSelect() {
-  if (reticle.visible && !wallPlaced && exibicaoAtiva) {
-    const wallTexture = getWallTextureFromVideo(THREE);
+  if (wallPlaced || !exibicaoAtiva) return;
 
-    const wall = new THREE.Mesh(
-      new THREE.PlaneGeometry(2.5, 1.5),
-      new THREE.MeshStandardMaterial({
-        map: wallTexture,
-        color: wallTexture ? 0xffffff : 0xcccccc,
-        roughness: 0.8,
-        metalness: 0.1,
-        side: THREE.DoubleSide,
-        transparent: true,
-        opacity: 1,
-      }),
-    );
-    wall.receiveShadow = true;
-
-    // posiciona a parede virada para a câmera
-    const reticlePos = new THREE.Vector3().setFromMatrixPosition(
-      reticle.matrix,
-    );
-    const camPos = camera.getWorldPosition(new THREE.Vector3());
-    const lookDir = new THREE.Vector3().subVectors(camPos, reticlePos);
-    lookDir.y = 0;
-    lookDir.normalize();
-
-    wall.position.copy(reticlePos);
-    wall.quaternion.setFromRotationMatrix(
-      new THREE.Matrix4().lookAt(
-        new THREE.Vector3(0, 0, 0),
-        lookDir,
-        new THREE.Vector3(0, 1, 0),
-      ),
-    );
-
-    scene.add(wall);
-    currentWall = wall; // guarda referência da parede atual
+  if (previewWall && previewWall.visible) {
+    previewWall.material.opacity = 1;
+    previewWall.material.transparent = false;
+    previewWall.visible = true;
+    currentWall = previewWall;
+    previewWall = null;
     wallPlaced = true;
-    reticle.visible = false;
+    return;
+  }
 
-    const group = new THREE.Group();
-    wall.add(group);
-
-    const quadroTipo = exibicaoAtiva.quadroTipo ?? "moldura";
-    const obras = exibicaoAtiva.obras;
-
-    obras.forEach((obra, idx) => {
-      // micro nudge em Z para evitar z-fighting
-      const zNudge = (idx % 3) * 0.0006; // 0, 0.0006, 0.0012
-      const pos = { ...obra.position, z: (obra.position?.z ?? 0) + zNudge };
-
-      addQuadro(group, obra.url, pos, obra.size, quadroTipo);
-
-      // label do autor, com deslocamento proporcional ao tamanho do quadro
-      const h = obra.size?.h || 0.36;
-      const labelZOffset =
-        quadroTipo === "fotografia" ? pos.z + 0.012 : pos.z + 0.021;
-      addAutorLabel(scene, group, obra.autor, {
-        x: pos.x,
-        y: pos.y - h / 2 - 0.12,
-        z: labelZOffset,
-      });
+  if (reticle.visible) {
+    const wall = createWallWithArtworks({
+      matrix: reticle.matrix,
+      size: DEFAULT_WALL_SIZE,
+      opacity: 1,
+      faceCamera: true,
     });
 
-    // distribuição automática: centrada e com gap uniforme
-    if (exibicaoAtiva.autoSpread !== false) {
-      spreadByRows(group, {
-        minGapX: "auto", // gap calculado a partir da largura média
-        rowSnap: 0.08, // tolerância de agrupamento por Y
-      });
+    if (wall) {
+      scene.add(wall);
+      currentWall = wall;
+      wallPlaced = true;
+      reticle.visible = false;
     }
   }
 }
@@ -641,6 +737,11 @@ export function resetWall() {
     scene.remove(currentWall);
     currentWall = null;
   }
+  if (previewWall && scene) {
+    scene.remove(previewWall);
+    previewWall = null;
+  }
+  previewSize = { ...DEFAULT_WALL_SIZE };
   wallPlaced = false;
 }
 
