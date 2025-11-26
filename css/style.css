@@ -830,22 +830,28 @@ body.modal-open {
 }
 
 .info-modal__header {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 1rem;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.75rem 1.25rem;
+  align-items: end;
   padding-right: clamp(2.4rem, 5vw, 3.1rem);
 }
 
 .info-modal__title-wrapper {
-  flex: 1;
   min-width: min(320px, 100%);
 }
 
 .info-modal__title-wrapper h3 {
   margin: 0.2rem 0 0;
   font-size: clamp(1.5rem, 3.5vw, 2rem);
+}
+
+.info-modal__actions {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 0.4rem;
 }
 
 .info-modal__section {
@@ -875,7 +881,8 @@ body.modal-open {
 
 .info-modal__credits {
   display: grid;
-  gap: 0.35rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.75rem 1.2rem;
   margin: 0;
   padding: 0;
 }
@@ -883,13 +890,20 @@ body.modal-open {
 .info-modal__credits dt {
   font-weight: 800;
   color: var(--accent-strong);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
+  margin: 0 0 0.15rem;
+  text-transform: uppercase;
+  font-size: 0.85rem;
 }
 
 .info-modal__credits dd {
-  margin: 0.15rem 0 0.8rem;
+  margin: 0;
   color: var(--text-muted);
   line-height: 1.65;
+  padding: 0.65rem 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(214, 102, 112, 0.28);
+  border-radius: 12px;
 }
 
 .info-modal__close {
@@ -921,19 +935,18 @@ body.modal-open {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
-  padding: 0.65rem 0.95rem;
-  border-radius: 12px;
+  gap: 0.55rem;
+  padding: 0.7rem 1.05rem;
+  border-radius: 14px;
   border: 1px solid rgba(214, 102, 112, 0.5);
   background: rgba(255, 255, 255, 0.06);
   color: var(--accent-strong);
   font-weight: 800;
   cursor: pointer;
-  min-width: 3.4rem;
-  transition: background var(--transition), transform var(--transition);
+  min-width: 3.6rem;
+  transition: background var(--transition), transform var(--transition),
+    box-shadow var(--transition);
   margin-left: auto;
-  margin-right: 0.15rem;
-  margin-top: 0.2rem;
 }
 
 .info-audio-btn.playing {
@@ -943,56 +956,60 @@ body.modal-open {
 
 .info-audio-icon {
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.4em;
-  height: 1.2em;
+  width: 1.3em;
+  height: 1.1em;
+  display: inline-block;
 }
 
-.info-audio-icon__box {
-  position: relative;
-  width: 0.7em;
+.info-audio-icon::before,
+.info-audio-icon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+}
+
+.info-audio-icon::before {
+  width: 0.58em;
   height: 0.7em;
   background: currentColor;
-  border-radius: 0.18em;
-  clip-path: polygon(0 15%, 72% 15%, 100% 40%, 100% 60%, 72% 85%, 0 85%);
-  box-shadow: 0 0 0 0.08em rgba(255, 255, 255, 0.2);
+  clip-path: polygon(0 20%, 65% 20%, 100% 45%, 100% 55%, 65% 80%, 0 80%);
+  border-radius: 0.16em;
+  box-shadow: 0 0 0 0.08em rgba(255, 255, 255, 0.18);
 }
 
-.info-audio-icon__waves {
-  position: absolute;
-  right: -0.05em;
-  width: 0.9em;
-  height: 0.9em;
+.info-audio-icon::after {
+  width: 1em;
+  height: 1em;
   border: 0.12em solid currentColor;
   border-left-color: transparent;
   border-top-color: transparent;
   border-radius: 50%;
-  transform: rotate(-8deg);
+  transform: translateX(0.35em) rotate(-10deg);
+  opacity: 0.82;
 }
 
 .info-audio-label {
   font-weight: 800;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
 }
 
-.info-audio-btn.playing .info-audio-icon__waves {
+.info-audio-btn.playing .info-audio-icon::after {
   animation: infoPulse 1.4s ease-in-out infinite;
 }
 
 @keyframes infoPulse {
   0% {
-    opacity: 0.5;
-    transform: rotate(-8deg) scale(0.9);
+    opacity: 0.55;
+    transform: translateX(0.35em) rotate(-10deg) scale(0.9);
   }
   50% {
     opacity: 1;
-    transform: rotate(-4deg) scale(1.05);
+    transform: translateX(0.35em) rotate(-6deg) scale(1.07);
   }
   100% {
-    opacity: 0.6;
-    transform: rotate(-8deg) scale(0.92);
+    opacity: 0.62;
+    transform: translateX(0.35em) rotate(-10deg) scale(0.94);
   }
 }
 

@@ -563,6 +563,7 @@ export function initUI(startCallback) {
   let currentIndex = 0;
   let currentAudioUtterance = null;
   let isAudioPlaying = false;
+  let cachedVoices = [];
 
   const screens = [introScreen, carouselScreen, detailsScreen];
 
@@ -726,23 +727,35 @@ export function initUI(startCallback) {
 
   function buildAudioText(info) {
     if (!info) return "";
-    const body = info.curatorialText?.replace(/\s+/g, " ") ?? "";
-    const meta = info.metadata
-      ?.map((item) => `${item.label}: ${item.value}`)
-      .join(". ") ?? "";
-    return [body, meta].filter(Boolean).join(". ").trim();
+
+    const paragraphs =
+      info.curatorialText
+        ?.split(/\n{2,}/)
+        .map((p) => p.trim())
+        .filter(Boolean) ?? [];
+
+    const curatorial = paragraphs.join(". ");
+    const meta =
+      info.metadata
+        ?.map((item) => `${item.label}: ${item.value}`)
+        .join(". ") ?? "";
+
+    return [curatorial, meta].filter(Boolean).join(". ").trim();
   }
 
   function renderCredits(metadata = []) {
     if (!infoCredits) return;
     infoCredits.innerHTML = "";
 
+    const fragment = document.createDocumentFragment();
+
     if (!metadata || metadata.length === 0) {
       const dt = document.createElement("dt");
       dt.textContent = "Créditos";
       const dd = document.createElement("dd");
       dd.textContent = "Informações não disponíveis.";
-      infoCredits.append(dt, dd);
+      fragment.append(dt, dd);
+      infoCredits.append(fragment);
       return;
     }
 
@@ -751,8 +764,10 @@ export function initUI(startCallback) {
       dt.textContent = item.label;
       const dd = document.createElement("dd");
       dd.textContent = item.value;
-      infoCredits.append(dt, dd);
+      fragment.append(dt, dd);
     });
+
+    infoCredits.append(fragment);
   }
 
   function renderInfoBody(text = "") {
@@ -792,7 +807,38 @@ export function initUI(startCallback) {
     document.body.classList.remove("modal-open");
   }
 
-  function toggleInfoAudio() {
+  function loadVoices() {
+    return new Promise((resolve) => {
+      if (typeof speechSynthesis === "undefined") {
+        resolve([]);
+        return;
+      }
+
+      const existing = speechSynthesis.getVoices?.();
+      if (existing && existing.length > 0) {
+        cachedVoices = existing;
+        resolve(existing);
+        return;
+      }
+
+      const handleVoicesChanged = () => {
+        const voices = speechSynthesis.getVoices();
+        cachedVoices = voices;
+        speechSynthesis.removeEventListener("voiceschanged", handleVoicesChanged);
+        resolve(voices);
+      };
+
+      speechSynthesis.addEventListener("voiceschanged", handleVoicesChanged);
+      setTimeout(() => {
+        const voices = speechSynthesis.getVoices();
+        cachedVoices = voices;
+        speechSynthesis.removeEventListener("voiceschanged", handleVoicesChanged);
+        resolve(voices ?? []);
+      }, 900);
+    });
+  }
+
+  async function toggleInfoAudio() {
     const info = currentExibicao.info;
     if (!info || !infoAudioBtn || typeof speechSynthesis === "undefined") return;
 
@@ -807,10 +853,11 @@ export function initUI(startCallback) {
     speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(texto);
     utterance.lang = "pt-BR";
-    utterance.rate = 0.98;
-    utterance.pitch = 1.04;
+    utterance.rate = 0.96;
+    utterance.pitch = 1.0;
     utterance.volume = 1;
-    const voices = speechSynthesis?.getVoices?.() ?? [];
+
+    const voices = cachedVoices.length ? cachedVoices : await loadVoices();
     const preferredVoice = pickNaturalPortugueseVoice(voices);
     utterance.voice = preferredVoice ?? null;
 
