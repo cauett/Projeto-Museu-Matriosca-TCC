@@ -736,6 +736,16 @@ export function initUI(startCallback) {
   function renderCredits(metadata = []) {
     if (!infoCredits) return;
     infoCredits.innerHTML = "";
+
+    if (!metadata || metadata.length === 0) {
+      const dt = document.createElement("dt");
+      dt.textContent = "Créditos";
+      const dd = document.createElement("dd");
+      dd.textContent = "Informações não disponíveis.";
+      infoCredits.append(dt, dd);
+      return;
+    }
+
     metadata.forEach((item) => {
       const dt = document.createElement("dt");
       dt.textContent = item.label;
@@ -797,15 +807,12 @@ export function initUI(startCallback) {
     speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(texto);
     utterance.lang = "pt-BR";
-    utterance.rate = 0.96;
-    utterance.pitch = 1.05;
-    utterance.volume = 0.94;
+    utterance.rate = 1.02;
+    utterance.pitch = 0.98;
+    utterance.volume = 1;
     const voices = speechSynthesis?.getVoices?.() ?? [];
-    const femaleVoice = voices.find((v) =>
-      /fem|woman|mulher/i.test(v.name) && v.lang.startsWith("pt"),
-    );
-    const portugueseVoice = voices.find((v) => v.lang.startsWith("pt"));
-    utterance.voice = femaleVoice ?? portugueseVoice ?? null;
+    const preferredVoice = pickNaturalPortugueseVoice(voices);
+    utterance.voice = preferredVoice ?? null;
 
     utterance.onend = stopInfoAudio;
     utterance.onerror = stopInfoAudio;
@@ -814,6 +821,30 @@ export function initUI(startCallback) {
     isAudioPlaying = true;
     infoAudioBtn.classList.add("playing");
     speechSynthesis.speak(utterance);
+  }
+
+  function pickNaturalPortugueseVoice(voices = []) {
+    const prioritizedMatchers = [
+      /Google português do Brasil/i,
+      /pt-BR Standard [A-D]/i,
+      /pt-BR Neural/i,
+      /Microsoft (Maria|Francisca|Heloisa|Antonio)/i,
+    ];
+
+    for (const matcher of prioritizedMatchers) {
+      const match = voices.find(
+        (voice) =>
+          matcher.test(`${voice.name} ${voice.voiceURI}`) &&
+          voice.lang?.toLowerCase().startsWith("pt"),
+      );
+      if (match) return match;
+    }
+
+    return (
+      voices.find((voice) => voice.lang?.toLowerCase().startsWith("pt-br")) ??
+      voices.find((voice) => voice.lang?.toLowerCase().startsWith("pt")) ??
+      null
+    );
   }
 
   function coverImageFor(exibicao) {
