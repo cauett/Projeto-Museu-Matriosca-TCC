@@ -807,8 +807,8 @@ export function initUI(startCallback) {
     speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(texto);
     utterance.lang = "pt-BR";
-    utterance.rate = 1.02;
-    utterance.pitch = 0.98;
+    utterance.rate = 0.98;
+    utterance.pitch = 1.04;
     utterance.volume = 1;
     const voices = speechSynthesis?.getVoices?.() ?? [];
     const preferredVoice = pickNaturalPortugueseVoice(voices);

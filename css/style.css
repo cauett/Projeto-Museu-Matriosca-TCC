@@ -933,6 +933,7 @@ body.modal-open {
   transition: background var(--transition), transform var(--transition);
   margin-left: auto;
   margin-right: 0.15rem;
+  margin-top: 0.2rem;
 }
 
 .info-audio-btn.playing {
@@ -969,6 +970,11 @@ body.modal-open {
   border-top-color: transparent;
   border-radius: 50%;
   transform: rotate(-8deg);
+}
+
+.info-audio-label {
+  font-weight: 800;
+  letter-spacing: 0.02em;
 }
 
 .info-audio-btn.playing .info-audio-icon__waves {
