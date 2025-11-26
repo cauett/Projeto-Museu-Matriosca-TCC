@@ -485,6 +485,9 @@ export function initUI(startCallback) {
   const descEl = document.getElementById("exibicao-descricao");
   const obrasLista = document.getElementById("obras-lista");
   const startBtn = document.getElementById("start-ar-btn");
+  const imageModal = document.getElementById("image-modal");
+  const modalImage = document.getElementById("image-modal-img");
+  const modalCaption = document.getElementById("image-modal-caption");
 
   let currentExibicao = exibicoes[0];
   let currentIndex = 0;
@@ -585,15 +588,55 @@ export function initUI(startCallback) {
       const div = document.createElement("div");
       div.className = "obra-item";
       div.innerHTML = `
-        <img src="${obra.url}" alt="${obra.titulo}" />
+        <button class="obra-thumb" type="button" aria-label="Ampliar ${obra.titulo}">
+          <img src="${obra.url}" alt="${obra.titulo}" />
+        </button>
         <div class="title">${obra.titulo}</div>
         ${obra.autor ? `<div class="autor">${obra.autor}</div>` : ""}
       `;
+      div
+        .querySelector(".obra-thumb")
+        ?.addEventListener("click", () => openImageModal(obra));
       obrasLista.appendChild(div);
     });
 
     startBtn.onclick = () => startCallback(exibicao);
   }
+
+  function openImageModal({ url, titulo }) {
+    if (!imageModal || !modalImage || !url) return;
+    modalImage.src = url;
+    modalImage.alt = titulo ?? "Obra";
+    if (modalCaption) {
+      modalCaption.textContent = titulo ?? "";
+    }
+    imageModal.classList.add("open");
+    imageModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+  }
+
+  function closeImageModal() {
+    if (!imageModal) return;
+    imageModal.classList.remove("open");
+    imageModal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+  }
+
+  function handleModalClick(event) {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+    if (target.dataset.closeModal !== undefined) {
+      closeImageModal();
+    }
+  }
+
+  imageModal?.addEventListener("click", handleModalClick);
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && imageModal?.classList.contains("open")) {
+      closeImageModal();
+    }
+  });
 
   function coverImageFor(exibicao) {
     const primeiraObra = exibicao.obras.find((obra) => Boolean(obra.url));
