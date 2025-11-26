@@ -9,7 +9,6 @@ const COTIDIANO_MIDDLE_SIZE = { w: 0.36, h: 0.47, d: 0.035 };
 const QUIXADA_VERTICAL_SIZE = { w: 0.52, h: 0.92, d: 0.04 };
 const QUIXADA_HORIZONTAL_SIZE = { w: 1.24, h: 0.74, d: 0.04 };
 
-
 function mapObras(
   itens,
   { autor: autorPadrao, size: sizePadrao = DEFAULT_OBRA_SIZE } = {},
@@ -508,7 +507,11 @@ export function initUI(startCallback) {
     }
 
     const nextIndex = navigationIndex + 1;
-    window.history.pushState({ screen, exibicaoId, index: nextIndex }, "", hash);
+    window.history.pushState(
+      { screen, exibicaoId, index: nextIndex },
+      "",
+      hash,
+    );
     navigationIndex = nextIndex;
   }
 
@@ -565,6 +568,10 @@ export function initUI(startCallback) {
     }
   }
 
+  window.__matrioscaBackToCarousel = () => {
+    goToCarousel({ updateHistory: true, replace: true });
+  };
+
   function renderDetails(exibicao) {
     setActiveScreen(detailsScreen);
     tituloEl.textContent = exibicao.titulo;
@@ -590,7 +597,10 @@ export function initUI(startCallback) {
 
   function coverImageFor(exibicao) {
     const primeiraObra = exibicao.obras.find((obra) => Boolean(obra.url));
-    return primeiraObra?.url ?? "https://images.unsplash.com/photo-1529421300300-23418098792c?auto=format&fit=crop&w=800&q=80";
+    return (
+      primeiraObra?.url ??
+      "https://images.unsplash.com/photo-1529421300300-23418098792c?auto=format&fit=crop&w=800&q=80"
+    );
   }
 
   const slides = exibicoes.map((exibicao, index) => {
@@ -650,7 +660,8 @@ export function initUI(startCallback) {
 
   function nearestSlideFromScroll() {
     if (!carouselWindow) return currentIndex;
-    const windowCenter = carouselWindow.scrollLeft + carouselWindow.clientWidth / 2;
+    const windowCenter =
+      carouselWindow.scrollLeft + carouselWindow.clientWidth / 2;
     let closestIndex = currentIndex;
     let minDistance = Number.POSITIVE_INFINITY;
 
@@ -674,7 +685,10 @@ export function initUI(startCallback) {
     }
   }
 
-  function showExibicao(exibicao, { updateHistory = true, replace = false } = {}) {
+  function showExibicao(
+    exibicao,
+    { updateHistory = true, replace = false } = {},
+  ) {
     currentExibicao = exibicao;
     const exibicaoIndex = exibicoes.findIndex((ex) => ex.id === exibicao.id);
     if (exibicaoIndex >= 0) {
@@ -736,8 +750,7 @@ export function initUI(startCallback) {
         goToCarousel({ updateHistory: !fromHistory });
         break;
       case ROUTES.DETAILS: {
-        const exibicao =
-          findExibicaoById(route.exibicaoId) ?? exibicoes[0];
+        const exibicao = findExibicaoById(route.exibicaoId) ?? exibicoes[0];
         showExibicao(exibicao, { updateHistory: !fromHistory });
         break;
       }
