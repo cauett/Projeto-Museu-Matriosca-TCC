@@ -394,6 +394,18 @@ export const exibicoes = [
       "A exposição celebra a potência da arte como expressão sensível e inclusiva.",
     obras: mapObras(linhasDaVidaObras, { size: DEFAULT_OBRA_SIZE }),
     quadroTipo: "moldura",
+    info: {
+      curatorialText: `A linha da vida, na vida, é sinuosa,\nDa partida e emaranhada chegada,\nQuimera criada e felicidade caçada.\nJá a morte... Ah! A morte é teimosa.\n\nE na vida, a morte é misturada,\nCerteza e surpresa sempre em par.\nCria-se ao viver, tanto por igual.\nDe cor e sabor, se bem aproveitada.\n\nTal qual uma poesia em sua tosa,\nIrresoluta em toda transição,\nPorém, elaborada na sua prosa.\n\nE na vida, se não tem novo nada,\nHá, sim, da arte a ser trabalhada\nNo cuidado com linha e no fio na parada.\n\nÉ com essa poesia de Luciano Spagnol — Linha da Vida (2024), Cerrado Goiano — que lhe acolhemos nesta exposição singular a partir das linhas do bordado e do tear, com cores e figurações. Da linha da vida às linhas invisíveis à visão comum. E linhas táteis e sensoriais. E com roteiro poético sensível de acolhimento das pessoas da comunidade invisibilizadas que trazem desse linhas poéticas personalizadas.`,
+      metadata: [
+        { label: "Curadoria", value: "Dias Brasil" },
+        { label: "Texto e poema", value: "Lu Teles — Escritora e dramaturga" },
+        {
+          label: "Artistas",
+          value:
+            "António Henrique, Ariel Loiola, Catarina Garcia, Davi Sales, Enzo Gabriel, Franzé Rocha, Gabriel Amorim, Gabriel Medeiros, Gabriel Morais, Geovanna Silva, José Carlos, Kiko Targino, Levi Pimenta, Marianne Bezerra, Maria Eliany, Maria de Nazaré, Rayssa Lima e Vitória Suynara.",
+        },
+      ],
+    },
   },
   {
     id: "exibicao2",
@@ -405,6 +417,27 @@ export const exibicoes = [
       size: SERTAO_OBRA_SIZE,
     }),
     quadroTipo: "fotografia",
+    info: {
+      curatorialText:
+        "Exposição Sertão Monumental: Valorização Do Patrimônio Cultural E Natural\n\nEsta exposição é um esforço conjunto de agentes sociais, educacionais e culturais que buscam promover a difusão e valorização do patrimônio local, de forma educativa e cultural, apresentando à sociedade do Sertão Central o projeto do Geoparque Sertão Monumental em sua base e dimensões.\n\nO Projeto Geoparque Sertão Monumental surge em 2019 a partir de um relatório técnico realizado pelo Serviço Geológico do Brasil e pesquisadores de outros institutos. O projeto tem como área geográfica seis municípios, sendo Quixeramobim, Quixadá, Ibaretama, Choró, Banabuiú e Ocara. Os objetivos do projeto são: disseminar e preservar o conhecimento geológico, ambiental, histórico e cultural da região; e gerar desenvolvimento socioeconômico com as comunidades locais. Atualmente o Projeto Sertão Monumental encontra-se na fase de elaboração e entrega de dossiê aos avaliadores da UNESCO, a fim de obter o selo de geoparque mundial e integrar a Rede Mundial de Geoparques. Os geoparques são territórios que são distinguidos por áreas de relevância nos quesitos geológicos, arqueológicos, históricos e culturais e tornam-se uma região de promoção do turismo, geração de empregos e desenvolvimento econômico, a partir da valorização desses territórios e da participação social.\n\nO Projeto conta com apoio da comunidade, da sociedade civil, da academia, de instituições públicas, de empresas privadas e do poder público em sua execução. Essa colaboração é imprescindível na construção e fortalecimento das ações e idealização do patrimônio local, valorizando a história e a ciência. As equipes citadas na ficha técnica abaixo representaram diversas instituições das esferas municipal, estadual e federal com apoio decisivo na cooperação e financiamento deste Projeto.\n\nAproveitemos essa oportunidade para valorizarmos o Sertão Central e posicionar nosso território no mapa internacional da ciência, história e cultura.",
+      metadata: [
+        {
+          label: "Créditos institucionais",
+          value:
+            "Governo do Estado do Ceará — Emanuel de Freitas da Costa (Governador), Jade Afonso Romero (Vice-governadora), Luisa Léa da Arruda Coelho (Secretária da Cultura), Rafael Coelho Felismino (Secretário Executivo da Cultura) e Cecília Torres Fonseca Seara (Executiva de Planejamento e Gestão Interna da Cultura do Ceará). Instituto Dragão do Mar — Rachel Gadelha (Diretora-presidente), Adriana Victorino (Diretora Administrativo Financeira), Sérgio Barroso (Diretor Artístico — interino), Edmilson Lima (Diretor de Infraestrutura), Bete Jaguacybe (Diretora Comercial) e Joaquim Pereira Cordeiro Aderaldo (Outorgante da Casa de Saberes Cego Aderaldo). Serviço Social do Comércio — SESC — Joaquim Cartaxo Filho (Diretor Regional do SESC) e Socorro França (Diretora do Centro de Turismo do SESC).",
+        },
+        {
+          label: "Equipe da exposição",
+          value:
+            "Rialane Alves (Assistente administrativo); Alexandre Pinheiro (Coordenador de Formação Patrimonial); Kassia Gomes (Assistente Administrativo Financeira); Ronil Nogueira (Assistente de Produção); Yasmim Pinheiro (Assistente Administrativa); Beatriz Neres, Isabella Lima, Lucas Lopes, Mariana Vasconcelos, Natálie Ferreira, Rafaell Penetra, Richély Santos, Talita Alves e Regivane Silva (Monitores); Felipe Lima (Vigia).",
+        },
+        {
+          label: "Ficha técnica",
+          value:
+            "Realização: Governo do Estado do Ceará por meio da Secretaria de Cultura do Ceará. Parceria: Ministério da Educação; Casa de Saberes Cego Aderaldo; Instituto Dragão do Mar; SESC. Projeto: Geoparque Sertão Monumental. Produção: Instituto Dragão do Mar. Curadoria: Comunidade Científica do Projeto Sertão Monumental. Coordenação: Cibelle Olimpio. Pesquisa: Caroline Rocha e Angélica Viana; Inácio Oliveira; Lorenzo Miraglia; Luiza Alencar; Maiara Mota; Melise Nogueira; Miller Marx. Design: Caroline Rocha e Angélica Viana (Arquiteta, Designer Gráfico).",
+        },
+      ],
+    },
   },
   {
     id: "exibicao3",
@@ -416,6 +449,13 @@ export const exibicoes = [
       size: TESOUROS_VIVOS_OBRA_SIZE,
     }),
     quadroTipo: "molduraPreta",
+    info: {
+      curatorialText: `Mestres e Mestras da Cultura do Ceará\n\nReconhecidos como Tesouros Vivos da Cultura, através da Lei Estadual N° 13.842, de 27 de novembro de 2006, os Mestres e Mestras da Cultura do Ceará recebem o apoio para a preservação da memória cultural e dos seus saberes, pelo repasse de recursos para a transmissão às gerações seguintes de seus conhecimentos, técnicas e processos artísticos, de acordo com as regras estabelecidas em seleção pública.\n\nAs entidades públicas, grupos e coletividades detentoras dos conhecimentos e práticas das manifestações populares, cadastradas previamente podem receber o registro com objetivo de preservar e dar continuidade aos seus saberes. O registro também pode ser concedido a grupos e coletivos, quando reconhecidos pelos próprios mestres como fundamentais na preservação das tradições.\n\nEm 2016, durante o X Encontro Mestres do Mundo, na cidade de Limoeiro do Norte, em mais de 10 anos de existência da política pública de registro dos Mestres e Mestras da Cultura do Ceará, foram titulados dez novos mestres da cultura, totalizando 58 Mestres de Cultura do Ceará com registro concedido. A importância dessa política está no reconhecimento das tradições culturais, bem como na valorização da identidade de um povo. É resgatar, valorizar e fomentar a cultura popular através da transferência dos conhecimentos tradicionais, permitindo a continuidade das práticas e saberes imateriais.\n\nExposição de Otávio Menezes\n\nO projeto foi desenvolvido para socializar os conhecimentos e experiências sobre a técnica de xilogravura tridimensional, por meio da arte de Otávio Menezes, Mestre da Cultura do Estado do Ceará desde 2009. O conjunto de obras apresenta o processo de gravação em superfícies e múltiplas camadas, que retratam temas simbólicos e a identidade popular e regional sob uma perspectiva contemporânea de uma tradição viva que dialoga com novas inspirações e visões.`,
+      metadata: [
+        { label: "Curadoria", value: "Fabiano dos Santos Piubá" },
+        { label: "Artista homenageado", value: "Otávio Menezes" },
+      ],
+    },
   },
   {
     id: "exibicao4",
@@ -428,6 +468,17 @@ export const exibicoes = [
     }),
     quadroTipo: "molduraMadeira",
     autoSpread: false,
+    info: {
+      curatorialText:
+        "A exposição Retratos do Voo — Aves Cearenses convida o público a contemplar a beleza e a diversidade das aves que habitam o Ceará. Através de desenhos autorais, a mostra busca despertar o olhar para a riqueza natural do estado e fortalecer a conexão entre arte, a natureza e a cultura local.\n\nO amor pelas aves foi o principal motivador dessa exposição. Cada desenho procura registrar e compartilhar o encanto que essas espécies despertam, destacando as suas características únicas.\n\nMais do que uma celebração visual, Retratos do Voo é um convite à sensibilização ambiental e à valorização da vida que nos rodeia.",
+      metadata: [
+        { label: "Curadoria", value: "Alefe Queiroz" },
+        { label: "Desenhos e textos", value: "Alefe Queiroz" },
+        { label: "Museologia", value: "Cauã Maia" },
+        { label: "Assistência", value: "Zuleide Oliveira" },
+        { label: "Apoio", value: "Equipe do projeto (Gerência do SESC Quixeramobim)" },
+      ],
+    },
   },
   {
     id: "exibicao5",
@@ -439,6 +490,12 @@ export const exibicoes = [
       size: COTIDIANO_OBRA_SIZE,
     }),
     quadroTipo: "molduraPreta",
+    info: {
+      curatorialText: `Cotidiano. O que é comum. O que é diário. Dia a dia. O espaço da constituição das subjetividades.\n\nÉ nesse território, em mesa de bar; barulho de secador; no deslizar ou no esbarrar; entre copos, que as subjetividades se fazem. O cotidiano é chão e céu: pode sufocar; pode revelar.\n\nClarice Lispector escreveu: \"O que me mata é o cotidiano. Eu queria só exceções.\" Mas e se o comum for poesia, rara por ruído. Existe alguma luz no extraordinário?\n\nUm vento nos empurra para o rápido, para o raso, para o ruidoso. E a respiração? É preciso desacelerar para adentrar o comum, o simples.\n\nCada fotografia é uma negociação com o tempo: um acordo de paz no presente permanente. Aqui, o cotidiano é ruína de festa, de vento, de antiga seca. A brisa é lúdica. É o bandear gargalhado.\n\nÉ o pedalo e a bicicleta. É o lençol no varal, a rede, o campo, o rio. É o cotidiano em suas inúmeras versões.\n\nEscolha uma: todas merecem ser vistas.`,
+      metadata: [
+        { label: "Texto curatorial", value: "Fabrícia Teodoro" },
+      ],
+    },
   },
   {
     id: "exibicao6",
@@ -450,6 +507,13 @@ export const exibicoes = [
     }),
     quadroTipo: "molduraMadeira",
     autoSpread: false,
+    info: {
+      curatorialText:
+        "A exposição ‘Quixadá Fantástico’ apresenta leituras surrealistas pintadas em tela e vídeo de paisagens ícones famosas da cidade de Quixadá. As obras resultam de história e memória de Bruno Joe configuradas, com cores vibrantes e de ambiente de sonho e, ao mesmo tempo, construção do imaginário popular a partir dos lugares icônicos da região dos Monólitos.\n\nCom curadoria de Bruno Joe, a mostra traça uma cartografia afetiva de paisagens reais e fantásticas de Quixadá, como a Pedra do Cruzeiro, a Pedra da Galinha Choca, a Pedra do César, a Pedra do Cruzeiro, a cidade de Quixadá, a estátua de Nossa Senhora Imaculada da Saúde, a Capela de São Pedro dos Leões, o Açude do Cedro, a Praça José de Barros, a Praça da Estação, a Catedral, a Margem direita do rio Jaguaribe, a Serra do Estevão e a paisagem do Sertão Central. Representando a realidade da cidade de Quixadá e imaginário, ‘Quixadá Fantástico’ faz alusão a fauna, flora e povo sertanejo, aos mitos e narrativas locais que continuam vivas a partir dos lugares icônicos do sertão.\n\nAs obras refletem a inspiração do real e rompem com a realidade, criando uma sensação de dupla presença, que tanto lembra o cotidiano do sertão como aponta para o universo mágico da terra dos monólitos. Em ‘Quixadá Fantástico’, Bruno Joe transforma a cidade em uma janela para o sonho, convidando o espectador a mergulhar em paisagens que já conhece, mas que se desdobram em possibilidades de uma Quixadá reinventada.",
+      metadata: [
+        { label: "Curador e artista", value: "Bruno Joe" },
+      ],
+    },
   },
 ];
 
@@ -488,9 +552,17 @@ export function initUI(startCallback) {
   const imageModal = document.getElementById("image-modal");
   const modalImage = document.getElementById("image-modal-img");
   const modalCaption = document.getElementById("image-modal-caption");
+  const openInfoBtn = document.getElementById("open-info-btn");
+  const infoModal = document.getElementById("info-modal");
+  const infoModalTitle = document.getElementById("info-modal-title");
+  const infoModalText = document.getElementById("info-modal-text");
+  const infoMetadata = document.getElementById("info-metadata");
+  const infoAudioBtn = document.getElementById("info-audio-btn");
 
   let currentExibicao = exibicoes[0];
   let currentIndex = 0;
+  let currentAudioUtterance = null;
+  let isAudioPlaying = false;
 
   const screens = [introScreen, carouselScreen, detailsScreen];
 
@@ -583,6 +655,11 @@ export function initUI(startCallback) {
     detailsScreen.style.setProperty("--details-cover", `url(${heroCover})`);
     detailsScreen.scrollTo({ top: 0, behavior: "auto" });
     obrasLista.innerHTML = "";
+    stopInfoAudio();
+
+    if (openInfoBtn) {
+      openInfoBtn.disabled = !Boolean(exibicao.info);
+    }
 
     exibicao.obras.forEach((obra) => {
       const div = document.createElement("div");
@@ -637,6 +714,101 @@ export function initUI(startCallback) {
       closeImageModal();
     }
   });
+
+  function stopInfoAudio() {
+    if (typeof speechSynthesis !== "undefined") {
+      speechSynthesis.cancel();
+    }
+    isAudioPlaying = false;
+    currentAudioUtterance = null;
+    infoAudioBtn?.classList.remove("playing");
+  }
+
+  function buildAudioText(info) {
+    if (!info) return "";
+    const body = info.curatorialText?.replace(/\s+/g, " ") ?? "";
+    const meta = info.metadata
+      ?.map((item) => `${item.label}: ${item.value}`)
+      .join(". ") ?? "";
+    return [body, meta].filter(Boolean).join(". ").trim();
+  }
+
+  function renderMetadata(metadata = []) {
+    if (!infoMetadata) return;
+    infoMetadata.innerHTML = "";
+    metadata.forEach((item) => {
+      const line = document.createElement("div");
+      line.innerHTML = `<strong>${item.label}:</strong> <span>${item.value}</span>`;
+      infoMetadata.appendChild(line);
+    });
+  }
+
+  function renderInfoBody(text = "") {
+    if (!infoModalText) return;
+    infoModalText.innerHTML = "";
+    const paragraphs = text
+      .split(/\n+/)
+      .map((p) => p.trim())
+      .filter(Boolean);
+
+    paragraphs.forEach((p) => {
+      const paragraph = document.createElement("p");
+      paragraph.textContent = p;
+      infoModalText.appendChild(paragraph);
+    });
+  }
+
+  function renderInfoModal(exibicao) {
+    if (!infoModal || !infoModalTitle) return;
+    const info = exibicao.info;
+    if (!info) return;
+
+    stopInfoAudio();
+    infoModalTitle.textContent = exibicao.titulo;
+    renderMetadata(info.metadata);
+    renderInfoBody(info.curatorialText);
+    infoModal.classList.add("open");
+    infoModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+  }
+
+  function closeInfoModal() {
+    if (!infoModal) return;
+    stopInfoAudio();
+    infoModal.classList.remove("open");
+    infoModal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+  }
+
+  function toggleInfoAudio() {
+    const info = currentExibicao.info;
+    if (!info || !infoAudioBtn || typeof speechSynthesis === "undefined") return;
+
+    if (isAudioPlaying) {
+      stopInfoAudio();
+      return;
+    }
+
+    const texto = buildAudioText(info);
+    if (!texto) return;
+
+    const utterance = new SpeechSynthesisUtterance(texto);
+    utterance.lang = "pt-BR";
+    const voices = speechSynthesis?.getVoices?.() ?? [];
+    const femaleVoice = voices.find((v) =>
+      /fem|woman|mulher/i.test(v.name) && v.lang.startsWith("pt"),
+    );
+    const portugueseVoice = voices.find((v) => v.lang.startsWith("pt"));
+    utterance.voice = femaleVoice ?? portugueseVoice ?? null;
+
+    utterance.onend = stopInfoAudio;
+    utterance.onerror = stopInfoAudio;
+
+    currentAudioUtterance = utterance;
+    isAudioPlaying = true;
+    infoAudioBtn.classList.add("playing");
+    speechSynthesis.speak(utterance);
+  }
 
   function coverImageFor(exibicao) {
     const primeiraObra = exibicao.obras.find((obra) => Boolean(obra.url));
@@ -782,6 +954,27 @@ export function initUI(startCallback) {
       passive: true,
     });
   }
+
+  openInfoBtn?.addEventListener("click", () => {
+    if (!currentExibicao.info) return;
+    renderInfoModal(currentExibicao);
+  });
+
+  infoModal?.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+    if (target.dataset.closeInfo !== undefined) {
+      closeInfoModal();
+    }
+  });
+
+  infoAudioBtn?.addEventListener("click", toggleInfoAudio);
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && infoModal?.classList.contains("open")) {
+      closeInfoModal();
+    }
+  });
 
   goToSlide(0, { behavior: "auto" });
 
