@@ -838,18 +838,18 @@ body.modal-open {
 .info-modal__overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 18% 20%, rgba(0, 0, 0, 0.55),
-      rgba(0, 0, 0, 0.78));
-  backdrop-filter: blur(8px);
+  background: radial-gradient(circle at 18% 20%, rgba(0, 0, 0, 0.35),
+      rgba(0, 0, 0, 0.64));
+  backdrop-filter: blur(10px);
 }
 
 .info-modal__content {
   position: relative;
-  max-width: min(880px, 92vw);
-  max-height: min(90vh, 840px);
+  max-width: min(820px, 88vw);
+  max-height: min(78vh, 720px);
   background: linear-gradient(170deg, rgba(44, 7, 12, 0.92), rgba(18, 3, 6, 0.9));
   border-radius: 26px;
-  padding: clamp(1.2rem, 3vw, 1.75rem);
+  padding: clamp(1rem, 2.6vw, 1.45rem);
   border: 1px solid rgba(214, 102, 112, 0.32);
   box-shadow: 0 32px 60px rgba(0, 0, 0, 0.55);
   display: grid;
@@ -857,7 +857,7 @@ body.modal-open {
   grid-template-rows: auto 1fr;
   min-height: 0;
   height: min(90vh, 840px);
-  width: 100%;
+  width: min(780px, 88vw);
   animation: fadeIn 260ms ease;
 }
 
@@ -928,7 +928,6 @@ body.modal-open {
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  flex-shrink: 0;
 }
 
 .info-modal__close {
@@ -958,7 +957,6 @@ body.modal-open {
   overflow: auto;
   min-height: 0;
   padding-right: 0.35rem;
-  width: 100%;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
 }
@@ -968,9 +966,6 @@ body.modal-open {
   border: 1px solid rgba(214, 102, 112, 0.25);
   border-radius: 16px;
   padding: clamp(1rem, 3vw, 1.35rem);
-  color: var(--accent-strong);
-  line-height: 1.8;
-  width: 100%;
   white-space: pre-line;
   overflow-wrap: anywhere;
   hyphens: auto;
