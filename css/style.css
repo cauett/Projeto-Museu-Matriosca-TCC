@@ -845,6 +845,9 @@ body.modal-open {
   box-shadow: 0 32px 60px rgba(0, 0, 0, 0.55);
   display: grid;
   gap: clamp(1rem, 2.8vw, 1.75rem);
+  grid-template-rows: auto 1fr;
+  min-height: 0;
+  height: min(90vh, 840px);
   width: 100%;
   animation: fadeIn 260ms ease;
 }
@@ -940,7 +943,10 @@ body.modal-open {
   display: grid;
   gap: clamp(1.1rem, 2.8vw, 1.65rem);
   overflow: auto;
+  min-height: 0;
   padding-right: 0.35rem;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .info-curatorial {
@@ -951,6 +957,8 @@ body.modal-open {
   color: var(--accent-strong);
   line-height: 1.8;
   white-space: pre-line;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .info-credits {
@@ -986,6 +994,8 @@ body.modal-open {
   margin: 0;
   color: var(--accent-strong);
   line-height: 1.7;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .info-audio-btn {
