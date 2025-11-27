@@ -75,6 +75,16 @@
             <button id="voltar-btn" class="ghost-btn" type="button">
               ← Exposições
             </button>
+            <button
+              id="info-exibicao-btn"
+              class="ghost-btn info-trigger"
+              type="button"
+              aria-haspopup="dialog"
+              aria-controls="info-modal"
+            >
+              <span class="info-trigger__icon" aria-hidden="true"></span>
+              <span>Informações</span>
+            </button>
           </header>
           <div class="details-hero">
             <div class="details-gradient"></div>
@@ -105,6 +115,38 @@
             </button>
             <img id="image-modal-img" src="" alt="" />
             <p id="image-modal-caption"></p>
+          </div>
+        </div>
+
+        <div id="info-modal" aria-hidden="true">
+          <div class="info-modal__overlay" data-close-info></div>
+          <div class="info-modal__content" role="dialog" aria-modal="true">
+            <header class="info-modal__header">
+              <div class="info-modal__title">Informações da exposição</div>
+              <div class="info-modal__actions">
+                <button
+                  type="button"
+                  class="icon-btn audio-btn"
+                  id="audio-toggle-btn"
+                  aria-label="Reproduzir texto curatorial"
+                >
+                  <span class="icon-sound" aria-hidden="true"></span>
+                  <span class="audio-btn__label">Ouvir texto</span>
+                </button>
+                <button
+                  type="button"
+                  class="icon-btn close-btn"
+                  aria-label="Fechar informações da exposição"
+                  data-close-info
+                >
+                  <span class="icon-close" aria-hidden="true"></span>
+                </button>
+              </div>
+            </header>
+            <div class="info-modal__body">
+              <div id="curatorial-text" class="curatorial-text"></div>
+              <div id="creditos-list" class="creditos-list"></div>
+            </div>
           </div>
         </div>
       </div>

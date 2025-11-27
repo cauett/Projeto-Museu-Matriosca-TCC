@@ -394,6 +394,29 @@ export const exibicoes = [
       "A exposição celebra a potência da arte como expressão sensível e inclusiva.",
     obras: mapObras(linhasDaVidaObras, { size: DEFAULT_OBRA_SIZE }),
     quadroTipo: "moldura",
+    curatorial: {
+      texto: [
+        "A linha da vida, na vida, é sinuosa, Da partida à emaranhada chegada, Quimera criada e felicidade caçada. Já a morte... Ah! A morte é teimosa.",
+        "É lenta, segura, a sorte é misturada, Certeza e surpresa bem temperadas. Mas tudo com uma pitada furiosa, De cor e sabor, se bem apimentada.",
+        "Tal qual uma poesia em sua tosa, Irresoluta e linda e tão traçada, Porém, elaborada na sua prosa.",
+        "E no fim, embora não tenhamos nada, Há, ainda, estrada, espinho e rosa, E quem disse que a vida não fica parada...",
+        "É com essa poesia de Luciano Spagnol — Linha da Vida (2020, Cerrado Goiano) — que os caminhos poetizam o trajeto de cada um de nós. Dizem que a vida é uma arte, um traço e, entre morte e vida, a pintura se renova em tintas e retintas variações. Assim, vou construir em cores cada pedacinho de sujeitos que beiram por meio dessas linhas poéticas imaginárias.",
+      ],
+      creditos: [
+        {
+          titulo: "Créditos",
+          itens: [
+            { rotulo: "Curadoria", valor: "Dias Brasil" },
+            { rotulo: "Poema", valor: "Luciano Spagnol — Linha da Vida (2020, Cerrado Goiano)" },
+            {
+              rotulo: "Artistas",
+              valor:
+                "António Henrique, Ariel Loiola, Catarina Garcia, Davi Sales, Enzo Gabriel, Franzé Rocha, Gabriel Amorim, Gabriel Medeiros, Gabriel Morais, Geovanna Silva, José Carlos, Kiko Targino, Levi Pimenta, Marianne Bezerra, Maria Eliany, Maria de Nazaré, Rayssa Lima, Vitória Suynara",
+            },
+          ],
+        },
+      ],
+    },
   },
   {
     id: "exibicao2",
@@ -405,6 +428,50 @@ export const exibicoes = [
       size: SERTAO_OBRA_SIZE,
     }),
     quadroTipo: "fotografia",
+    curatorial: {
+      texto: [
+        "A exposição é um esforço conjunto de agentes sociais, educacionais e culturais que buscam promover a difusão e valorização do patrimônio local, de forma educativa e cultural, apresentando à sociedade do Sertão Central o projeto do Geoparque Sertão Monumental em sua área de influência.",
+        "O Projeto Geoparque Sertão Monumental surge em 2019 a partir de um relatório técnico realizado pelo Serviço Geológico do Brasil e pesquisadores de outros institutos. O projeto tem como área de influência, segundo Furtado et al. (2024), os municípios de Quixadá, Quixeramobim, Banabuiú, Choró e Ibaretama, e contempla paisagens geomorfológicas com grandes blocos monolíticos, talhados em quartzitos e granitos. Atualmente o Projeto está na etapa de inventariação e registro. Os geossítios inventariados possuem registros fósseis do período Cambriano, relevantes elementos da biodiversidade, história e cultura cearenses, além de belezas cênicas e legendárias. Há registros de culturas pré-históricas milenares que deixaram suas marcas em inscrições arqueológicas, pinturas rupestres e marcadores de chão, além de monumentos históricos e edificações modernas notáveis.",
+        "Outro aspecto significativo são as manifestações culturais que ajudam a compor a identidade do Sertão Central, como o pastoril, a encenação da Paixão de Cristo, o reisado, as vaquejadas, repentes e cantorias. A cultura popular e o patrimônio local receberam registros da festa da Padroeira de Santa Teresinha e do fundador de Quixadá Tomaz Pompeu Filho.",
+        "A arquitetura da exposição de imagens, com grandes formatos, busca suscitar a curiosidade das pessoas para instigar um olhar atento a respeito da grandeza dos monumentos naturais da região e do conjunto de saberes, fazeres e viveres. A tenda em formato de cabaça, criada por Bartolomeu Florêncio, foi pensada como uma forma tradicional de armazenar água utilizada pelos moradores dos sertões nas estiagens e o material expositivo que dialoga como um kit completo do saber e viver de conhecimento, e que está à disposição para ser problematizado e utilizado por visitantes e pesquisadores, aproximando ainda mais as comunidades das ciências.",
+      ],
+      creditos: [
+        {
+          titulo: "Equipe de produção",
+          itens: [
+            { rotulo: "Produção", valor: "Raliane Alves" },
+            { rotulo: "Assistência de produção", valor: "Allyson Nogueira" },
+            { rotulo: "Assistência administrativa", valor: "Yasmin Malheiros" },
+            {
+              rotulo: "Apoio",
+              valor:
+                "Beatriz Nogueira, Isabella Lima, Luane Lopes, Maia Henrique, Pedro Rafael Pereira, Richely Santos, Talita Queiroz, Vinícius Nascimento",
+            },
+          ],
+        },
+        {
+          titulo: "Técnicos externos",
+          itens: [
+            { rotulo: "Coordenação de formação patrimonial", valor: "Alexandra Pinheiro" },
+            { rotulo: "Assistência administrativa financeira", valor: "Romildo Nogueira" },
+            { rotulo: "Coordenação de comunicação", valor: "Kenin Silva" },
+            { rotulo: "Assessoria de imprensa", valor: "Fernanda Pinho" },
+            { rotulo: "Produtor executivo", valor: "Paulo Emanuel de Lima" },
+            { rotulo: "Assistência de produção", valor: "Vitor Oliveira" },
+            { rotulo: "Tradutor intérprete de Libras", valor: "Lauro Oliveira" },
+          ],
+        },
+        {
+          titulo: "Ficha técnica",
+          itens: [
+            { rotulo: "Projeto e produção executiva", valor: "Carolyne Souza" },
+            { rotulo: "Fotografia", valor: "Thiago Jardim" },
+            { rotulo: "Iluminação", valor: "Pedro Olimpio" },
+            { rotulo: "Textos", valor: "Greiciana Costa" },
+          ],
+        },
+      ],
+    },
   },
   {
     id: "exibicao3",
@@ -416,6 +483,23 @@ export const exibicoes = [
       size: TESOUROS_VIVOS_OBRA_SIZE,
     }),
     quadroTipo: "molduraPreta",
+    curatorial: {
+      texto: [
+        "Reconhecidos como Tesouros Vivos da Cultura, através da Lei Estadual Nº 13.842, de 27 de novembro de 2006, os Mestres e Mestras da Cultura do Ceará recebem o apoio para a preservação da memória cultural do processo de transmissão, seja por meio da transmissão às gerações seguintes de artes e ofícios ou por pesquisas, registro, difusão e documentação. A Lei reconhece grupos e coletividades detentores de conhecimentos e práticas culturais tradicionais em processo de transmissão, garante o vínculo e o apoio financeiro para manutenção das práticas, saberes e fazeres, valorização e preservação da cultura tradicional cearense.",
+        "Em 2016, durante o 2º Encontro Mestres do Mundo, na cidade de Limoeiro do Norte, em parceria com o Sesc e o projeto No Tempo do Mestre, foi lançado o primeiro catálogo dos Mestres e Mestras da Cultura do Ceará. Em 2022, na sua segunda edição, foram catalogados todos os 58 Mestres e Mestras da Cultura reconhecidos pela Comissão do Saber em Cultura Popular pela Universidade Estadual do Ceará (UECE).",
+        "A exposição das xilogravuras é um reconhecimento e preservação dos Mestres e Mestras da Cultura do Ceará e uma homenagem a cada um deles, assim como uma maneira de perpetuar e divulgar os saberes tradicionais para as novas gerações. Ao valorizar e enaltecer a existência dos Mestres e Mestras da Cultura do Ceará, o objetivo é contribuir para a preservação da memória e dos saberes que formam a identidade cearense.",
+        "Exposição de Otávio Menezes. Artista visual, designer gráfico e ilustrador. Desde 2018, trabalha com xilogravura e já expôs diversas obras tanto no Ceará quanto em outros Estados. Também participou de diversas feiras de artes no estado.",
+      ],
+      creditos: [
+        {
+          titulo: "Créditos",
+          itens: [
+            { rotulo: "Texto curatorial", valor: "Fabiano dos Santos Piúba" },
+            { rotulo: "Artista", valor: "Otávio Menezes" },
+          ],
+        },
+      ],
+    },
   },
   {
     id: "exibicao4",
@@ -428,6 +512,33 @@ export const exibicoes = [
     }),
     quadroTipo: "molduraMadeira",
     autoSpread: false,
+    curatorial: {
+      texto: [
+        "A exposição Retratos do Voo — Aves Cearenses convida o público a contemplar a beleza e a diversidade das aves que habitam o Ceará. Através de desenhos autorais, a mostra busca despertar o olhar para a riqueza natural do estado e fortalecer a conexão entre a arte, a natureza e a cultura local.",
+        "O amor pelas aves foi o principal motivador dessa exposição. Cada desenho procura registrar e compartilhar o encanto que essas espécies despertam, destacando as suas características únicas.",
+        "Mais do que uma celebração visual, Retratos do Voo é um convite à sensibilização ambiental e à valorização da vida que nos cerca.",
+      ],
+      creditos: [
+        {
+          titulo: "Créditos",
+          itens: [
+            { rotulo: "Curadoria", valor: "Alefe Queiroz" },
+            { rotulo: "Desenhos", valor: "Alefe Queiroz" },
+            { rotulo: "Direção de arte", valor: "Alefe Queiroz" },
+            { rotulo: "Pesquisa", valor: "Alefe Queiroz" },
+            { rotulo: "Produção", valor: "Alefe Queiroz" },
+            { rotulo: "Assessoria", valor: "Nicole Ponte" },
+            { rotulo: "Instagram", valor: "@alefequeiroz2" },
+            { rotulo: "E-mail", valor: "contato: @alefequeiroz2" },
+            {
+              rotulo: "Crédito do edital",
+              valor:
+                "A produção dessa obra faz parte da IV Chamada Pública de Apoio a Projetos Culturais e Artísticos do Sertão Central - 2025/2026",
+            },
+          ],
+        },
+      ],
+    },
   },
   {
     id: "exibicao5",
@@ -439,6 +550,25 @@ export const exibicoes = [
       size: COTIDIANO_OBRA_SIZE,
     }),
     quadroTipo: "molduraPreta",
+    curatorial: {
+      texto: [
+        "Cotidiano. O que é comum. O que é diário. Dia a dia. O espaço da constituição das subjetividades.",
+        "É nesse território, entre a mesa de bar; o silêncio de madrugada; o trânsito; o trânsito; que as subjetividades se formam. O cotidiano é chão e céu: pode sufocar; pode revelar.",
+        "Clarice Lispector escreveu: “O que me mata é o cotidiano. Eu queria só exceções.” Mas e se o cotidiano também puder mostrar o extraordinário?",
+        "Tudo acontece! O que nos empurra para o rápido, para o raso, para o ruído. Estesia é submeter-se. O tempo do sentir e do ouvir adequar? Respirar fundo. Dançar.",
+        "Na fotografia e no cotidiano há um encontro possível. É o convite para o que há de íntimo: de si, do outro. Não falamos de resposta ou de coragem. Aqui o espaço é do encontro. É o corpo que ocupa o espaço.",
+        "O cotidiano. E todas as nossas versões. E todos merecemos ser vistos.",
+      ],
+      creditos: [
+        {
+          titulo: "Créditos",
+          itens: [
+            { rotulo: "Artista", valor: "Fabrícia Teodoro" },
+            { rotulo: "Texto", valor: "Fabrícia Teodoro, 2024" },
+          ],
+        },
+      ],
+    },
   },
   {
     id: "exibicao6",
@@ -450,6 +580,23 @@ export const exibicoes = [
     }),
     quadroTipo: "molduraMadeira",
     autoSpread: false,
+    curatorial: {
+      texto: [
+        "A exposição “Quixadá Fantástico” apresenta leituras surrealistas pintadas em tela e vídeo de paisagens e lugares famosos da cidade de Quixadá. As obras do artista cearense Bruno Joe configuram, como em um cartograma afetivo da cidade e, ao mesmo tempo, um roteiro poético que desemboca no imaginário coletivo que habita em pedreiras e açudes.",
+        "Com curadoria de Bruno Joe, a mostra traça uma cartografia afetiva de Quixadá. Um dos trabalhos em destaque é a obra “A Noite (Cedro Fantástico)”, de técnica de tinta acrílica sobre tela. A obra representa o Açude do Cedro, a Pedra do Cruzeiro, a Escola Estadual Coronel Virgílio Távora e a Igreja da Matriz de Nossa Senhora da Imaculada Conceição. Outras obras que compõem a mostra são “O Tempo (Pedra do Cruzeiro)” e o “Des-envolvimento (Pedra da Cabeça do Leão)”. Cada uma dessas obras traz elementos inspirados na fauna local e figuras humanas em poses meditativas.",
+        "A arte presente na exposição decorre da união de texturas, cores e imaginários poéticos para dar forma a composições de paisagens do cotidiano, paisagens oníricas e figuras humanas em um formato que desloca a percepção do real e promove um encontro com elementos do imaginário fantástico.",
+        "O resultado é uma cartografia do real e do poético para refletir sobre formas possíveis de construir paisagens, experiências e imaginários para aprimorar a resiliência coletiva.",
+      ],
+      creditos: [
+        {
+          titulo: "Créditos",
+          itens: [
+            { rotulo: "Curadoria", valor: "Bruno Joe" },
+            { rotulo: "Textos", valor: "Bruno Joe" },
+          ],
+        },
+      ],
+    },
   },
 ];
 
@@ -488,9 +635,17 @@ export function initUI(startCallback) {
   const imageModal = document.getElementById("image-modal");
   const modalImage = document.getElementById("image-modal-img");
   const modalCaption = document.getElementById("image-modal-caption");
+  const infoBtn = document.getElementById("info-exibicao-btn");
+  const infoModal = document.getElementById("info-modal");
+  const curatorialTextEl = document.getElementById("curatorial-text");
+  const creditosListEl = document.getElementById("creditos-list");
+  const audioToggleBtn = document.getElementById("audio-toggle-btn");
 
   let currentExibicao = exibicoes[0];
   let currentIndex = 0;
+  let currentAudioText = "";
+  let speechUtterance = null;
+  let isSpeaking = false;
 
   const screens = [introScreen, carouselScreen, detailsScreen];
 
@@ -575,6 +730,110 @@ export function initUI(startCallback) {
     goToCarousel({ updateHistory: true, replace: true });
   };
 
+  function buildAudioText(exibicao) {
+    const textos = exibicao?.curatorial?.texto ?? [];
+    const creditos = exibicao?.curatorial?.creditos ?? [];
+    const creditLines = creditos.flatMap((bloco) =>
+      (bloco.itens ?? []).map((item) => `${item.rotulo}: ${item.valor}`),
+    );
+    return [...textos, ...creditLines].join(". ").trim();
+  }
+
+  function stopSpeech() {
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+    }
+    isSpeaking = false;
+    if (audioToggleBtn) {
+      audioToggleBtn.classList.remove("is-playing");
+    }
+  }
+
+  function toggleSpeech() {
+    if (!audioToggleBtn) return;
+    if (!("speechSynthesis" in window)) {
+      audioToggleBtn.setAttribute(
+        "title",
+        "Recurso de áudio não disponível neste dispositivo",
+      );
+      audioToggleBtn.disabled = true;
+      return;
+    }
+
+    if (isSpeaking) {
+      stopSpeech();
+      return;
+    }
+
+    if (!currentAudioText) return;
+
+    speechUtterance = new SpeechSynthesisUtterance(currentAudioText);
+    speechUtterance.lang = "pt-BR";
+    speechUtterance.rate = 1;
+    speechUtterance.pitch = 1;
+    speechUtterance.onend = stopSpeech;
+    speechUtterance.onerror = stopSpeech;
+
+    isSpeaking = true;
+    audioToggleBtn.classList.add("is-playing");
+    window.speechSynthesis.speak(speechUtterance);
+  }
+
+  function renderCuratorialInfo(exibicao) {
+    if (!exibicao?.curatorial) {
+      currentAudioText = "";
+      stopSpeech();
+      return;
+    }
+    const { texto = [], creditos = [] } = exibicao.curatorial;
+
+    if (curatorialTextEl) {
+      curatorialTextEl.innerHTML = texto
+        .map((paragrafo) => `<p>${paragrafo}</p>`)
+        .join("\n");
+    }
+
+    if (creditosListEl) {
+      creditosListEl.innerHTML = creditos
+        .map((bloco) => {
+          const itens = (bloco.itens ?? [])
+            .map(
+              (item) =>
+                `<dt>${item.rotulo}</dt><dd>${item.valor}</dd>`,
+            )
+            .join("\n");
+          return `<div class="creditos-bloco"><h4>${bloco.titulo}</h4><dl>${itens}</dl></div>`;
+        })
+        .join("\n");
+    }
+
+    currentAudioText = buildAudioText(exibicao);
+    stopSpeech();
+  }
+
+  function openInfoModal() {
+    if (!infoModal) return;
+    infoModal.classList.add("open");
+    infoModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+  }
+
+  function closeInfoModal() {
+    if (!infoModal) return;
+    stopSpeech();
+    infoModal.classList.remove("open");
+    infoModal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+  }
+
+  function handleInfoModalClick(event) {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+    if (target.dataset.closeInfo !== undefined) {
+      closeInfoModal();
+    }
+  }
+
   function renderDetails(exibicao) {
     setActiveScreen(detailsScreen);
     tituloEl.textContent = exibicao.titulo;
@@ -583,6 +842,7 @@ export function initUI(startCallback) {
     detailsScreen.style.setProperty("--details-cover", `url(${heroCover})`);
     detailsScreen.scrollTo({ top: 0, behavior: "auto" });
     obrasLista.innerHTML = "";
+    renderCuratorialInfo(exibicao);
 
     exibicao.obras.forEach((obra) => {
       const div = document.createElement("div");
@@ -632,9 +892,22 @@ export function initUI(startCallback) {
 
   imageModal?.addEventListener("click", handleModalClick);
 
+  infoModal?.addEventListener("click", handleInfoModalClick);
+  audioToggleBtn?.addEventListener("click", toggleSpeech);
+
+  infoBtn?.addEventListener("click", () => {
+    renderCuratorialInfo(currentExibicao);
+    openInfoModal();
+  });
+
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && imageModal?.classList.contains("open")) {
-      closeImageModal();
+    if (event.key === "Escape") {
+      if (imageModal?.classList.contains("open")) {
+        closeImageModal();
+      }
+      if (infoModal?.classList.contains("open")) {
+        closeInfoModal();
+      }
     }
   });
 
@@ -738,6 +1011,8 @@ export function initUI(startCallback) {
       currentIndex = exibicaoIndex;
       updateCarouselUI();
     }
+    stopSpeech();
+    closeInfoModal();
     renderDetails(exibicao);
     if (updateHistory) {
       navigateTo(ROUTES.DETAILS, { exibicaoId: exibicao.id, replace });
