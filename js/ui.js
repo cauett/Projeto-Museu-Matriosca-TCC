@@ -453,6 +453,128 @@ export const exibicoes = [
   },
 ];
 
+const exibicoesInfo = {
+  exibicao1: {
+    curatorialText:
+      "Exposição Linha da Vida\n\nA linha da vida, na vida, é sinuosa,\nDa partida à emaranhada chegada,\nQuimera criada e felicidade caçada.\nJá a morte... Ah! A morte é teimosa.\n\nÉ mecha, aro e sorte misturada,\nCerteza e surpresa bem plantadas,\nMas tudo com uma pitada furiosa.\nDe cor e sabor, se bem aproveitada.\n\nTal qual uma poesia em sua tosa,\nIrresoluta e linda na estrada,\nPorém, elaborada na sua prosa.\n\nE no talo bem não tem nada,\nHá sede, entrada, espinho e rosa.\nE a vida, como estrada não fica parada...\n\nÉ com essa poesia de Luciano Spagnol — Linha da Vida (2016, Cerrado Goiano) — que abrimos nossa exposição. Cada pessoa, com um ponto de partida, se intercruza, vira trama, um traço e outro. Em Linha da Vida, a técnica de artesanato é feita com linha e agulha. Assim, vão construindo em cores cada pedacinho de suas vidas por meio dessa linhas poéticas imaginárias.",
+    credits: [
+      {
+        label: "Curadoria",
+        value: "Dias Brasil",
+      },
+      {
+        label: "Poema de referência",
+        value: "Luciano Spagnol — Linha da Vida (2016, Cerrado Goiano)",
+      },
+      {
+        label: "Artistas",
+        value:
+          "António Henrique, Ariel Loiola, Catarina Garcia, Davi Sales, Enzo Gabriel, Franzé Rocha, Gabriel Amorim, Gabriel Medeiros, Gabriel Morais, Geovanna Silva, José Carlos, Kiko Targino, Levi Pimenta, Marianne Bezerra, Maria Eliany, Maria de Nazaré, Rayssa Lima, Vitória Suynara",
+      },
+    ],
+  },
+  exibicao2: {
+    curatorialText:
+      "Esta exposição é um esforço conjunto de agentes sociais, educacionais e culturais que buscam promover a difusão e valorização do patrimônio local, de forma educativa e cultural, apresentando à sociedade do Sertão Central o projeto do Geoparque Sertão Monumental em suas múltiplas dimensões.\n\nO Projeto Geoparque Sertão Monumental surge em 2019 a partir de um relatório técnico realizado pelo Serviço Geológico do Brasil e pesquisadores de outros institutos. O projeto tem como geossítios iniciais, segundo Furtado et al., 2021, o açude do Cedro, a Pedra do Cruzeiro, os Monólitos e o Quixadá Gnaisse, situados no município de Quixadá. As ações são orientadas pelos aspectos geológicos, biológicos, turísticos e culturais na escala regional. Atualmente o Projeto encontra-se em sua fase preparatória, a partir do planejamento e a elaboração do Plano de Gestão, bem como a execução de projetos e eventos de sensibilização junto às comunidades locais e aos governos municipal e estadual. Os geoparques servem como ferramentas de desenvolvimento econômico sustentável. A principal característica é a unicidade geológica, mas a estrutura geoparque tem como foco conservar e elevar a valorização da comunidade local por meio de experiências imersivas e educativas que conciliam o trinômio do desenvolvimento sustentável.\n\nO Geoparque tem como objetivo a conservação dos geossítios e o estímulo aos seus valores ambientais, científicos, culturais e turísticos contribuindo com a estratégia de desenvolvimento sustentável e conservação do território a partir das demandas das comunidades das localidades. A Geodiversidade faz parte da identidade do Sertão Central, assim como nossa forma de viver, sentir e ser. O projeto visa ampliar a divulgação e o conhecimento dos geossítios, considerando suas contribuições às teorias e estudos sobre a formação da Terra, como também ações educacionais, culturais e atividades turísticas, e ainda à atividade econômica da região trazendo mais emprego e renda para as comunidades locais.",
+    credits: [
+      {
+        label: "Curadoria e pesquisa",
+        value: "Yasmin Malheiros",
+      },
+      {
+        label: "Assistência de curadoria",
+        value: "Isabella Lima, Lucas Lopes, Beatriz Neres, Beatriz Nascimento",
+      },
+      {
+        label: "Produção",
+        value: "Priscila Lima, Raiane Alves, Richely Santos, Tayná Maia, Vinicius Oliveira",
+      },
+      {
+        label: "Roteiro, gravação e edição do áudio guia",
+        value: "Rayanne Sobrinho",
+      },
+      {
+        label: "Realização e apoio",
+        value:
+          "Governo do Estado do Ceará, Instituto Dragão do Mar, Centro Cultural Banco do Nordeste, Serviço Social do Comércio (SESC), Governo Federal — Ministério da Cultura",
+      },
+    ],
+  },
+  exibicao3: {
+    curatorialText:
+      "Reconhecidos como Tesouros Vivos da Cultura, através da Lei Estadual N° 13.842, de 27 de novembro de 2006, os Mestres e Mestras da Cultura do Ceará recebem o apoio para a preservação da memória cultural do Estado, promovendo a transmissão às gerações futuras dos conhecimentos dos seus saberes orais ou escritos. A Lei reconhece aqueles grupos e coletividades detentores de manifestação cultural que os nomina como patrimônio imaterial e traz como forma de ação estabelecida a transmissão oral e prática, o registro e os processos ao serem desenvolvidos para sua perpetuação.\n\nEm 2016, durante o X Encontro Mestres do Mundo, na cidade de Limoeiro do Norte, em sua décima edição e o único encontro dessa natureza no Brasil, foi lançado o selo do saber e do fazer com a produção de uma série de xilogravuras intitulada Noutro Saber em Cultura Popular pela Universidade Estadual do Ceará (UECE).\n\nA exposição apresenta 58 xilogravuras de artistas, pesquisadores e educadores de diversas áreas, inspiradas nas histórias dos Mestres e Mestras da Cultura do Ceará, que buscam trazer à tona os conhecimentos e saberes para a preservação das tradições. Cada xilogravura foi pensada e elaborada pelos artistas, com os recursos de suas pesquisas, experiências e vivências na cultura popular.\n\nExposição de Otávio Menezes\nArtista, ilustrador, designer gráfico e pesquisador dos Mestres e Mestras da Cultura do Ceará. Em 2025, lançou o livro Mestres Mestres e Mestras da Cultura Popular Cearense, que reúne, em artes e letras, histórias, registros e o fazer dos 58 Mestres e Mestras reconhecidos pelo Governo do Estado do Ceará e pela Secretaria da Cultura do Estado do Ceará (Secult Ceará).",
+    credits: [
+      {
+        label: "Exposição",
+        value: "Otávio Menezes",
+      },
+      {
+        label: "Texto curatorial",
+        value: "Fabiano dos Santos Piúba",
+      },
+      {
+        label: "Homenagem",
+        value: "58 Mestres e Mestras da Cultura do Ceará reconhecidos pela Lei Estadual Nº 13.842/2006",
+      },
+    ],
+  },
+  exibicao4: {
+    curatorialText:
+      "A exposição Retratos do Voo — Aves Cearenses convida o público a contemplar a beleza e a diversidade das aves que habitam o Ceará. Através de desenhos autorais, a mostra busca despertar o olhar para a riqueza natural do estado e fortalecer a conexão entre a arte, a natureza e a cultura local.\n\nO amor pelas aves foi o principal motivador dessa exposição. Cada desenho procura registrar e compartilhar o encanto que essas espécies despertam, destacando as suas características únicas.\n\nMais do que uma celebração visual, Retratos do Voo é um convite à sensibilização ambiental e à valorização da vida que nos rodeia.",
+    credits: [
+      {
+        label: "Curadoria",
+        value: "Alefe Queiroz",
+      },
+      {
+        label: "Desenho, pintura e música",
+        value: "Alefe Queiroz",
+      },
+      {
+        label: "Assistência",
+        value: "Priscila Camelo",
+      },
+      {
+        label: "Voz",
+        value: "Alefe Queiroz",
+      },
+      {
+        label: "Redes",
+        value: "@alefequeiroz, @alefequeiroz2",
+      },
+      {
+        label: "Apoio",
+        value:
+          "Universidade Federal do Ceará — projeto aprovado na IV Chamada Pública de Fomento à Cultura do Cariri (Temporada Sesc-CE Central 2025/2026)",
+      },
+    ],
+  },
+  exibicao5: {
+    curatorialText:
+      "Cotidiano. O que é comum. O que é diário. Dia a dia. O espaço da constituição das subjetividades.\n\nÉ nesse território, entre a mesa de bar; o silêncio do taró; o ruído da chuva; onde as subjetividades se fazem presente. O cotidiano é chão e céu; pode sufocar; pode revelar.\n\nClarice Lispector escreveu: “O que me mata é o cotidiano. Eu queria só exceções.” Mas e se o comum também puder nomear o extraordinário?\n\nOs sentidos do que nos empurra para o rápido, para o raso, para o ruidoso. Esteja atento a isso: estarei te observando de qualquer lugar. Respirar fundo. Desacelerar. O banal carrega a beleza.\n\nCada fotografia é uma negociação com o tempo: um segundo em que a memória é presente. Aqui, o chão é espaço de afeto e recomeço. Onde as pessoas estão, a chuva também chega. Todos os mundos agora são possíveis.\n\nSe um rio pudesse se manter no mesmo lugar, eu iria esperar a onda novamente. Vejo-me e continuo.\n\nEsse é o cotidiano que me atravessa. Espero que também atravesse você. E todos merecemos viver as reversões, revoluções.\n\nFabrícia Teodoro artista.",
+    credits: [
+      {
+        label: "Criação e texto",
+        value: "Fabrícia Teodoro",
+      },
+    ],
+  },
+  exibicao6: {
+    curatorialText:
+      "A exposição “Quixadá Fantástico” apresenta leituras surrealistas pintadas em tela e vídeo de paisagens e lendas famosas da cidade de Quixadá. As novas obras do artista Bruno Joe mostram uma cartografia afetiva e, ao mesmo tempo, um pouco surreal dos lugares em Quixadá que influenciaram o imaginário popular e a identidade da região, como os monólitos, açude do Cedro, Pedra do Cruzeiro, o crato e o Santuário de Nossa Senhora da Imaculada Rainha do Sertão, o Santuário de Nossa Senhora do Rosário e a Pedra do Cruzeiro. As obras evidenciam a dimensão fantasmagórica que é latente do imaginário popular, e também transmitem a sensação de estar no interior através de recortes das cidades e pontos históricos que foram símbolos dessas histórias.\n\nNo cenário imaginário do real e quem nos move são artistas que trazem as luzes mais fantasiosas da nossa região para a vida visual e que imaginam mundos e universos paralelos, com a tropicalidade das paisagens e a diversidade de cores, diversidade étnica e meio ambiente e a cidade onde moramos.\n\nA exposição traz a imaginação do real e promove uma viagem para o mundo do surreal, com ilustrações que criam um universo fantástico e lúdico que perpassa a vivência social do Sertão Central. A mostra “Quixadá Fantástico” dispõe de obras em tela, mas o foco das obras está no audiovisual, narrando histórias e lendas cearenses, que imaginam o futuro e ressignificam o passado. A mostra apresenta um recorte da nossa região que atravessa diversas memórias afetivas.\n\nBruno Joe\nCurador.",
+    credits: [
+      {
+        label: "Curadoria e obras",
+        value: "Bruno Joe",
+      },
+      {
+        label: "Realização",
+        value: "Casa de Saberes Cego Aderaldo, Instituto Dragão do Mar, Governo do Estado do Ceará",
+      },
+    ],
+  },
+};
+
 // UI
 export function initUI(startCallback) {
   const uiContainer = document.getElementById("ui");
@@ -488,9 +610,21 @@ export function initUI(startCallback) {
   const imageModal = document.getElementById("image-modal");
   const modalImage = document.getElementById("image-modal-img");
   const modalCaption = document.getElementById("image-modal-caption");
+  const openInfoBtn = document.getElementById("open-info-btn");
+  const infoModal = document.getElementById("info-modal");
+  const infoCuratorial = document.getElementById("info-curatorial");
+  const infoCredits = document.getElementById("info-credits");
+  const infoTitle = document.getElementById("info-modal-title");
+  const infoAudioBtn = document.getElementById("info-audio-btn");
+  const infoAudioLabel = infoAudioBtn?.querySelector(".info-audio-btn__label");
+
+  const speechSupported =
+    typeof window !== "undefined" && "speechSynthesis" in window;
 
   let currentExibicao = exibicoes[0];
   let currentIndex = 0;
+  let infoAudioText = "";
+  let currentUtterance = null;
 
   const screens = [introScreen, carouselScreen, detailsScreen];
 
@@ -556,8 +690,138 @@ export function initUI(startCallback) {
     }
   }
 
+  function buildCreditsHtml(credits = []) {
+    if (!credits.length) {
+      return '<p class="info-empty">Créditos não informados.</p>';
+    }
+
+    const title = '<p class="info-credits__title">Créditos</p>';
+    const rows = credits
+      .map(
+        (credit) => `
+          <div class="info-credit-row">
+            <span>${credit.label}</span>
+            <p>${credit.value}</p>
+          </div>
+        `,
+      )
+      .join("");
+
+    return `${title}${rows}`;
+  }
+
+  function buildAudioNarration(info, exibicao) {
+    if (!info) return "";
+    const parts = [info.curatorialText?.trim()].filter(Boolean);
+
+    if (info.credits?.length) {
+      const creditNarration = info.credits
+        .map((credit) => `${credit.label}: ${credit.value}`)
+        .join(". ");
+      parts.push(`Créditos: ${creditNarration}`);
+    }
+
+    if (exibicao?.titulo) {
+      parts.unshift(`Exposição ${exibicao.titulo}.`);
+    }
+
+    return parts.join(". ");
+  }
+
+  function stopInfoAudio() {
+    if (speechSupported && window.speechSynthesis?.speaking) {
+      window.speechSynthesis.cancel();
+    }
+    currentUtterance = null;
+    infoAudioBtn?.classList.remove("active");
+    if (infoAudioLabel) {
+      infoAudioLabel.textContent = "Ouvir";
+    }
+    infoAudioBtn?.setAttribute("aria-pressed", "false");
+  }
+
+  function toggleInfoAudio() {
+    if (!speechSupported || !infoAudioText.trim()) return;
+
+    if (window.speechSynthesis?.speaking) {
+      stopInfoAudio();
+      return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(infoAudioText);
+    utterance.lang = "pt-BR";
+    utterance.rate = 0.98;
+    utterance.pitch = 1.02;
+    utterance.onend = () => stopInfoAudio();
+    currentUtterance = utterance;
+    window.speechSynthesis?.speak(utterance);
+
+    infoAudioBtn?.classList.add("active");
+    infoAudioBtn?.setAttribute("aria-pressed", "true");
+    if (infoAudioLabel) {
+      infoAudioLabel.textContent = "Pausar áudio";
+    }
+  }
+
+  function setModalOpenState(isOpen) {
+    if (!document?.body) return;
+    if (isOpen) {
+      document.body.classList.add("modal-open");
+    } else if (!imageModal?.classList.contains("open") && !infoModal?.classList.contains("open")) {
+      document.body.classList.remove("modal-open");
+    }
+  }
+
+  function closeInfoModal() {
+    if (!infoModal) return;
+    infoModal.classList.remove("open");
+    infoModal.setAttribute("aria-hidden", "true");
+    stopInfoAudio();
+    setModalOpenState(false);
+  }
+
+  function openInfoModal() {
+    if (!infoModal) return;
+    infoModal.classList.add("open");
+    infoModal.setAttribute("aria-hidden", "false");
+    stopInfoAudio();
+    if (!speechSupported && infoAudioBtn) {
+      infoAudioBtn.disabled = true;
+      infoAudioBtn.title = "A leitura em voz alta não é suportada neste dispositivo.";
+    }
+    setModalOpenState(true);
+  }
+
+  function updateInfoModalContent(exibicao) {
+    if (!exibicao) return;
+    const info = exibicoesInfo[exibicao.id];
+    if (infoTitle) {
+      infoTitle.textContent = exibicao.titulo;
+    }
+    if (infoCuratorial) {
+      infoCuratorial.textContent = info?.curatorialText ?? "Conteúdo não disponível.";
+    }
+    if (infoCredits) {
+      infoCredits.innerHTML = buildCreditsHtml(info?.credits ?? []);
+    }
+    infoAudioText = buildAudioNarration(info, exibicao);
+    if (infoAudioBtn) {
+      const hasAudio = Boolean(infoAudioText.trim()) && speechSupported;
+      infoAudioBtn.disabled = !hasAudio;
+      infoAudioBtn.title = hasAudio
+        ? "Ouvir o texto completo da exposição"
+        : "Leitura em voz alta indisponível.";
+      infoAudioBtn.setAttribute("aria-pressed", "false");
+      infoAudioBtn.classList.remove("active");
+      if (infoAudioLabel) {
+        infoAudioLabel.textContent = "Ouvir";
+      }
+    }
+  }
+
   function goToIntro({ updateHistory = true, replace = false } = {}) {
     setActiveScreen(introScreen);
+    closeInfoModal();
     if (updateHistory) {
       navigateTo(ROUTES.INTRO, { replace });
     }
@@ -565,6 +829,7 @@ export function initUI(startCallback) {
 
   function goToCarousel({ updateHistory = true, replace = false } = {}) {
     setActiveScreen(carouselScreen);
+    closeInfoModal();
     goToSlide(currentIndex, { behavior: "auto" });
     if (updateHistory) {
       navigateTo(ROUTES.CAROUSEL, { replace });
@@ -577,6 +842,8 @@ export function initUI(startCallback) {
 
   function renderDetails(exibicao) {
     setActiveScreen(detailsScreen);
+    closeInfoModal();
+    updateInfoModalContent(exibicao);
     tituloEl.textContent = exibicao.titulo;
     descEl.textContent = exibicao.descricao;
     const heroCover = coverImageFor(exibicao);
@@ -612,14 +879,14 @@ export function initUI(startCallback) {
     }
     imageModal.classList.add("open");
     imageModal.setAttribute("aria-hidden", "false");
-    document.body.classList.add("modal-open");
+    setModalOpenState(true);
   }
 
   function closeImageModal() {
     if (!imageModal) return;
     imageModal.classList.remove("open");
     imageModal.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("modal-open");
+    setModalOpenState(false);
   }
 
   function handleModalClick(event) {
@@ -632,9 +899,23 @@ export function initUI(startCallback) {
 
   imageModal?.addEventListener("click", handleModalClick);
 
+  function handleInfoClick(event) {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+    if (target.dataset.closeInfo !== undefined) {
+      closeInfoModal();
+    }
+  }
+
+  infoModal?.addEventListener("click", handleInfoClick);
+
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && imageModal?.classList.contains("open")) {
+    if (event.key !== "Escape") return;
+    if (imageModal?.classList.contains("open")) {
       closeImageModal();
+    }
+    if (infoModal?.classList.contains("open")) {
+      closeInfoModal();
     }
   });
 
@@ -774,6 +1055,13 @@ export function initUI(startCallback) {
   viewDetailsBtn.addEventListener("click", () => {
     showExibicao(currentExibicao);
   });
+
+  openInfoBtn?.addEventListener("click", () => {
+    updateInfoModalContent(currentExibicao);
+    openInfoModal();
+  });
+
+  infoAudioBtn?.addEventListener("click", () => toggleInfoAudio());
 
   window.addEventListener("resize", () => centerCurrentSlide("auto"));
 
