@@ -759,7 +759,7 @@ export function initUI(startCallback) {
     infoAudioBtn?.classList.add("active");
     infoAudioBtn?.setAttribute("aria-pressed", "true");
     if (infoAudioLabel) {
-      infoAudioLabel.textContent = "Pausar áudio";
+      infoAudioLabel.textContent = "Parar";
     }
   }
 
