@@ -81,6 +81,12 @@
             <div class="details-copy">
               <h2 id="exibicao-titulo"></h2>
               <p id="exibicao-descricao"></p>
+              <div class="details-actions">
+                <button id="open-info-btn" class="info-btn" type="button">
+                  <span class="info-btn__icon" aria-hidden="true"></span>
+                  <span class="info-btn__label">Informações da exposição</span>
+                </button>
+              </div>
             </div>
           </div>
           <div id="obras-lista">
@@ -105,6 +111,45 @@
             </button>
             <img id="image-modal-img" src="" alt="" />
             <p id="image-modal-caption"></p>
+          </div>
+        </div>
+
+        <div id="info-modal" aria-hidden="true">
+          <div class="info-modal__overlay" data-close-info></div>
+          <div class="info-modal__content" role="dialog" aria-modal="true">
+            <header class="info-modal__header">
+              <div class="info-modal__title">
+                <span class="info-modal__title-icon" aria-hidden="true"></span>
+                <div>
+                  <p class="info-modal__eyebrow">Texto curatorial</p>
+                  <h3 id="info-modal-title"></h3>
+                </div>
+              </div>
+              <div class="info-modal__actions">
+                <button
+                  id="info-audio-btn"
+                  class="info-audio-btn"
+                  type="button"
+                  aria-label="Ouvir o texto curatorial"
+                  aria-pressed="false"
+                >
+                  <span class="info-audio-btn__icon" aria-hidden="true"></span>
+                  <span class="info-audio-btn__label">Ouvir</span>
+                </button>
+                <button
+                  type="button"
+                  class="info-modal__close"
+                  aria-label="Fechar informações da exposição"
+                  data-close-info
+                >
+                  ×
+                </button>
+              </div>
+            </header>
+            <div class="info-modal__body">
+              <div id="info-curatorial" class="info-curatorial"></div>
+              <div id="info-credits" class="info-credits"></div>
+            </div>
           </div>
         </div>
       </div>
