@@ -4,6 +4,26 @@ export async function setupARScene(THREE, ARButton, onSelect) {
   const container = document.createElement("div");
   document.body.appendChild(container);
 
+  const arHint = document.createElement("div");
+  arHint.id = "ar-hint";
+  arHint.setAttribute("aria-hidden", "true");
+  arHint.innerHTML = `
+    <div class="ar-hint__icon" aria-hidden="true">📍</div>
+    <div class="ar-hint__content">
+      <p class="ar-hint__title">Procure uma parede</p>
+      <p class="ar-hint__text">Aponte a câmera para uma parede com quadros, portas ou objetos para posicionar a galeria.</p>
+    </div>
+  `;
+  container.appendChild(arHint);
+
+  const arCloseButton = document.createElement("button");
+  arCloseButton.id = "ar-close-btn";
+  arCloseButton.type = "button";
+  arCloseButton.setAttribute("aria-label", "Fechar a experiência em RA");
+  arCloseButton.textContent = "×";
+  arCloseButton.style.display = "none";
+  container.appendChild(arCloseButton);
+
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
     70,
@@ -24,6 +44,8 @@ export async function setupARScene(THREE, ARButton, onSelect) {
   // Criar e esconder o ARButton para acionamento no novo botão
   const arButton = ARButton.createButton(renderer, {
     requiredFeatures: ["hit-test"],
+    optionalFeatures: ["dom-overlay"],
+    domOverlay: { root: container },
   });
   arButton.id = "native-webxr-button";
   arButton.style.display = "none";
@@ -69,5 +91,7 @@ export async function setupARScene(THREE, ARButton, onSelect) {
     controller,
     reticle,
     arButton,
+    arHint,
+    arCloseButton,
   };
 }
