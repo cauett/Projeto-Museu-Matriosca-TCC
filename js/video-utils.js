@@ -30,20 +30,55 @@ export function getWallTextureFromVideo(THREE) {
   if (!w || !h) return null;
 
   const sampleSize = 64;
+  const cropSize = Math.min(w, h) * 0.35; // captura área central maior da cena
   canvas.width = sampleSize;
   canvas.height = sampleSize;
 
-  ctx.drawImage(video, w / 2 - 32, h / 2 - 32, 64, 64, 0, 0, 64, 64);
+  // primeiro passo: capturar a área central já desfocada para priorizar cores predominantes
+  ctx.filter = "blur(6px) saturate(0.9)";
+  ctx.drawImage(
+    video,
+    w / 2 - cropSize / 2,
+    h / 2 - cropSize / 2,
+    cropSize,
+    cropSize,
+    0,
+    0,
+    sampleSize,
+    sampleSize,
+  );
+  ctx.filter = "none";
 
-  const imageData = ctx.getImageData(0, 0, 64, 64);
+  const imageData = ctx.getImageData(0, 0, sampleSize, sampleSize);
   const data = imageData.data;
 
-  for (let y = 0; y < 64; y++) {
-    const vFade = Math.min(y / 18.5, (64 - y) / 18.5, 1);
-    for (let x = 0; x < 64; x++) {
-      const hFade = Math.min(x / 18.5, (64 - x) / 18.5, 1);
-      const i = (y * 64 + x) * 4;
+  // cor média para reforçar a predominância da parede
+  let rSum = 0,
+    gSum = 0,
+    bSum = 0;
+  for (let i = 0; i < data.length; i += 4) {
+    rSum += data[i];
+    gSum += data[i + 1];
+    bSum += data[i + 2];
+  }
+  const totalPixels = sampleSize * sampleSize;
+  const avgColor = {
+    r: rSum / totalPixels,
+    g: gSum / totalPixels,
+    b: bSum / totalPixels,
+  };
+
+  // blenda cada pixel com a cor média para reduzir interferência de objetos
+  for (let y = 0; y < sampleSize; y++) {
+    const vFade = Math.min(y / 18.5, (sampleSize - y) / 18.5, 1);
+    for (let x = 0; x < sampleSize; x++) {
+      const hFade = Math.min(x / 18.5, (sampleSize - x) / 18.5, 1);
+      const i = (y * sampleSize + x) * 4;
       const fade = Math.min(hFade, vFade);
+
+      data[i] = data[i] * 0.35 + avgColor.r * 0.65;
+      data[i + 1] = data[i + 1] * 0.35 + avgColor.g * 0.65;
+      data[i + 2] = data[i + 2] * 0.35 + avgColor.b * 0.65;
       data[i + 3] *= fade;
     }
   }
