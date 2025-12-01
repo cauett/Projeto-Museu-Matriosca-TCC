@@ -6,6 +6,7 @@ import {
   configureWallUtils,
   isWallPlaced,
   setExibicaoAtiva,
+  updatePreviewFromReticle,
   resetWall, // 👈 ADICIONADO AQUI
 } from "./wall-utils.js";
 import { initUI } from "./ui.js";
@@ -112,9 +113,11 @@ function handleSessionEnd() {
         if (pose) {
           reticle.visible = true;
           reticle.matrix.fromArray(pose.transform.matrix);
+          updatePreviewFromReticle();
         }
       } else {
         reticle.visible = false;
+        updatePreviewFromReticle();
       }
     }
 

@@ -3,6 +3,7 @@ let THREE, camera, scene, reticle;
 let wallPlaced = false;
 let exibicaoAtiva = null;
 let currentWall = null; // parede atual da sessão
+let previewGroup = null;
 
 import { getWallTextureFromVideo } from "./video-utils.js";
 
@@ -62,6 +63,7 @@ export function onSelect() {
     currentWall = wall; // guarda referência da parede atual
     wallPlaced = true;
     reticle.visible = false;
+    removePreview();
 
     const group = new THREE.Group();
     wall.add(group);
@@ -95,6 +97,22 @@ export function onSelect() {
       });
     }
   }
+}
+
+function computeOuterWidth(size, quadroTipo) {
+  const nSize = normalizeSize(size, quadroTipo);
+
+  if (quadroTipo === "fotografia") {
+    const paperBorder = 0.01;
+    return nSize.w + paperBorder * 2;
+  }
+
+  const frameThickness = 0.018;
+  if (quadroTipo === "molduraPreta" || quadroTipo === "molduraMadeira") {
+    return nSize.w + frameThickness * 2;
+  }
+
+  return nSize.w;
 }
 
 /** Calcula um size refinado por tipo de quadro para manter realismo (fotografias um pouco menores). */
@@ -635,6 +653,106 @@ function addAutorLabel(
   parent.add(mesh);
 }
 
+function buildPreview() {
+  if (!scene || !exibicaoAtiva) return;
+
+  removePreview();
+
+  previewGroup = new THREE.Group();
+  previewGroup.visible = false;
+  scene.add(previewGroup);
+
+  const quadroTipo = exibicaoAtiva.quadroTipo ?? "moldura";
+  const obras = exibicaoAtiva.obras;
+
+  const previewMaterial = new THREE.MeshBasicMaterial({
+    color: 0xffffff,
+    transparent: true,
+    opacity: 0.22,
+    side: THREE.DoubleSide,
+    depthWrite: false,
+  });
+
+  const outlineMaterial = new THREE.LineBasicMaterial({
+    color: 0xffffff,
+    transparent: true,
+    opacity: 0.55,
+    linewidth: 2,
+    depthWrite: false,
+  });
+
+  obras.forEach((obra, idx) => {
+    const zNudge = (idx % 3) * 0.0006;
+    const pos = { ...obra.position, z: (obra.position?.z ?? 0) + zNudge };
+    const nSize = normalizeSize(obra.size, quadroTipo);
+
+    const plane = new THREE.Mesh(
+      new THREE.PlaneGeometry(nSize.w, nSize.h),
+      previewMaterial.clone(),
+    );
+    plane.position.set(pos.x, pos.y, pos.z);
+    plane.rotation.y = Math.PI;
+    plane.userData = {
+      kind: "quadro",
+      outerW: computeOuterWidth(obra.size, quadroTipo),
+    };
+
+    const edges = new THREE.EdgesGeometry(new THREE.PlaneGeometry(nSize.w, nSize.h));
+    const outline = new THREE.LineSegments(edges, outlineMaterial.clone());
+    outline.position.set(pos.x, pos.y, pos.z + 0.0003);
+    outline.rotation.y = Math.PI;
+
+    previewGroup.add(plane);
+    previewGroup.add(outline);
+  });
+
+  if (exibicaoAtiva.autoSpread !== false) {
+    spreadByRows(previewGroup, {
+      minGapX: "auto",
+      rowSnap: 0.08,
+    });
+  }
+}
+
+function removePreview() {
+  if (previewGroup && scene) {
+    scene.remove(previewGroup);
+  }
+  previewGroup = null;
+}
+
+export function updatePreviewFromReticle() {
+  if (!camera || !scene || !reticle || wallPlaced || !exibicaoAtiva) {
+    removePreview();
+    return;
+  }
+
+  if (!reticle.visible) {
+    if (previewGroup) previewGroup.visible = false;
+    return;
+  }
+
+  if (!previewGroup) buildPreview();
+  if (!previewGroup) return;
+
+  const reticlePos = new THREE.Vector3().setFromMatrixPosition(reticle.matrix);
+  const camPos = camera.getWorldPosition(new THREE.Vector3());
+  const lookDir = new THREE.Vector3().subVectors(camPos, reticlePos);
+  lookDir.y = 0;
+  lookDir.normalize();
+
+  previewGroup.position.copy(reticlePos);
+  previewGroup.quaternion.setFromRotationMatrix(
+    new THREE.Matrix4().lookAt(
+      new THREE.Vector3(0, 0, 0),
+      lookDir,
+      new THREE.Vector3(0, 1, 0),
+    ),
+  );
+
+  previewGroup.visible = true;
+}
+
 // limpa a parede atual e permite nova interação RA
 export function resetWall() {
   if (currentWall && scene) {
@@ -642,6 +760,7 @@ export function resetWall() {
     currentWall = null;
   }
   wallPlaced = false;
+  removePreview();
 }
 
 export function isWallPlaced() {
