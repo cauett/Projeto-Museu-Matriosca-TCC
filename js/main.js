@@ -10,11 +10,25 @@ import {
 } from "./wall-utils.js";
 import { initUI } from "./ui.js";
 
-let camera, scene, renderer, controller, reticle, arButton;
+let camera, scene, renderer, controller, reticle, arButton, arHint;
 let hitTestSource = null;
 let localSpace = null;
 let referenceSpace = null;
 let arContainer = null;
+
+function showArHint() {
+  if (arHint) {
+    arHint.classList.add("visible");
+    arHint.setAttribute("aria-hidden", "false");
+  }
+}
+
+function hideArHint() {
+  if (arHint) {
+    arHint.classList.remove("visible");
+    arHint.setAttribute("aria-hidden", "true");
+  }
+}
 
 // callback que vem da UI (detalhes da exposição -> botão "Iniciar experiência em RA")
 initUI((exibicaoSelecionada) => {
@@ -34,6 +48,8 @@ function handleSessionEnd() {
   if (arContainer) {
     arContainer.style.display = "none";
   }
+
+  hideArHint();
 
   // mostra de volta a UI (mantendo a tela de detalhes/carrossel que já estava ativa)
   const ui = document.getElementById("ui");
@@ -65,6 +81,7 @@ function handleSessionEnd() {
   controller = sceneObjects.controller;
   reticle = sceneObjects.reticle;
   arButton = sceneObjects.arButton;
+  arHint = sceneObjects.arHint;
 
   arContainer = renderer.domElement.parentElement;
   if (arContainer) {
@@ -100,6 +117,8 @@ function handleSessionEnd() {
       arContainer.style.display = "block";
     }
 
+    showArHint();
+
     session.addEventListener("end", handleSessionEnd, { once: true });
   });
 
@@ -116,6 +135,10 @@ function handleSessionEnd() {
       } else {
         reticle.visible = false;
       }
+    }
+
+    if (isWallPlaced()) {
+      hideArHint();
     }
 
     renderer.render(scene, camera);
