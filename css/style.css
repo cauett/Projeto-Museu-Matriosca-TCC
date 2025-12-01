@@ -1109,6 +1109,37 @@ body.modal-open {
   border: 0;
 }
 
+.ar-hint {
+  position: fixed;
+  top: clamp(0.9rem, 4vw, 1.6rem);
+  left: 50%;
+  transform: translate(-50%, -10px);
+  max-width: min(92vw, 520px);
+  padding: 0.85rem 1.1rem;
+  border-radius: 18px;
+  background: linear-gradient(
+      180deg,
+      rgba(14, 2, 4, 0.7) 0%,
+      rgba(14, 2, 4, 0.6) 100%
+    ),
+    rgba(54, 8, 14, 0.7);
+  border: 1px solid var(--glass-stroke);
+  box-shadow: var(--shadow-card);
+  color: var(--text-primary);
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.01em;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 4;
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.ar-hint.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
 @media (min-width: 640px) {
   #ui {
     width: min(440px, 100%);

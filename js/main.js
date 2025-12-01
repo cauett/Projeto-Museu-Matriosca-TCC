@@ -15,6 +15,8 @@ let hitTestSource = null;
 let localSpace = null;
 let referenceSpace = null;
 let arContainer = null;
+let arHint = null;
+let arHintTimeout = null;
 
 // callback que vem da UI (detalhes da exposição -> botão "Iniciar experiência em RA")
 initUI((exibicaoSelecionada) => {
@@ -29,6 +31,8 @@ function handleSessionEnd() {
   hitTestSource = null;
   localSpace = null;
   referenceSpace = null;
+
+  hideArHint();
 
   // esconde o container da RA
   if (arContainer) {
@@ -57,6 +61,25 @@ function handleSessionEnd() {
   }
 }
 
+function hideArHint() {
+  if (arHintTimeout) {
+    clearTimeout(arHintTimeout);
+    arHintTimeout = null;
+  }
+  if (arHint) {
+    arHint.classList.remove("show");
+  }
+}
+
+function showArHint({ autoHideMs = 6500 } = {}) {
+  if (!arHint) return;
+  hideArHint();
+  arHint.classList.add("show");
+  if (autoHideMs) {
+    arHintTimeout = window.setTimeout(() => hideArHint(), autoHideMs);
+  }
+}
+
 (async function init() {
   const sceneObjects = await setupARScene(THREE, ARButton, onSelect);
   camera = sceneObjects.camera;
@@ -73,6 +96,8 @@ function handleSessionEnd() {
     arContainer.style.zIndex = "1";
     arContainer.style.display = "none";
   }
+
+  arHint = document.getElementById("ar-hint");
 
   const ui = document.getElementById("ui");
   if (ui) {
@@ -100,6 +125,8 @@ function handleSessionEnd() {
       arContainer.style.display = "block";
     }
 
+    showArHint();
+
     session.addEventListener("end", handleSessionEnd, { once: true });
   });
 
@@ -115,6 +142,10 @@ function handleSessionEnd() {
         }
       } else {
         reticle.visible = false;
+      }
+
+      if ((reticle && reticle.visible) || isWallPlaced()) {
+        hideArHint();
       }
     }
 
