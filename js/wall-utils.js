@@ -6,6 +6,8 @@ let currentWall = null; // parede atual da sessão
 let previewWall = null;
 let previewGroup = null;
 let lastHitMatrix = null;
+let lastHitPosition = null;
+let lastFacingQuaternion = null;
 
 import { getWallTextureFromVideo } from "./video-utils.js";
 
@@ -62,7 +64,8 @@ function buildPreviewGroup() {
   }
 
   previewWall = new THREE.Group();
-  previewWall.matrixAutoUpdate = false;
+  previewWall.matrixAutoUpdate = true;
+  previewWall.visible = false;
   previewWall.add(previewGroup);
   scene.add(previewWall);
 }
@@ -80,13 +83,56 @@ export function updatePreviewFromHit(matrixArray) {
     lastHitMatrix = new THREE.Matrix4();
   }
 
+  if (!lastHitPosition) {
+    lastHitPosition = new THREE.Vector3();
+  }
+
+  if (!lastFacingQuaternion) {
+    lastFacingQuaternion = new THREE.Quaternion();
+  }
+
+  // Atualiza o retículo para reforçar a orientação na parede
+  if (reticle) {
+    reticle.matrix.fromArray(matrixArray);
+    reticle.visible = true;
+  }
+
   previewWall.visible = true;
   lastHitMatrix.fromArray(matrixArray);
-  previewWall.matrix.copy(lastHitMatrix);
+
+  // Posiciona na batida mas força orientação voltada para a câmera (parede rente)
+  const scale = new THREE.Vector3();
+  const hitQuaternion = new THREE.Quaternion();
+  lastHitMatrix.decompose(lastHitPosition, hitQuaternion, scale);
+
+  // Calcula vetor para a câmera, mantendo a parede na vertical
+  const cameraDir = new THREE.Vector3();
+  camera.getWorldDirection(cameraDir);
+  cameraDir.y = 0; // remove inclinação vertical para evitar paredes tombadas
+  if (cameraDir.lengthSq() < 0.0001) {
+    cameraDir.set(0, 0, -1);
+  }
+  cameraDir.normalize();
+
+  const lookAtTarget = new THREE.Vector3()
+    .copy(lastHitPosition)
+    .add(cameraDir);
+
+  const facingMatrix = new THREE.Matrix4().lookAt(
+    lastHitPosition,
+    lookAtTarget,
+    new THREE.Vector3(0, 1, 0),
+  );
+  lastFacingQuaternion.setFromRotationMatrix(facingMatrix);
+
+  previewWall.position.copy(lastHitPosition);
+  previewWall.quaternion.copy(lastFacingQuaternion);
+  previewWall.updateMatrixWorld(true);
 }
 
 export function onSelect() {
-  if (!lastHitMatrix || wallPlaced || !exibicaoAtiva) return;
+  if (!lastHitMatrix || !lastHitPosition || !lastFacingQuaternion) return;
+  if (wallPlaced || !exibicaoAtiva) return;
 
   const wallTexture = getWallTextureFromVideo(THREE);
 
@@ -104,13 +150,8 @@ export function onSelect() {
   );
   wall.receiveShadow = true;
 
-  const position = new THREE.Vector3();
-  const quaternion = new THREE.Quaternion();
-  const scale = new THREE.Vector3();
-  lastHitMatrix.decompose(position, quaternion, scale);
-
-  wall.position.copy(position);
-  wall.quaternion.copy(quaternion);
+  wall.position.copy(lastHitPosition);
+  wall.quaternion.copy(lastFacingQuaternion);
 
   scene.add(wall);
   currentWall = wall; // guarda referência da parede atual
@@ -705,6 +746,8 @@ export function resetWall() {
     previewGroup = null;
   }
   lastHitMatrix = null;
+  lastHitPosition = null;
+  lastFacingQuaternion = null;
   wallPlaced = false;
 }
 
