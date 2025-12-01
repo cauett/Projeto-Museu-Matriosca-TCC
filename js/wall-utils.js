@@ -3,6 +3,9 @@ let THREE, camera, scene, reticle;
 let wallPlaced = false;
 let exibicaoAtiva = null;
 let currentWall = null; // parede atual da sessão
+let previewWall = null;
+let previewGroup = null;
+let lastHitMatrix = null;
 
 import { getWallTextureFromVideo } from "./video-utils.js";
 
@@ -22,78 +25,133 @@ export function setExibicaoAtiva(exibicao) {
   exibicaoAtiva = exibicao;
 }
 
-export function onSelect() {
-  if (reticle.visible && !wallPlaced && exibicaoAtiva) {
-    const wallTexture = getWallTextureFromVideo(THREE);
+function buildPreviewGroup() {
+  if (!scene || !exibicaoAtiva) return;
 
-    const wall = new THREE.Mesh(
-      new THREE.PlaneGeometry(2.5, 1.5),
-      new THREE.MeshStandardMaterial({
-        map: wallTexture,
-        color: wallTexture ? 0xffffff : 0xcccccc,
-        roughness: 0.8,
-        metalness: 0.1,
-        side: THREE.DoubleSide,
-        transparent: true,
-        opacity: 1,
-      }),
-    );
-    wall.receiveShadow = true;
+  const quadroTipo = exibicaoAtiva.quadroTipo ?? "moldura";
+  const obras = exibicaoAtiva.obras ?? [];
 
-    // posiciona a parede virada para a câmera
-    const reticlePos = new THREE.Vector3().setFromMatrixPosition(
-      reticle.matrix,
-    );
-    const camPos = camera.getWorldPosition(new THREE.Vector3());
-    const lookDir = new THREE.Vector3().subVectors(camPos, reticlePos);
-    lookDir.y = 0;
-    lookDir.normalize();
+  previewGroup = new THREE.Group();
 
-    wall.position.copy(reticlePos);
-    wall.quaternion.setFromRotationMatrix(
-      new THREE.Matrix4().lookAt(
-        new THREE.Vector3(0, 0, 0),
-        lookDir,
-        new THREE.Vector3(0, 1, 0),
-      ),
-    );
+  const placeholderMaterial = new THREE.MeshBasicMaterial({
+    color: 0xa0a0a0,
+    opacity: 0.35,
+    transparent: true,
+    side: THREE.DoubleSide,
+    depthWrite: false,
+  });
 
-    scene.add(wall);
-    currentWall = wall; // guarda referência da parede atual
-    wallPlaced = true;
-    reticle.visible = false;
+  obras.forEach((obra, idx) => {
+    const zNudge = (idx % 3) * 0.0006;
+    const pos = { ...obra.position, z: (obra.position?.z ?? 0) + zNudge };
+    const nSize = normalizeSize(obra.size, quadroTipo);
 
-    const group = new THREE.Group();
-    wall.add(group);
+    const geometry = new THREE.PlaneGeometry(nSize.w, nSize.h);
+    const mesh = new THREE.Mesh(geometry, placeholderMaterial.clone());
+    mesh.position.set(pos.x, pos.y, pos.z);
+    mesh.userData = { kind: "quadro" };
+    mesh.renderOrder = 5;
+    previewGroup.add(mesh);
+  });
 
-    const quadroTipo = exibicaoAtiva.quadroTipo ?? "moldura";
-    const obras = exibicaoAtiva.obras;
-
-    obras.forEach((obra, idx) => {
-      // micro nudge em Z para evitar z-fighting
-      const zNudge = (idx % 3) * 0.0006; // 0, 0.0006, 0.0012
-      const pos = { ...obra.position, z: (obra.position?.z ?? 0) + zNudge };
-
-      addQuadro(group, obra.url, pos, obra.size, quadroTipo);
-
-      // label do autor, com deslocamento proporcional ao tamanho do quadro
-      const h = obra.size?.h || 0.36;
-      const labelZOffset =
-        quadroTipo === "fotografia" ? pos.z + 0.012 : pos.z + 0.021;
-      addAutorLabel(scene, group, obra.autor, {
-        x: pos.x,
-        y: pos.y - h / 2 - 0.12,
-        z: labelZOffset,
-      });
+  if (exibicaoAtiva.autoSpread !== false) {
+    spreadByRows(previewGroup, {
+      minGapX: "auto",
+      rowSnap: 0.08,
     });
+  }
 
-    // distribuição automática: centrada e com gap uniforme
-    if (exibicaoAtiva.autoSpread !== false) {
-      spreadByRows(group, {
-        minGapX: "auto", // gap calculado a partir da largura média
-        rowSnap: 0.08, // tolerância de agrupamento por Y
-      });
-    }
+  previewWall = new THREE.Group();
+  previewWall.matrixAutoUpdate = false;
+  previewWall.add(previewGroup);
+  scene.add(previewWall);
+}
+
+export function updatePreviewFromHit(matrixArray) {
+  if (wallPlaced || !exibicaoAtiva) return;
+
+  if (!previewWall) {
+    buildPreviewGroup();
+  }
+
+  if (!previewWall) return;
+
+  if (!lastHitMatrix) {
+    lastHitMatrix = new THREE.Matrix4();
+  }
+
+  previewWall.visible = true;
+  lastHitMatrix.fromArray(matrixArray);
+  previewWall.matrix.copy(lastHitMatrix);
+}
+
+export function onSelect() {
+  if (!lastHitMatrix || wallPlaced || !exibicaoAtiva) return;
+
+  const wallTexture = getWallTextureFromVideo(THREE);
+
+  const wall = new THREE.Mesh(
+    new THREE.PlaneGeometry(2.5, 1.5),
+    new THREE.MeshStandardMaterial({
+      map: wallTexture,
+      color: wallTexture ? 0xffffff : 0xcccccc,
+      roughness: 0.8,
+      metalness: 0.1,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 1,
+    }),
+  );
+  wall.receiveShadow = true;
+
+  const position = new THREE.Vector3();
+  const quaternion = new THREE.Quaternion();
+  const scale = new THREE.Vector3();
+  lastHitMatrix.decompose(position, quaternion, scale);
+
+  wall.position.copy(position);
+  wall.quaternion.copy(quaternion);
+
+  scene.add(wall);
+  currentWall = wall; // guarda referência da parede atual
+  wallPlaced = true;
+
+  if (previewWall) {
+    scene.remove(previewWall);
+    previewWall = null;
+    previewGroup = null;
+  }
+
+  const group = new THREE.Group();
+  wall.add(group);
+
+  const quadroTipo = exibicaoAtiva.quadroTipo ?? "moldura";
+  const obras = exibicaoAtiva.obras;
+
+  obras.forEach((obra, idx) => {
+    // micro nudge em Z para evitar z-fighting
+    const zNudge = (idx % 3) * 0.0006; // 0, 0.0006, 0.0012
+    const pos = { ...obra.position, z: (obra.position?.z ?? 0) + zNudge };
+
+    addQuadro(group, obra.url, pos, obra.size, quadroTipo);
+
+    // label do autor, com deslocamento proporcional ao tamanho do quadro
+    const h = obra.size?.h || 0.36;
+    const labelZOffset =
+      quadroTipo === "fotografia" ? pos.z + 0.012 : pos.z + 0.021;
+    addAutorLabel(scene, group, obra.autor, {
+      x: pos.x,
+      y: pos.y - h / 2 - 0.12,
+      z: labelZOffset,
+    });
+  });
+
+  // distribuição automática: centrada e com gap uniforme
+  if (exibicaoAtiva.autoSpread !== false) {
+    spreadByRows(group, {
+      minGapX: "auto", // gap calculado a partir da largura média
+      rowSnap: 0.08, // tolerância de agrupamento por Y
+    });
   }
 }
 
@@ -641,6 +699,12 @@ export function resetWall() {
     scene.remove(currentWall);
     currentWall = null;
   }
+  if (previewWall && scene) {
+    scene.remove(previewWall);
+    previewWall = null;
+    previewGroup = null;
+  }
+  lastHitMatrix = null;
   wallPlaced = false;
 }
 

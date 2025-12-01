@@ -7,6 +7,7 @@ import {
   isWallPlaced,
   setExibicaoAtiva,
   resetWall, // 👈 ADICIONADO AQUI
+  updatePreviewFromHit,
 } from "./wall-utils.js";
 import { initUI } from "./ui.js";
 
@@ -137,11 +138,8 @@ function showArHint({ autoHideMs = 4000 } = {}) {
       if (hitTestResults.length > 0 && !isWallPlaced()) {
         const pose = hitTestResults[0].getPose(referenceSpace);
         if (pose) {
-          reticle.visible = true;
-          reticle.matrix.fromArray(pose.transform.matrix);
+          updatePreviewFromHit(pose.transform.matrix);
         }
-      } else {
-        reticle.visible = false;
       }
     }
 
