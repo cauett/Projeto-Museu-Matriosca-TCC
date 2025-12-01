@@ -10,7 +10,7 @@ import {
 } from "./wall-utils.js";
 import { initUI } from "./ui.js";
 
-let camera, scene, renderer, controller, reticle, arButton, arHint;
+let camera, scene, renderer, controller, reticle, arButton, arHint, arCloseButton;
 let hitTestSource = null;
 let localSpace = null;
 let referenceSpace = null;
@@ -49,6 +49,11 @@ function handleSessionEnd() {
     arContainer.style.display = "none";
   }
 
+  if (arCloseButton) {
+    arCloseButton.style.display = "none";
+    arCloseButton.onclick = null;
+  }
+
   hideArHint();
 
   // mostra de volta a UI (mantendo a tela de detalhes/carrossel que já estava ativa)
@@ -82,6 +87,7 @@ function handleSessionEnd() {
   reticle = sceneObjects.reticle;
   arButton = sceneObjects.arButton;
   arHint = sceneObjects.arHint;
+  arCloseButton = sceneObjects.arCloseButton;
 
   arContainer = renderer.domElement.parentElement;
   if (arContainer) {
@@ -115,6 +121,11 @@ function handleSessionEnd() {
 
     if (arContainer) {
       arContainer.style.display = "block";
+    }
+
+    if (arCloseButton) {
+      arCloseButton.style.display = "inline-flex";
+      arCloseButton.onclick = () => session.end();
     }
 
     showArHint();

@@ -16,6 +16,14 @@ export async function setupARScene(THREE, ARButton, onSelect) {
   `;
   container.appendChild(arHint);
 
+  const arCloseButton = document.createElement("button");
+  arCloseButton.id = "ar-close-btn";
+  arCloseButton.type = "button";
+  arCloseButton.setAttribute("aria-label", "Fechar a experiência em RA");
+  arCloseButton.textContent = "Fechar RA";
+  arCloseButton.style.display = "none";
+  container.appendChild(arCloseButton);
+
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
     70,
@@ -84,5 +92,6 @@ export async function setupARScene(THREE, ARButton, onSelect) {
     reticle,
     arButton,
     arHint,
+    arCloseButton,
   };
 }
