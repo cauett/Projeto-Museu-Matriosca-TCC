@@ -7,6 +7,7 @@ import {
   isWallPlaced,
   setExibicaoAtiva,
   resetWall, // 👈 ADICIONADO AQUI
+  updatePreview,
 } from "./wall-utils.js";
 import { initUI } from "./ui.js";
 
@@ -147,6 +148,8 @@ function handleSessionEnd() {
         reticle.visible = false;
       }
     }
+
+    updatePreview(reticle?.visible ?? false);
 
     if (isWallPlaced()) {
       hideArHint();
