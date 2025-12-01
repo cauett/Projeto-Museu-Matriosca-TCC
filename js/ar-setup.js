@@ -8,7 +8,7 @@ export async function setupARScene(THREE, ARButton, onSelect) {
   arHint.id = "ar-hint";
   arHint.setAttribute("aria-hidden", "true");
   arHint.innerHTML = `
-    <div class="ar-hint__icon" aria-hidden="true">📍</div>
+    <div class="ar-hint__icon" aria-hidden="true">⌖</div>
     <div class="ar-hint__content">
       <p class="ar-hint__title">Procure uma parede</p>
       <p class="ar-hint__text">Aponte a câmera para uma parede com quadros ou objetos.</p>
