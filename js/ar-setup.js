@@ -11,7 +11,7 @@ export async function setupARScene(THREE, ARButton, onSelect) {
     <div class="ar-hint__icon" aria-hidden="true">📍</div>
     <div class="ar-hint__content">
       <p class="ar-hint__title">Procure uma parede</p>
-      <p class="ar-hint__text">Aponte a câmera para uma parede com quadros, portas ou objetos para posicionar a galeria.</p>
+      <p class="ar-hint__text">Aponte a câmera para uma parede com quadros ou objetos.</p>
     </div>
   `;
   container.appendChild(arHint);
