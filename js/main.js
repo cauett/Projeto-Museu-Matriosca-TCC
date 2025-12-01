@@ -71,7 +71,7 @@ function hideArHint() {
   }
 }
 
-function showArHint({ autoHideMs = 6500 } = {}) {
+function showArHint({ autoHideMs = 4000 } = {}) {
   if (!arHint) return;
   hideArHint();
   arHint.classList.add("show");
@@ -142,10 +142,6 @@ function showArHint({ autoHideMs = 6500 } = {}) {
         }
       } else {
         reticle.visible = false;
-      }
-
-      if ((reticle && reticle.visible) || isWallPlaced()) {
-        hideArHint();
       }
     }
 
