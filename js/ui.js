@@ -8,6 +8,8 @@ const COTIDIANO_OBRA_SIZE = { w: 0.32, h: 0.42, d: 0.035 };
 const COTIDIANO_MIDDLE_SIZE = { w: 0.36, h: 0.47, d: 0.035 };
 const QUIXADA_VERTICAL_SIZE = { w: 0.52, h: 0.92, d: 0.04 };
 const QUIXADA_HORIZONTAL_SIZE = { w: 1.24, h: 0.74, d: 0.04 };
+const ANCESTRALIDADE_SIZE = { w: 0.26, h: 0.3, d: 0.028 };
+const ANCESTRALIDADE_TALL_SIZE = { w: 0.26, h: 0.34, d: 0.028 };
 
 function mapObras(
   itens,
@@ -385,6 +387,190 @@ const quixadaFantasticoObras = [
   },
 ];
 
+const ancestralidadeAutores = {
+  1: "Maria Alice",
+  2: "Pedro Matheus",
+  3: "Maria Alice",
+  4: "Adriana",
+  5: "Pedro Torres",
+  6: "Maria Eliane",
+  7: "Paulo Roberto",
+  8: "Adriana",
+  9: "Richely",
+  10: "Pedro Torres",
+  11: "Paulo Roberto",
+  12: "Richely",
+  13: "Adriana",
+  14: "Marco Martins",
+  15: "Pedro Matheus",
+  16: "Maria Alice",
+  17: "Adriana",
+  18: "Marco Martins",
+  19: "Maria Eliane",
+  20: "Richely",
+  21: "Maria Alice",
+  22: "Glimara Texeira",
+  23: "Marco Martins",
+};
+
+const ancestralidadeObras = [
+  // linha do meio: 1, 3, 6, 9, 12, 15, 18, 21, 23
+  {
+    titulo: "Xilogravura 1",
+    arquivo: "ancestralidade/obra-1.jpeg",
+    autor: ancestralidadeAutores[1],
+    position: { x: -1.6, y: 0.0, z: -0.02 },
+    size: ANCESTRALIDADE_TALL_SIZE,
+  },
+  {
+    titulo: "Xilogravura 2",
+    arquivo: "ancestralidade/obra-2.jpeg",
+    autor: ancestralidadeAutores[2],
+    position: { x: -1.2, y: 0.5, z: -0.02 }, // acima do 3
+  },
+  {
+    titulo: "Xilogravura 3",
+    arquivo: "ancestralidade/obra-3.jpeg",
+    autor: ancestralidadeAutores[3],
+    position: { x: -1.2, y: 0.0, z: -0.02 },
+  },
+  {
+    titulo: "Xilogravura 4",
+    arquivo: "ancestralidade/obra-4.jpeg",
+    autor: ancestralidadeAutores[4],
+    position: { x: -1.2, y: -0.5, z: -0.02 }, // abaixo do 3
+  },
+
+  // 5, 6, 7 -> coluna um pouco mais baixa
+  {
+    titulo: "Xilogravura 5",
+    arquivo: "ancestralidade/obra-5.jpeg",
+    autor: ancestralidadeAutores[5],
+    position: { x: -0.8, y: 0.25, z: -0.02 }, // antes: 0.5
+    size: ANCESTRALIDADE_TALL_SIZE,
+  },
+  {
+    titulo: "Xilogravura 6",
+    arquivo: "ancestralidade/obra-6.jpeg",
+    autor: ancestralidadeAutores[6],
+    position: { x: -0.8, y: -0.25, z: -0.02 }, // antes: 0.0
+  },
+  {
+    titulo: "Xilogravura 7",
+    arquivo: "ancestralidade/obra-7.jpeg",
+    autor: ancestralidadeAutores[7],
+    position: { x: -0.8, y: -0.75, z: -0.02 }, // antes: -0.5
+  },
+
+  {
+    titulo: "Xilogravura 8",
+    arquivo: "ancestralidade/obra-8.jpeg",
+    autor: ancestralidadeAutores[8],
+    position: { x: -0.4, y: 0.5, z: -0.02 }, // acima do 9
+  },
+  {
+    titulo: "Xilogravura 9",
+    arquivo: "ancestralidade/obra-9.jpeg",
+    autor: ancestralidadeAutores[9],
+    position: { x: -0.4, y: 0.0, z: -0.02 },
+    size: ANCESTRALIDADE_TALL_SIZE,
+  },
+  {
+    titulo: "Xilogravura 10",
+    arquivo: "ancestralidade/obra-10.jpeg",
+    autor: ancestralidadeAutores[10],
+    position: { x: -0.4, y: -0.5, z: -0.02 }, // abaixo do 9
+  },
+
+  // 11, 12, 13 -> coluna mais baixa
+  {
+    titulo: "Xilogravura 11",
+    arquivo: "ancestralidade/obra-11.jpeg",
+    autor: ancestralidadeAutores[11],
+    position: { x: 0.0, y: 0.25, z: -0.02 }, // antes: 0.5
+  },
+  {
+    titulo: "Xilogravura 12",
+    arquivo: "ancestralidade/obra-12.jpeg",
+    autor: ancestralidadeAutores[12],
+    position: { x: 0.0, y: -0.25, z: -0.02 }, // antes: 0.0
+  },
+  {
+    titulo: "Xilogravura 13",
+    arquivo: "ancestralidade/obra-13.jpeg",
+    autor: ancestralidadeAutores[13],
+    position: { x: 0.0, y: -0.75, z: -0.02 }, // antes: -0.5
+  },
+
+  {
+    titulo: "Xilogravura 14",
+    arquivo: "ancestralidade/obra-14.jpeg",
+    autor: ancestralidadeAutores[14],
+    position: { x: 0.4, y: 0.5, z: -0.02 }, // acima do 15
+    size: ANCESTRALIDADE_TALL_SIZE,
+  },
+  {
+    titulo: "Xilogravura 15",
+    arquivo: "ancestralidade/obra-15.jpeg",
+    autor: ancestralidadeAutores[15],
+    position: { x: 0.4, y: 0.0, z: -0.02 },
+  },
+  {
+    titulo: "Xilogravura 16",
+    arquivo: "ancestralidade/obra-16.jpeg",
+    autor: ancestralidadeAutores[16],
+    position: { x: 0.4, y: -0.5, z: -0.02 }, // abaixo do 15
+    size: ANCESTRALIDADE_SIZE,
+  },
+
+  // 17, 18, 19 -> coluna mais baixa
+  {
+    titulo: "Xilogravura 17",
+    arquivo: "ancestralidade/obra-17.jpeg",
+    autor: ancestralidadeAutores[17],
+    position: { x: 0.8, y: 0.25, z: -0.02 }, // antes: 0.5
+  },
+  {
+    titulo: "Xilogravura 18",
+    arquivo: "ancestralidade/obra-18.jpeg",
+    autor: ancestralidadeAutores[18],
+    position: { x: 0.8, y: -0.25, z: -0.02 }, // antes: 0.0
+  },
+  {
+    titulo: "Xilogravura 19",
+    arquivo: "ancestralidade/obra-19.jpeg",
+    autor: ancestralidadeAutores[19],
+    position: { x: 0.8, y: -0.75, z: -0.02 }, // antes: -0.5
+  },
+
+  {
+    titulo: "Xilogravura 20",
+    arquivo: "ancestralidade/obra-20.jpeg",
+    autor: ancestralidadeAutores[20],
+    position: { x: 1.2, y: 0.5, z: -0.02 }, // acima do 21
+  },
+  {
+    titulo: "Xilogravura 21",
+    arquivo: "ancestralidade/obra-21.jpeg",
+    autor: ancestralidadeAutores[21],
+    position: { x: 1.2, y: 0.0, z: -0.02 },
+  },
+  {
+    titulo: "Xilogravura 22",
+    arquivo: "ancestralidade/obra-22.jpeg",
+    autor: ancestralidadeAutores[22],
+    position: { x: 1.2, y: -0.5, z: -0.02 }, // abaixo do 21
+    size: ANCESTRALIDADE_TALL_SIZE,
+  },
+  {
+    titulo: "Xilogravura 23",
+    arquivo: "ancestralidade/obra-23.jpeg",
+    autor: ancestralidadeAutores[23],
+    position: { x: 1.6, y: 0.0, z: -0.02 }, // na mesma linha do 21, à direita
+    size: ANCESTRALIDADE_SIZE,
+  },
+];
+
 // Export das exposições (usando o mapper genérico)
 export const exibicoes = [
   {
@@ -451,6 +637,15 @@ export const exibicoes = [
     quadroTipo: "molduraMadeira",
     autoSpread: false,
   },
+  {
+    id: "exibicao7",
+    titulo: "Ancestralidade, Resistência e Transmissão",
+    descricao:
+      "Xilogravuras que contam a trajetória do Mestre Stênio Diniz, em um bloco compacto com alturas irregulares, rememorando raízes, encontros e legados.",
+    obras: mapObras(ancestralidadeObras, { size: ANCESTRALIDADE_SIZE }),
+    quadroTipo: "molduraMadeira",
+    autoSpread: false,
+  },
 ];
 
 const exibicoesInfo = {
@@ -487,7 +682,8 @@ const exibicoesInfo = {
       },
       {
         label: "Produção",
-        value: "Priscila Lima, Raiane Alves, Richely Santos, Tayná Maia, Vinicius Oliveira",
+        value:
+          "Priscila Lima, Raiane Alves, Richely Santos, Tayná Maia, Vinicius Oliveira",
       },
       {
         label: "Roteiro, gravação e edição do áudio guia",
@@ -514,7 +710,8 @@ const exibicoesInfo = {
       },
       {
         label: "Homenagem",
-        value: "58 Mestres e Mestras da Cultura do Ceará reconhecidos pela Lei Estadual Nº 13.842/2006",
+        value:
+          "58 Mestres e Mestras da Cultura do Ceará reconhecidos pela Lei Estadual Nº 13.842/2006",
       },
     ],
   },
@@ -569,7 +766,34 @@ const exibicoesInfo = {
       },
       {
         label: "Realização",
-        value: "Casa de Saberes Cego Aderaldo, Instituto Dragão do Mar, Governo do Estado do Ceará",
+        value:
+          "Casa de Saberes Cego Aderaldo, Instituto Dragão do Mar, Governo do Estado do Ceará",
+      },
+    ],
+  },
+  exibicao7: {
+    curatorialText:
+      'A exposição "Ancestralidade, Resistência e Transmissão: A saga do Mestre Stênio Diniz" convida o olhar a mergulhar na xilogravura como memória viva, abrindo caminhos para celebrar as raízes, os frutos e os futuros que elas germinam. Desde a segunda metade do século XIX, a gravura em madeira acompanhou a poesia dos folhetos no Nordeste. Foi a xilogravura dos cordéis que inspirou Mestre Stênio a se tornar gravador ainda nos mercados e feiras, quando comprava e lia cordéis no Madureira, no Rio de Janeiro.\n\nA segunda sala revela o período de formação e as obras produzidas no Quixadá, onde a saga do mestre se conecta às memórias coletivas e às experimentações de uma juventude que resiste, cria e repassa saberes. A mostra reúne xilogravuras de artistas que partilham da caminhada de Stênio Diniz, mantendo viva a tradição ao mesmo tempo em que assumem diferentes gestos e perspectivas para retratar a comunidade, os sonhos e as lutas do sertão.',
+    credits: [
+      {
+        label: "Curadoria",
+        value: "Raianne Alves",
+      },
+      {
+        label: "Assistência de curadoria",
+        value: "Richely Santos",
+      },
+      {
+        label: "Curadoria educativa",
+        value: "Raiane Alves",
+      },
+      {
+        label: "Montagem de exposição",
+        value: "Equipe Casa de Saberes Cego Aderaldo",
+      },
+      {
+        label: "Design gráfico e comunicação",
+        value: "Casa de Saberes Cego Aderaldo",
       },
     ],
   },
@@ -767,7 +991,10 @@ export function initUI(startCallback) {
     if (!document?.body) return;
     if (isOpen) {
       document.body.classList.add("modal-open");
-    } else if (!imageModal?.classList.contains("open") && !infoModal?.classList.contains("open")) {
+    } else if (
+      !imageModal?.classList.contains("open") &&
+      !infoModal?.classList.contains("open")
+    ) {
       document.body.classList.remove("modal-open");
     }
   }
@@ -787,7 +1014,8 @@ export function initUI(startCallback) {
     stopInfoAudio();
     if (!speechSupported && infoAudioBtn) {
       infoAudioBtn.disabled = true;
-      infoAudioBtn.title = "A leitura em voz alta não é suportada neste dispositivo.";
+      infoAudioBtn.title =
+        "A leitura em voz alta não é suportada neste dispositivo.";
     }
     setModalOpenState(true);
   }
@@ -799,7 +1027,8 @@ export function initUI(startCallback) {
       infoTitle.textContent = exibicao.titulo;
     }
     if (infoCuratorial) {
-      infoCuratorial.textContent = info?.curatorialText ?? "Conteúdo não disponível.";
+      infoCuratorial.textContent =
+        info?.curatorialText ?? "Conteúdo não disponível.";
     }
     if (infoCredits) {
       infoCredits.innerHTML = buildCreditsHtml(info?.credits ?? []);
