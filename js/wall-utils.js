@@ -192,7 +192,24 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
     };
 
     // aplica normalização de tamanho por tipo (fotografias um pouco menores)
-    const nSize = normalizeSize(size, quadroTipo);
+    let nSize = normalizeSize(size, quadroTipo);
+
+    function resolveFabricSize(baseSize, textureRef) {
+      const texW = textureRef?.image?.width;
+      const texH = textureRef?.image?.height;
+      const maxW = baseSize?.w ?? 0.36;
+      const maxH = baseSize?.h ?? 0.36;
+      if (!texW || !texH) return { w: maxW, h: maxH, d: baseSize?.d ?? 0.02 };
+
+      const aspect = texH / texW;
+      let w = maxW;
+      let h = w * aspect;
+      if (h > maxH) {
+        h = maxH;
+        w = h / aspect;
+      }
+      return { w, h, d: baseSize?.d ?? 0.02 };
+    }
 
     const woodTexture =
       quadroTipo === "molduraMadeira" ? createWoodTexture(THREE) : null;
@@ -424,6 +441,7 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
 
     // ===== TIPO TECIDO — sem moldura, com textura e ondulação =====
     if (quadroTipo === "tecido") {
+      nSize = resolveFabricSize(size, texture);
       const fabricGroup = new THREE.Group();
       fabricGroup.userData = { kind: "quadro", outerW: nSize.w };
       fabricGroup.position.set(position.x, position.y, position.z);
