@@ -185,25 +185,25 @@ const bichaPassarinObras = [
   {
     titulo: "Bicha Passarin (voo central)",
     arquivo: "bicha-passarin/passarin-1.jpeg",
-    position: { x: 0, y: 0.7, z: -0.02 },
+    position: { x: 0, y: 0.52, z: -0.02 },
     size: BICHA_PASSARIN_MAIN_SIZE,
   },
   {
     titulo: "Bicha Passarin (tecido I)",
     arquivo: "bicha-passarin/passarin-2.jpeg",
-    position: { x: -0.58, y: -0.58, z: -0.02 },
+    position: { x: -0.7, y: -0.62, z: -0.02 },
     size: BICHA_PASSARIN_SMALL_SIZE,
   },
   {
     titulo: "Bicha Passarin (tecido II)",
     arquivo: "bicha-passarin/passarin-3.jpeg",
-    position: { x: 0, y: -0.58, z: -0.02 },
+    position: { x: 0, y: -0.62, z: -0.02 },
     size: BICHA_PASSARIN_SMALL_SIZE,
   },
   {
     titulo: "Bicha Passarin (tecido III)",
     arquivo: "bicha-passarin/passarin-4.jpeg",
-    position: { x: 0.58, y: -0.58, z: -0.02 },
+    position: { x: 0.7, y: -0.62, z: -0.02 },
     size: BICHA_PASSARIN_SMALL_SIZE,
   },
 ];
@@ -702,7 +702,7 @@ export const exibicoes = [
     id: "exibicao8",
     titulo: "Bicha Passarin",
     descricao:
-      "Tecidos-obra analógicos que celebram 10 anos de LOLA GREEN em Poço do Tábua, registrando o voo performático de Raul Plassman e a poesia viva de Lola Green.",
+      "Registros analógicos e digitais que comemoram os 10 anos de Lola Green na caça de Vó Ternoura ao Siso Azul, em Poço de Tábua, Várzea Alegre, CE, sob curadoria de Beto Skeff e Raul Plassman.",
     obras: mapObras(bichaPassarinObras, {
       autor: "Raul Plassman e Lola Green",
       size: BICHA_PASSARIN_SMALL_SIZE,
@@ -863,119 +863,19 @@ const exibicoesInfo = {
   },
   exibicao8: {
     curatorialText:
-      "BICHA PASSARIN - UM VOO DE RAUL PLASSMAN E LOLA GREEN\nA Exposição “Bicha Passarin” apresenta imagens analógicas instantâneas de alegria que celebram os 10 anos de LOLA GREEN, um ser místico criado por Emanuel Martins e que inspira a cultura artística queer em municípios do sertão do Ceará. As obras do artista Raul Plassman, revelam-se como uma celebração ao encontro das artistas e ao resgate da memória da comunidade LGBTQIAP+ no sertão.\nCom a curadoria de Beto Skeff e Raul Plassman, a mostra expõe um apanhado afetivo de registros feitos em Poço do Tábua, Várzea Alegre, CE. O ato de registrar não é apenas espontâneo, mas ao ver o que está sendo feito por Emanuel e Lola Green, as imagens materializam e inventam memórias que podem ser compartilhadas. A ideia é suscitar memórias, mas também despertar sensações nas pessoas que visitam a exposição.\nA analogia e o experimentalismo das obras revelam uma poética que passa a ser lida no tempo-espaço, através de uma performance que responde às questões da arte contemporânea.\nBicha Passarin apresenta-se em uma narrativa que vai sendo revisitada entre elas e as pessoas que visitam a exposição. Um registro vivo de ações que elevam o conceito da arte, que no sertão, respondem aos questionamentos da existência e se corporificam em sensações e experiências estéticas.\n\nVOOS DA BICHA PASSARIN\nA obra de Raul Plassman cria um território onde a fotografia desacelera. Longe da pressão do registro, ela se abre à experiência do tempo. Aqui, o instante se captura e dobra. Um tempo que é vento e textura que passa na pele e na roupa. É essa a experiência de “Bicha Passarin”, que atravessa essas imagens, encarna a estrada e a metamorfose. É um gesto que vem do corpo e devolve um futuro de memória. Seu movimento, afirmativo, dança.\nEssas fotografias desaceleram. Evocam. Entre zelo e presença, as imagens se espalham e, às vezes, instauram um espaço seguro de confidência, onde a solidão serve para ouvir o vento da estrada. O preto e branco reforça esse atravessamento do tempo. Sua textura revela texturas, corpos e afetos e faz emergir uma poética que se abre à performance, à música e ao cinema. É nessa velocidade outra que residem as obras. Elas abrem espaço para a presença e o movimento de quem as olha. Expandem-no. Como poética, diz que é o vento quem decide essa travessia. Há algo de ritual e de transcendência na experiência do tempo.\n“Bicha Passarin” não é viagem nem travessia. Não basta observar. É preciso habitar as imagens. Performar sua poética nos convoca à experiência do desejo que é “Bicha Passarin” na dobra do instante. É feito de percursos. Seu tempo se repete, é um registro vivo. No aqui e agora. Em analogia, a exposição se move nos gestos das mãos que manuseiam o tecido. Cada gesto nos lembra que dobramos o registro analógico como performance de imagem. A passagem em presença.",
+      "BICHA PASSARIN - UM VOO DE RAUL PLASSMAN E LOLA GREEN\nA exposição “Bicha Passarin” celebra os 10 anos de Lola Green, personagem mística criada por Emanuel Martins, através de registros analógicos instantâneos e digitais de Raul Plassman. O encontro de dois artistas do interior do Ceará se transforma em uma celebração de performances e da história da comunidade LGBTQIA+. Com curadoria de Beto Skeff e Raul Plassman, a mostra reúne fragmentos poéticos e afetivos da caça de Vó Ternoura ao Siso Azul, em Poço de Tábua, Várzea Alegre, CE. As obras de Raul exibem o encontro, o resgate da memória e a ruptura das velhas estruturas como a nobre função da arte.",
     credits: [
       {
-        label: "FOTOGRAFIAS",
-        value: "Raul Plassman",
-      },
-      {
-        label: "PRESENÇA",
-        value: "Lola Green",
-      },
-      {
-        label: "PERFORMANCE",
-        value: "Emanuel Martins",
-      },
-      {
-        label: "CURADORIA",
+        label: "Curadoria",
         value: "Beto Skeff e Raul Plassman",
       },
       {
-        label: "EDIÇÃO DE VÍDEO",
-        value: "Milton de Souza Neto",
+        label: "Fotografia",
+        value: "Raul Plassman",
       },
       {
-        label: "IMPRESSÕES",
-        value: "Cactus Jet Print",
-      },
-      {
-        label: "DESIGN",
-        value: "Jessica Justo",
-      },
-      {
-        label: "MONTAGEM",
-        value: "Angela Marlier",
-      },
-      {
-        label: "DIREÇÃO GERAL",
-        value: "Gil Teixeira",
-      },
-      {
-        label: "PRODUTORA",
-        value: "Gisela Gadelha",
-      },
-      {
-        label: "CURADORIA",
-        value: "Fernanda Souza, Michel Pereira, Rafael Alvaroca",
-      },
-      {
-        label: "COORDENAÇÃO EXECUTIVA",
-        value: "Gisela Gadelha",
-      },
-      {
-        label: "PROD INFRAESTRUTURA",
-        value: "Gisele Sousa (Kewra)",
-      },
-      {
-        label: "PROD. LOCAÇÃO",
-        value: "Juliana Frazão",
-      },
-      {
-        label: "PROD DE PESSOAL",
-        value: "Julia Limoeiro",
-      },
-      {
-        label: "PROD. TÉCNICA",
-        value: "Thiago Antunes",
-      },
-      {
-        label: "ASSISTENTE DE PRODUÇÃO",
-        value: "Ana Carolina Sampaio",
-      },
-      {
-        label: "PRODUÇÃO",
-        value: "Agnaldo Monteiro",
-      },
-      {
-        label: "PROGRAMAÇÃO VISUAL",
-        value: "Portal Comunicação",
-      },
-      {
-        label: "ASSESSORIA DE IMPRENSA",
-        value: "Marina Holanda",
-      },
-      {
-        label: "REGISTRO DE VÍDEO",
-        value: "Renato Telles",
-      },
-      {
-        label: "REGISTRO DE FOTO",
-        value: "Luma- Filmmaker",
-      },
-      {
-        label: "ÁUDIO",
-        value: "Léo do Borel",
-      },
-      {
-        label: "PROD. LITERÁRIA",
-        value: "Igor Ayane",
-      },
-      {
-        label: "PROD LÚDICA",
-        value: "Fernanda Gomes",
-      },
-      {
-        label: "REVISÃO DE TEXTO",
-        value: "Ofélia e Fio Produções",
-      },
-      {
-        label: "CONEXÕES CRIATIVAS",
-        value: "Conexões Criativas",
-      },
-      {
-        label: "REALIZAÇÃO",
-        value: "Instituto Quixadá+ | Conexões Criativas",
+        label: "Local dos registros",
+        value: "Poço de Tábua, Várzea Alegre, CE",
       },
     ],
   },
