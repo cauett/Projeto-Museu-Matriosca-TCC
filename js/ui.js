@@ -9,6 +9,8 @@ const COTIDIANO_MIDDLE_SIZE = { w: 0.36, h: 0.47, d: 0.035 };
 const QUIXADA_VERTICAL_SIZE = { w: 0.52, h: 0.92, d: 0.04 };
 const QUIXADA_HORIZONTAL_SIZE = { w: 1.24, h: 0.74, d: 0.04 };
 const ANCESTRALIDADE_SIZE = { w: 0.22, h: 0.22, d: 0.02 };
+const BICHA_PASSARIN_MAIN_SIZE = { w: 1.2, h: 1.55, d: 0.02 };
+const BICHA_PASSARIN_SMALL_SIZE = { w: 0.46, h: 0.68, d: 0.02 };
 
 function mapObras(
   itens,
@@ -175,6 +177,34 @@ const avesCearensesObras = [
     titulo: "Bacurauzinho-da-caatinga",
     arquivo: "aves-cearenses/ave-10.jpeg",
     position: { x: 0.48, y: -0.54, z: -0.025 },
+  },
+];
+
+// Exposição "Bicha Passarin"
+const bichaPassarinObras = [
+  {
+    titulo: "Bicha Passarin (voo central)",
+    arquivo: "bicha-passarin/passarin-1.jpeg",
+    position: { x: 0, y: 0.55, z: -0.02 },
+    size: BICHA_PASSARIN_MAIN_SIZE,
+  },
+  {
+    titulo: "Bicha Passarin (tecido I)",
+    arquivo: "bicha-passarin/passarin-2.jpeg",
+    position: { x: -0.62, y: -0.32, z: -0.02 },
+    size: BICHA_PASSARIN_SMALL_SIZE,
+  },
+  {
+    titulo: "Bicha Passarin (tecido II)",
+    arquivo: "bicha-passarin/passarin-3.jpeg",
+    position: { x: 0, y: -0.32, z: -0.02 },
+    size: BICHA_PASSARIN_SMALL_SIZE,
+  },
+  {
+    titulo: "Bicha Passarin (tecido III)",
+    arquivo: "bicha-passarin/passarin-4.jpeg",
+    position: { x: 0.62, y: -0.32, z: -0.02 },
+    size: BICHA_PASSARIN_SMALL_SIZE,
   },
 ];
 
@@ -668,6 +698,18 @@ export const exibicoes = [
     quadroTipo: "molduraMadeira",
     autoSpread: false,
   },
+  {
+    id: "exibicao8",
+    titulo: "Bicha Passarin",
+    descricao:
+      "Tecidos-obra que celebram 10 anos do mito OXAS com registros analógicos de Raul Plassman e poesia de Lola Green.",
+    obras: mapObras(bichaPassarinObras, {
+      autor: "Raul Plassman e Lola Green",
+      size: BICHA_PASSARIN_SMALL_SIZE,
+    }),
+    quadroTipo: "tecido",
+    autoSpread: false,
+  },
 ];
 
 const exibicoesInfo = {
@@ -816,6 +858,32 @@ const exibicoesInfo = {
       {
         label: "Design gráfico e comunicação",
         value: "Casa de Saberes Cego Aderaldo",
+      },
+    ],
+  },
+  exibicao8: {
+    curatorialText:
+      "Bicha Passarin nasce como um voo performado por Raul Plassman e Lola Green, celebrando os 10 anos do mito OXAS criado por Emanuel Martins. As fotografias analógicas feitas em Poço do Tábua (Várzea Alegre, CE) recusam a pressa do registro e se espalham como tecido que se dobra no tempo. Em seu movimento, evocam metamorfose, dança e resistência; revelam texturas, corpos e afetos que transbordam e convidam a habitar a imagem como travessia.\n\nEssa poética materializa um gesto de reivindicação e cuidado: a passagem é performada, costurada com respiro, resiliência e a poesia visual de Lola. Cada obra é pano, mortalha e celebração — uma narrativa íntima de amor que expande o analógico para acolher as vozes que voam e florescem.",
+    credits: [
+      {
+        label: "Fotografia",
+        value: "Raul Plassman",
+      },
+      {
+        label: "Poesia e presença",
+        value: "Lola Green",
+      },
+      {
+        label: "Curadoria",
+        value: "Beto Skeff e Raul Plassman",
+      },
+      {
+        label: "Concepção do mito OXAS",
+        value: "Emanuel Martins",
+      },
+      {
+        label: "Local dos registros",
+        value: "Poço do Tábua, Várzea Alegre — Ceará",
       },
     ],
   },

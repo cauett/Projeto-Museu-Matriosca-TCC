@@ -109,6 +109,7 @@ function normalizeSize(size, quadroTipo) {
     scale = 0.92; // moldura leve um pouco menor
   else if (quadroTipo === "molduraMadeira")
     scale = 0.96; // moldura rústica mais espessa
+  else if (quadroTipo === "tecido") scale = 1.02; // tecidos ficam maiores e soltos
   else scale = 0.94; // canvas branco padrão um pouco menor
 
   return {
@@ -421,6 +422,71 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
       return;
     }
 
+    // ===== TIPO TECIDO — sem moldura, com textura e ondulação =====
+    if (quadroTipo === "tecido") {
+      const fabricGroup = new THREE.Group();
+      fabricGroup.userData = { kind: "quadro", outerW: nSize.w };
+      fabricGroup.position.set(position.x, position.y, position.z);
+      fabricGroup.rotation.y = Math.PI;
+
+      const clothGeometry = new THREE.PlaneGeometry(
+        nSize.w,
+        nSize.h,
+        28,
+        36,
+      );
+
+      const posAttr = clothGeometry.getAttribute("position");
+      for (let i = 0; i < posAttr.count; i++) {
+        const ix = i * 3;
+        const y = posAttr.array[ix + 1];
+        const x = posAttr.array[ix];
+        const sag = Math.sin(((y + nSize.h / 2) / nSize.h) * Math.PI) * 0.008;
+        const ripple = Math.sin((x / nSize.w) * Math.PI * 2.6) * 0.004;
+        posAttr.array[ix + 2] = sag + ripple + (Math.random() - 0.5) * 0.0015;
+      }
+      posAttr.needsUpdate = true;
+      clothGeometry.computeVertexNormals();
+
+      const weaveTexture = createFabricWeaveTexture(THREE);
+      const backsideMaterial = new THREE.MeshPhysicalMaterial({
+        color: 0xf5f0e9,
+        roughness: 0.92,
+        metalness: 0.0,
+        side: THREE.BackSide,
+      });
+      const fabricMaterial = new THREE.MeshPhysicalMaterial({
+        map: texture,
+        roughness: 0.9,
+        metalness: 0.0,
+        sheen: 0.35,
+        sheenRoughness: 0.85,
+        clearcoat: 0.08,
+        clearcoatRoughness: 0.9,
+        bumpMap: weaveTexture,
+        bumpScale: 0.016,
+        roughnessMap: weaveTexture,
+        side: THREE.FrontSide,
+        ...POLY_OFFSET,
+      });
+
+      const front = new THREE.Mesh(clothGeometry, fabricMaterial);
+      front.castShadow = true;
+      front.receiveShadow = true;
+      front.position.z = 0.0008;
+
+      const back = new THREE.Mesh(clothGeometry.clone(), backsideMaterial);
+      back.rotation.y = Math.PI;
+      back.position.z = -0.0008;
+      back.castShadow = true;
+      back.receiveShadow = true;
+
+      fabricGroup.add(front);
+      fabricGroup.add(back);
+      group.add(fabricGroup);
+      return;
+    }
+
     // ===== TIPO MOLDURA DE MADEIRA RÚSTICA =====
     if (quadroTipo === "molduraMadeira") {
       const frameGroup = new THREE.Group();
@@ -590,6 +656,49 @@ function createWoodTexture(THREE) {
   texture.anisotropy = 8;
   texture.repeat.set(1.8, 1.8);
   texture.encoding = THREE.sRGBEncoding;
+  return texture;
+}
+
+function createFabricWeaveTexture(THREE) {
+  const canvas = document.createElement("canvas");
+  const size = 256;
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext("2d");
+
+  ctx.fillStyle = "#d9d1c6";
+  ctx.fillRect(0, 0, size, size);
+
+  ctx.fillStyle = "rgba(255,255,255,0.3)";
+  for (let y = 0; y < size; y += 6) {
+    ctx.fillRect(0, y, size, 2);
+  }
+  ctx.fillStyle = "rgba(210,196,180,0.35)";
+  for (let x = 0; x < size; x += 6) {
+    ctx.fillRect(x, 0, 2, size);
+  }
+
+  // ruído suave para quebrar padrão
+  const imageData = ctx.getImageData(0, 0, size, size);
+  for (let i = 0; i < imageData.data.length; i += 4) {
+    const noise = (Math.random() - 0.5) * 18;
+    imageData.data[i] = Math.min(255, Math.max(0, imageData.data[i] + noise));
+    imageData.data[i + 1] = Math.min(
+      255,
+      Math.max(0, imageData.data[i + 1] + noise),
+    );
+    imageData.data[i + 2] = Math.min(
+      255,
+      Math.max(0, imageData.data[i + 2] + noise * 0.8),
+    );
+  }
+  ctx.putImageData(imageData, 0, 0);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set(3.2, 3.2);
+  texture.anisotropy = 8;
   return texture;
 }
 
