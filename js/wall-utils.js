@@ -24,8 +24,13 @@ export function setExibicaoAtiva(exibicao) {
 
 export function onSelect() {
   if (reticle.visible && !wallPlaced && exibicaoAtiva) {
-    // video-based wall texture was causing issues on alguns celulares; revert to flat wall
-    const wallTexture = null;
+    let wallTexture = null;
+    try {
+      wallTexture = getWallTextureFromVideo(THREE);
+    } catch (err) {
+      console.warn("Textura de parede a partir do vídeo indisponível, usando fallback", err);
+      wallTexture = null;
+    }
 
     const wall = new THREE.Mesh(
       new THREE.PlaneGeometry(2.5, 1.5),

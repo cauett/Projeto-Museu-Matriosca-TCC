@@ -25,6 +25,12 @@ export async function initVideoStream() {
 }
 
 export function getWallTextureFromVideo(THREE) {
+  // Em alguns dispositivos o fluxo pode não estar disponível ou ainda não
+  // ter dados suficientes; se isso acontecer, devolvemos null para cair no
+  // fallback sólido sem quebrar a parede virtual.
+  if (!video || video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA)
+    return null;
+
   const w = video.videoWidth;
   const h = video.videoHeight;
   if (!w || !h) return null;
