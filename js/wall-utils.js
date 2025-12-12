@@ -119,21 +119,6 @@ function normalizeSize(size, quadroTipo) {
   };
 }
 
-// Mantém a proporção original da imagem, preservando a área definida no size
-function applyTextureAspect(size, texture) {
-  const ratio = texture?.image?.width && texture?.image?.height
-    ? texture.image.width / texture.image.height
-    : size.w / size.h;
-
-  if (!isFinite(ratio) || ratio <= 0) return size;
-
-  const area = (size?.w || 0.36) * (size?.h || 0.36);
-  const width = Math.sqrt(area * ratio);
-  const height = width / ratio;
-
-  return { w: width, h: height, d: size?.d ?? 0.035 };
-}
-
 /**
  * Agrupa quadros por linha (Y aproximado) e distribui cada linha com:
  * - gap uniforme (auto ou fixo)
@@ -207,7 +192,7 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
     };
 
     // aplica normalização de tamanho por tipo (fotografias um pouco menores)
-    const nSize = applyTextureAspect(normalizeSize(size, quadroTipo), texture);
+    const nSize = normalizeSize(size, quadroTipo);
 
     const woodTexture =
       quadroTipo === "molduraMadeira" ? createWoodTexture(THREE) : null;

@@ -185,7 +185,7 @@ const bichaPassarinObras = [
   {
     titulo: "Bicha Passarin (voo central)",
     arquivo: "bicha-passarin/passarin-1.jpeg",
-    position: { x: 0, y: 0.52, z: -0.02 },
+    position: { x: 0, y: 0.48, z: -0.02 },
     size: BICHA_PASSARIN_MAIN_SIZE,
   },
   {
