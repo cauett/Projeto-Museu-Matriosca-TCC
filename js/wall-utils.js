@@ -24,7 +24,8 @@ export function setExibicaoAtiva(exibicao) {
 
 export function onSelect() {
   if (reticle.visible && !wallPlaced && exibicaoAtiva) {
-    const wallTexture = getWallTextureFromVideo(THREE);
+    // video-based wall texture was causing issues on alguns celulares; revert to flat wall
+    const wallTexture = null;
 
     const wall = new THREE.Mesh(
       new THREE.PlaneGeometry(2.5, 1.5),
