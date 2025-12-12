@@ -8,8 +8,7 @@ const COTIDIANO_OBRA_SIZE = { w: 0.32, h: 0.42, d: 0.035 };
 const COTIDIANO_MIDDLE_SIZE = { w: 0.36, h: 0.47, d: 0.035 };
 const QUIXADA_VERTICAL_SIZE = { w: 0.52, h: 0.92, d: 0.04 };
 const QUIXADA_HORIZONTAL_SIZE = { w: 1.24, h: 0.74, d: 0.04 };
-const ANCESTRALIDADE_SIZE = { w: 0.26, h: 0.3, d: 0.028 };
-const ANCESTRALIDADE_TALL_SIZE = { w: 0.26, h: 0.34, d: 0.028 };
+const ANCESTRALIDADE_SIZE = { w: 0.22, h: 0.22, d: 0.02 };
 
 function mapObras(
   itens,
@@ -414,159 +413,182 @@ const ancestralidadeAutores = {
 };
 
 const ancestralidadeObras = [
-  // linha do meio: 1, 3, 6, 9, 12, 15, 18, 21, 23
+  // coluna 1 (1)
   {
     titulo: "Xilogravura 1",
     arquivo: "ancestralidade/obra-1.jpeg",
     autor: ancestralidadeAutores[1],
-    position: { x: -1.6, y: 0.0, z: -0.02 },
-    size: ANCESTRALIDADE_TALL_SIZE,
+    position: { x: 1.12, y: 0.0, z: -0.02 },
+    size: ANCESTRALIDADE_SIZE,
   },
+
+  // coluna 2 (2,3,4) – coluna "alta"
   {
     titulo: "Xilogravura 2",
     arquivo: "ancestralidade/obra-2.jpeg",
     autor: ancestralidadeAutores[2],
-    position: { x: -1.2, y: 0.5, z: -0.02 }, // acima do 3
+    position: { x: 0.84, y: 0.28, z: -0.02 }, // acima do 3
+    size: ANCESTRALIDADE_SIZE,
   },
   {
     titulo: "Xilogravura 3",
     arquivo: "ancestralidade/obra-3.jpeg",
     autor: ancestralidadeAutores[3],
-    position: { x: -1.2, y: 0.0, z: -0.02 },
+    position: { x: 0.84, y: 0.0, z: -0.02 },
+    size: ANCESTRALIDADE_SIZE,
   },
   {
     titulo: "Xilogravura 4",
     arquivo: "ancestralidade/obra-4.jpeg",
     autor: ancestralidadeAutores[4],
-    position: { x: -1.2, y: -0.5, z: -0.02 }, // abaixo do 3
+    position: { x: 0.84, y: -0.28, z: -0.02 }, // abaixo do 3
+    size: ANCESTRALIDADE_SIZE,
   },
 
-  // 5, 6, 7 -> coluna um pouco mais baixa
+  // coluna 3 (5,6,7) – coluna "baixa"
   {
     titulo: "Xilogravura 5",
     arquivo: "ancestralidade/obra-5.jpeg",
     autor: ancestralidadeAutores[5],
-    position: { x: -0.8, y: 0.25, z: -0.02 }, // antes: 0.5
-    size: ANCESTRALIDADE_TALL_SIZE,
+    position: { x: 0.56, y: 0.2, z: -0.02 },
+    size: ANCESTRALIDADE_SIZE,
   },
   {
     titulo: "Xilogravura 6",
     arquivo: "ancestralidade/obra-6.jpeg",
     autor: ancestralidadeAutores[6],
-    position: { x: -0.8, y: -0.25, z: -0.02 }, // antes: 0.0
+    position: { x: 0.56, y: -0.08, z: -0.02 },
+    size: ANCESTRALIDADE_SIZE,
   },
   {
     titulo: "Xilogravura 7",
     arquivo: "ancestralidade/obra-7.jpeg",
     autor: ancestralidadeAutores[7],
-    position: { x: -0.8, y: -0.75, z: -0.02 }, // antes: -0.5
+    position: { x: 0.56, y: -0.36, z: -0.02 },
+    size: ANCESTRALIDADE_SIZE,
   },
 
+  // coluna 4 (8,9,10) – coluna "alta"
   {
     titulo: "Xilogravura 8",
     arquivo: "ancestralidade/obra-8.jpeg",
     autor: ancestralidadeAutores[8],
-    position: { x: -0.4, y: 0.5, z: -0.02 }, // acima do 9
+    position: { x: 0.28, y: 0.28, z: -0.02 }, // acima do 9
+    size: ANCESTRALIDADE_SIZE,
   },
   {
     titulo: "Xilogravura 9",
     arquivo: "ancestralidade/obra-9.jpeg",
     autor: ancestralidadeAutores[9],
-    position: { x: -0.4, y: 0.0, z: -0.02 },
-    size: ANCESTRALIDADE_TALL_SIZE,
+    position: { x: 0.28, y: 0.0, z: -0.02 },
+    size: ANCESTRALIDADE_SIZE,
   },
   {
     titulo: "Xilogravura 10",
     arquivo: "ancestralidade/obra-10.jpeg",
     autor: ancestralidadeAutores[10],
-    position: { x: -0.4, y: -0.5, z: -0.02 }, // abaixo do 9
+    position: { x: 0.28, y: -0.28, z: -0.02 }, // abaixo do 9
+    size: ANCESTRALIDADE_SIZE,
   },
 
-  // 11, 12, 13 -> coluna mais baixa
+  // coluna 5 (11,12,13) – coluna "baixa"
   {
     titulo: "Xilogravura 11",
     arquivo: "ancestralidade/obra-11.jpeg",
     autor: ancestralidadeAutores[11],
-    position: { x: 0.0, y: 0.25, z: -0.02 }, // antes: 0.5
+    position: { x: 0.0, y: 0.2, z: -0.02 },
+    size: ANCESTRALIDADE_SIZE,
   },
   {
     titulo: "Xilogravura 12",
     arquivo: "ancestralidade/obra-12.jpeg",
     autor: ancestralidadeAutores[12],
-    position: { x: 0.0, y: -0.25, z: -0.02 }, // antes: 0.0
+    position: { x: 0.0, y: -0.08, z: -0.02 },
+    size: ANCESTRALIDADE_SIZE,
   },
   {
     titulo: "Xilogravura 13",
     arquivo: "ancestralidade/obra-13.jpeg",
     autor: ancestralidadeAutores[13],
-    position: { x: 0.0, y: -0.75, z: -0.02 }, // antes: -0.5
+    position: { x: 0.0, y: -0.36, z: -0.02 },
+    size: ANCESTRALIDADE_SIZE,
   },
 
+  // coluna 6 (14,15,16) – coluna "alta"
   {
     titulo: "Xilogravura 14",
     arquivo: "ancestralidade/obra-14.jpeg",
     autor: ancestralidadeAutores[14],
-    position: { x: 0.4, y: 0.5, z: -0.02 }, // acima do 15
-    size: ANCESTRALIDADE_TALL_SIZE,
+    position: { x: -0.28, y: 0.28, z: -0.02 }, // acima do 15
+    size: ANCESTRALIDADE_SIZE,
   },
   {
     titulo: "Xilogravura 15",
     arquivo: "ancestralidade/obra-15.jpeg",
     autor: ancestralidadeAutores[15],
-    position: { x: 0.4, y: 0.0, z: -0.02 },
+    position: { x: -0.28, y: 0.0, z: -0.02 },
+    size: ANCESTRALIDADE_SIZE,
   },
   {
     titulo: "Xilogravura 16",
     arquivo: "ancestralidade/obra-16.jpeg",
     autor: ancestralidadeAutores[16],
-    position: { x: 0.4, y: -0.5, z: -0.02 }, // abaixo do 15
+    position: { x: -0.28, y: -0.28, z: -0.02 }, // abaixo do 15
     size: ANCESTRALIDADE_SIZE,
   },
 
-  // 17, 18, 19 -> coluna mais baixa
+  // coluna 7 (17,18,19) – coluna "baixa"
   {
     titulo: "Xilogravura 17",
     arquivo: "ancestralidade/obra-17.jpeg",
     autor: ancestralidadeAutores[17],
-    position: { x: 0.8, y: 0.25, z: -0.02 }, // antes: 0.5
+    position: { x: -0.56, y: 0.2, z: -0.02 },
+    size: ANCESTRALIDADE_SIZE,
   },
   {
     titulo: "Xilogravura 18",
     arquivo: "ancestralidade/obra-18.jpeg",
     autor: ancestralidadeAutores[18],
-    position: { x: 0.8, y: -0.25, z: -0.02 }, // antes: 0.0
+    position: { x: -0.56, y: -0.08, z: -0.02 },
+    size: ANCESTRALIDADE_SIZE,
   },
   {
     titulo: "Xilogravura 19",
     arquivo: "ancestralidade/obra-19.jpeg",
     autor: ancestralidadeAutores[19],
-    position: { x: 0.8, y: -0.75, z: -0.02 }, // antes: -0.5
+    position: { x: -0.56, y: -0.36, z: -0.02 },
+    size: ANCESTRALIDADE_SIZE,
   },
 
+  // coluna 8 (20,21,22) – coluna "alta"
   {
     titulo: "Xilogravura 20",
     arquivo: "ancestralidade/obra-20.jpeg",
     autor: ancestralidadeAutores[20],
-    position: { x: 1.2, y: 0.5, z: -0.02 }, // acima do 21
+    position: { x: -0.84, y: 0.28, z: -0.02 }, // acima do 21
+    size: ANCESTRALIDADE_SIZE,
   },
   {
     titulo: "Xilogravura 21",
     arquivo: "ancestralidade/obra-21.jpeg",
     autor: ancestralidadeAutores[21],
-    position: { x: 1.2, y: 0.0, z: -0.02 },
+    position: { x: -0.84, y: 0.0, z: -0.02 },
+    size: ANCESTRALIDADE_SIZE,
   },
   {
     titulo: "Xilogravura 22",
     arquivo: "ancestralidade/obra-22.jpeg",
     autor: ancestralidadeAutores[22],
-    position: { x: 1.2, y: -0.5, z: -0.02 }, // abaixo do 21
-    size: ANCESTRALIDADE_TALL_SIZE,
+    position: { x: -0.84, y: -0.28, z: -0.02 }, // abaixo do 21
+    size: ANCESTRALIDADE_SIZE,
   },
+
+  // coluna 9 (23)
   {
     titulo: "Xilogravura 23",
     arquivo: "ancestralidade/obra-23.jpeg",
     autor: ancestralidadeAutores[23],
-    position: { x: 1.6, y: 0.0, z: -0.02 }, // na mesma linha do 21, à direita
+    position: { x: -1.12, y: 0.0, z: -0.02 },
     size: ANCESTRALIDADE_SIZE,
   },
 ];
