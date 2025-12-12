@@ -109,6 +109,7 @@ function normalizeSize(size, quadroTipo) {
     scale = 0.92; // moldura leve um pouco menor
   else if (quadroTipo === "molduraMadeira")
     scale = 0.96; // moldura rústica mais espessa
+  else if (quadroTipo === "tecido") scale = 1.02; // pano ocupa mais área útil
   else scale = 0.94; // canvas branco padrão um pouco menor
 
   return {
@@ -195,6 +196,55 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
 
     const woodTexture =
       quadroTipo === "molduraMadeira" ? createWoodTexture(THREE) : null;
+
+    if (quadroTipo === "tecido") {
+      const fabricGroup = new THREE.Group();
+      fabricGroup.userData = { kind: "quadro" };
+      fabricGroup.position.set(position.x, position.y, position.z);
+      fabricGroup.rotation.y = Math.PI;
+
+      const weaveTexture = createFabricTexture(THREE);
+
+      const fabricMaterial = new THREE.MeshPhysicalMaterial({
+        map: texture,
+        color: 0xffffff,
+        roughness: 0.9,
+        metalness: 0.0,
+        bumpMap: weaveTexture,
+        bumpScale: 0.012,
+        side: THREE.DoubleSide,
+        clearcoat: 0.06,
+        clearcoatRoughness: 0.92,
+        ...POLY_OFFSET,
+      });
+
+      const planeGeo = new THREE.PlaneGeometry(
+        nSize.w,
+        nSize.h,
+        Math.max(12, Math.round(nSize.w * 16)),
+        Math.max(16, Math.round(nSize.h * 18)),
+      );
+      const pos = planeGeo.attributes.position;
+      for (let i = 0; i < pos.count; i++) {
+        const x = pos.getX(i);
+        const y = pos.getY(i);
+        const waveX = Math.sin((x / nSize.w) * Math.PI) * 0.006;
+        const sagY = -Math.pow(Math.abs(y) / (nSize.h / 2), 1.15) * 0.0035;
+        const ripple = Math.sin((x + y) * 6) * 0.0012 + (Math.random() - 0.5) * 0.0008;
+        pos.setZ(i, waveX + sagY + ripple);
+      }
+      pos.needsUpdate = true;
+      planeGeo.computeVertexNormals();
+
+      const fabricMesh = new THREE.Mesh(planeGeo, fabricMaterial);
+      fabricMesh.castShadow = true;
+      fabricMesh.receiveShadow = true;
+      fabricGroup.add(fabricMesh);
+
+      fabricGroup.userData.outerW = nSize.w;
+      group.add(fabricGroup);
+      return;
+    }
 
     // ===== TIPO FOTOGRAFIA — papel com janela (anel extrudado) e foto recuada =====
     if (quadroTipo === "fotografia") {
@@ -549,6 +599,56 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
     quadroBox.rotation.y = Math.PI;
     group.add(quadroBox);
   });
+}
+
+function createFabricTexture(THREE) {
+  const canvas = document.createElement("canvas");
+  const size = 256;
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext("2d");
+
+  ctx.fillStyle = "#f4eee8";
+  ctx.fillRect(0, 0, size, size);
+
+  ctx.strokeStyle = "rgba(180, 160, 145, 0.28)";
+  ctx.lineWidth = 1;
+  for (let y = 0; y <= size; y += 8) {
+    const jitter = (Math.random() - 0.5) * 2;
+    ctx.beginPath();
+    ctx.moveTo(0, y + jitter);
+    ctx.lineTo(size, y + jitter);
+    ctx.stroke();
+  }
+
+  ctx.strokeStyle = "rgba(200, 185, 170, 0.22)";
+  for (let x = 0; x <= size; x += 8) {
+    const jitter = (Math.random() - 0.5) * 2;
+    ctx.beginPath();
+    ctx.moveTo(x + jitter, 0);
+    ctx.lineTo(x + jitter, size);
+    ctx.stroke();
+  }
+
+  const imageData = ctx.getImageData(0, 0, size, size);
+  const data = imageData.data;
+  for (let i = 0; i < data.length; i += 4) {
+    const noise = (Math.random() - 0.5) * 10;
+    data[i] = Math.min(255, Math.max(0, data[i] + noise));
+    data[i + 1] = Math.min(255, Math.max(0, data[i + 1] + noise));
+    data[i + 2] = Math.min(255, Math.max(0, data[i + 2] + noise * 0.6));
+  }
+  ctx.putImageData(imageData, 0, 0);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.anisotropy = 8;
+  texture.repeat.set(4, 4);
+  texture.encoding = THREE.sRGBEncoding;
+  texture.minFilter = THREE.LinearMipMapLinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  return texture;
 }
 
 function createWoodTexture(THREE) {

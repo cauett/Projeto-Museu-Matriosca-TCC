@@ -9,6 +9,8 @@ const COTIDIANO_MIDDLE_SIZE = { w: 0.36, h: 0.47, d: 0.035 };
 const QUIXADA_VERTICAL_SIZE = { w: 0.52, h: 0.92, d: 0.04 };
 const QUIXADA_HORIZONTAL_SIZE = { w: 1.24, h: 0.74, d: 0.04 };
 const ANCESTRALIDADE_SIZE = { w: 0.22, h: 0.22, d: 0.02 };
+const BICHA_PASSARIN_MAIN_SIZE = { w: 1.08, h: 0.82, d: 0.02 };
+const BICHA_PASSARIN_SMALL_SIZE = { w: 0.48, h: 0.35, d: 0.018 };
 
 function mapObras(
   itens,
@@ -593,6 +595,37 @@ const ancestralidadeObras = [
   },
 ];
 
+const bichaPassarinObras = [
+  {
+    titulo: "Passarin 1",
+    arquivo: "bicha-passarin/passarin-1.jpeg",
+    autor: "Raul Plassman",
+    position: { x: 0, y: 0.42, z: -0.02 },
+    size: BICHA_PASSARIN_MAIN_SIZE,
+  },
+  {
+    titulo: "Passarin 2",
+    arquivo: "bicha-passarin/passarin-2.jpeg",
+    autor: "Raul Plassman",
+    position: { x: -0.62, y: -0.34, z: -0.02 },
+    size: BICHA_PASSARIN_SMALL_SIZE,
+  },
+  {
+    titulo: "Passarin 3",
+    arquivo: "bicha-passarin/passarin-3.jpeg",
+    autor: "Raul Plassman",
+    position: { x: 0, y: -0.34, z: -0.02 },
+    size: BICHA_PASSARIN_SMALL_SIZE,
+  },
+  {
+    titulo: "Passarin 4",
+    arquivo: "bicha-passarin/passarin-4.jpeg",
+    autor: "Raul Plassman",
+    position: { x: 0.62, y: -0.34, z: -0.02 },
+    size: BICHA_PASSARIN_SMALL_SIZE,
+  },
+];
+
 // Export das exposições (usando o mapper genérico)
 export const exibicoes = [
   {
@@ -666,6 +699,15 @@ export const exibicoes = [
       "Xilogravuras que contam a trajetória do Mestre Stênio Diniz, em um bloco compacto com alturas irregulares, rememorando raízes, encontros e legados.",
     obras: mapObras(ancestralidadeObras, { size: ANCESTRALIDADE_SIZE }),
     quadroTipo: "molduraMadeira",
+    autoSpread: false,
+  },
+  {
+    id: "exibicao8",
+    titulo: "Bicha Passarin — um voo de Raul Plassman e Lola Green",
+    descricao:
+      "Encontro entre performance, fotografia e afeto celebrando 10 anos de Lola Green, com curadoria de Raul Plassman e Beto Skeff.",
+    obras: mapObras(bichaPassarinObras, { autor: "Raul Plassman" }),
+    quadroTipo: "tecido",
     autoSpread: false,
   },
 ];
@@ -816,6 +858,24 @@ const exibicoesInfo = {
       {
         label: "Design gráfico e comunicação",
         value: "Casa de Saberes Cego Aderaldo",
+      },
+    ],
+  },
+  exibicao8: {
+    curatorialText:
+      "🕊️ Exposição “Bicha Passarim — um voo de Raul Plassman e Lola Green”, com curadoria de Raul Plassman e Beto Skeff.\n\nUm encontro entre performance, fotografia e afeto.\nNesta mostra, o artista Raul Plassman celebra os 10 anos de Lola Green, criação mística de Emanuel Martins, em uma travessia poética entre o interior e a cidade, entre o sonho e o chão.\n\nAs imagens, analógicas, instantâneas e digitais, revelam o aconchego da casa de vó, o território das memórias e a liberdade dos voos singulares que também são coletivos. Um convite para sentir, ver e voar junto. 💫",
+    credits: [
+      {
+        label: "Curadoria",
+        value: "Raul Plassman e Beto Skeff",
+      },
+      {
+        label: "Fotografia e performance",
+        value: "Raul Plassman e Lola Green",
+      },
+      {
+        label: "Criação de Lola Green",
+        value: "Emanuel Martins",
       },
     ],
   },
