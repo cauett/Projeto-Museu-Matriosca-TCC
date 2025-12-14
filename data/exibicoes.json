@@ -1,0 +1,1447 @@
+{
+  "sizes": {
+    "DEFAULT_OBRA_SIZE": {
+      "w": 0.42,
+      "h": 0.42,
+      "d": 0.04
+    },
+    "SERTAO_OBRA_SIZE": {
+      "w": 0.53,
+      "h": 0.34,
+      "d": 0.03
+    },
+    "TESOUROS_VIVOS_OBRA_SIZE": {
+      "w": 0.18,
+      "h": 0.18,
+      "d": 0.028
+    },
+    "AVES_CEARENSES_OBRA_SIZE": {
+      "w": 0.32,
+      "h": 0.42,
+      "d": 0.038
+    },
+    "COTIDIANO_OBRA_SIZE": {
+      "w": 0.32,
+      "h": 0.42,
+      "d": 0.035
+    },
+    "COTIDIANO_MIDDLE_SIZE": {
+      "w": 0.36,
+      "h": 0.47,
+      "d": 0.035
+    },
+    "QUIXADA_VERTICAL_SIZE": {
+      "w": 0.52,
+      "h": 0.92,
+      "d": 0.04
+    },
+    "QUIXADA_HORIZONTAL_SIZE": {
+      "w": 1.24,
+      "h": 0.74,
+      "d": 0.04
+    },
+    "ANCESTRALIDADE_SIZE": {
+      "w": 0.22,
+      "h": 0.22,
+      "d": 0.02
+    },
+    "BICHA_PASSARIN_MAIN_SIZE": {
+      "w": 1.08,
+      "h": 0.82,
+      "d": 0.02
+    },
+    "BICHA_PASSARIN_SMALL_SIZE": {
+      "w": 0.48,
+      "h": 0.35,
+      "d": 0.018
+    }
+  },
+  "exibicoes": [
+    {
+      "id": "exibicao1",
+      "titulo": "Linhas da Vida",
+      "descricao": "A exposição celebra a potência da arte como expressão sensível e inclusiva.",
+      "obras": [
+        {
+          "titulo": "Obra 1",
+          "position": {
+            "x": 0.25,
+            "y": 0.35,
+            "z": -0.025
+          },
+          "size": {
+            "w": 0.45,
+            "h": 0.45,
+            "d": 0.04
+          },
+          "autor": "Ariel Loiola, 52 anos (Invisual)",
+          "url": "https://cdn.glitch.global/08bbe0af-cfdb-4eda-ab2f-935f0b157c29/WhatsApp%20Image%202025-04-13%20at%2020.19.01.jpeg?v=1744586397132"
+        },
+        {
+          "titulo": "Obra 2",
+          "position": {
+            "x": 0.8,
+            "y": 0.35,
+            "z": -0.025
+          },
+          "autor": "Kiko Targino, 54 anos (Invisual)",
+          "url": "https://cdn.glitch.global/08bbe0af-cfdb-4eda-ab2f-935f0b157c29/WhatsApp%20Image%202025-04-13%20at%2019.43.42.jpeg?v=1744585878156",
+          "size": {
+            "w": 0.42,
+            "h": 0.42,
+            "d": 0.04
+          }
+        },
+        {
+          "titulo": "Obra 3",
+          "position": {
+            "x": -0.55,
+            "y": 0.1,
+            "z": -0.025
+          },
+          "size": {
+            "w": 0.75,
+            "h": 0.9,
+            "d": 0.04
+          },
+          "autor": "Ariel Loiola, 52 anos (Invisual)",
+          "url": "https://cdn.glitch.global/08bbe0af-cfdb-4eda-ab2f-935f0b157c29/WhatsApp%20Image%202025-04-13%20at%2020.19.01%20(1).jpeg?v=1744586388353"
+        },
+        {
+          "titulo": "Obra 4",
+          "position": {
+            "x": 0.25,
+            "y": -0.35,
+            "z": -0.025
+          },
+          "autor": "Ariel Loiola, 52 anos (Invisual)",
+          "url": "https://cdn.glitch.global/08bbe0af-cfdb-4eda-ab2f-935f0b157c29/WhatsApp%20Image%202025-04-13%20at%2020.19.01%20(2).jpeg?v=1744586391885",
+          "size": {
+            "w": 0.42,
+            "h": 0.42,
+            "d": 0.04
+          }
+        },
+        {
+          "titulo": "Obra 5",
+          "position": {
+            "x": 0.8,
+            "y": -0.35,
+            "z": -0.025
+          },
+          "autor": "Kiko Targino, 54 anos (Invisual)",
+          "url": "https://cdn.glitch.global/08bbe0af-cfdb-4eda-ab2f-935f0b157c29/WhatsApp%20Image%202025-04-13%20at%2020.19.00.jpeg?v=1744586399142",
+          "size": {
+            "w": 0.42,
+            "h": 0.42,
+            "d": 0.04
+          }
+        }
+      ],
+      "quadroTipo": "moldura",
+      "defaults": {
+        "sizeKey": "DEFAULT_OBRA_SIZE"
+      }
+    },
+    {
+      "id": "exibicao2",
+      "titulo": "Sertão Monumental",
+      "descricao": "A exposição é um esforço conjunto de agentes sociais, educacionais e culturais que buscam promover a difusão e a valorização do patrimônio local.",
+      "obras": [
+        {
+          "titulo": "Ponte Metálica de Quixeramobim",
+          "position": {
+            "x": -0.38,
+            "y": 0.36,
+            "z": -0.025
+          },
+          "url": "img/sertao-monumental/sertao-02.jpeg",
+          "autor": "Acervo Sertão Monumental",
+          "size": {
+            "w": 0.53,
+            "h": 0.34,
+            "d": 0.03
+          }
+        },
+        {
+          "titulo": "Geossítio Gruta de São Francisco",
+          "position": {
+            "x": 0.38,
+            "y": 0.36,
+            "z": -0.025
+          },
+          "url": "img/sertao-monumental/sertao-01.jpeg",
+          "autor": "Acervo Sertão Monumental",
+          "size": {
+            "w": 0.53,
+            "h": 0.34,
+            "d": 0.03
+          }
+        },
+        {
+          "titulo": "Açude Cedro",
+          "position": {
+            "x": -0.78,
+            "y": 0,
+            "z": -0.025
+          },
+          "url": "img/sertao-monumental/sertao-05.jpeg",
+          "autor": "Acervo Sertão Monumental",
+          "size": {
+            "w": 0.53,
+            "h": 0.34,
+            "d": 0.03
+          }
+        },
+        {
+          "titulo": "Rio Quixeramobim",
+          "position": {
+            "x": -0.26,
+            "y": 0,
+            "z": -0.025
+          },
+          "url": "img/sertao-monumental/sertao-04.jpeg",
+          "autor": "Acervo Sertão Monumental",
+          "size": {
+            "w": 0.53,
+            "h": 0.34,
+            "d": 0.03
+          }
+        },
+        {
+          "titulo": "Geossítio Gruta do Magé",
+          "position": {
+            "x": 0.26,
+            "y": 0,
+            "z": -0.025
+          },
+          "url": "img/sertao-monumental/sertao-03.jpeg",
+          "autor": "Acervo Sertão Monumental",
+          "size": {
+            "w": 0.53,
+            "h": 0.34,
+            "d": 0.03
+          }
+        },
+        {
+          "titulo": "Geossítio Gnaisse Milonítico",
+          "position": {
+            "x": 0.78,
+            "y": 0,
+            "z": -0.025
+          },
+          "url": "img/sertao-monumental/sertao-06.jpeg",
+          "autor": "Acervo Sertão Monumental",
+          "size": {
+            "w": 0.53,
+            "h": 0.34,
+            "d": 0.03
+          }
+        },
+        {
+          "titulo": "Geossítio Pedra do Letreiro",
+          "position": {
+            "x": -0.78,
+            "y": -0.36,
+            "z": -0.025
+          },
+          "url": "img/sertao-monumental/sertao-10.jpeg",
+          "autor": "Acervo Sertão Monumental",
+          "size": {
+            "w": 0.53,
+            "h": 0.34,
+            "d": 0.03
+          }
+        },
+        {
+          "titulo": "Serra do Padre",
+          "position": {
+            "x": -0.26,
+            "y": -0.36,
+            "z": -0.025
+          },
+          "url": "img/sertao-monumental/sertao-09.jpeg",
+          "autor": "Acervo Sertão Monumental",
+          "size": {
+            "w": 0.53,
+            "h": 0.34,
+            "d": 0.03
+          }
+        },
+        {
+          "titulo": "Geossítio Pedra do Cruzeiro",
+          "position": {
+            "x": 0.26,
+            "y": -0.36,
+            "z": -0.025
+          },
+          "url": "img/sertao-monumental/sertao-08.jpeg",
+          "autor": "Acervo Sertão Monumental",
+          "size": {
+            "w": 0.53,
+            "h": 0.34,
+            "d": 0.03
+          }
+        },
+        {
+          "titulo": "Pedra da Gaveta",
+          "position": {
+            "x": 0.78,
+            "y": -0.36,
+            "z": -0.025
+          },
+          "url": "img/sertao-monumental/sertao-07.jpeg",
+          "autor": "Acervo Sertão Monumental",
+          "size": {
+            "w": 0.53,
+            "h": 0.34,
+            "d": 0.03
+          }
+        }
+      ],
+      "quadroTipo": "fotografia",
+      "defaults": {
+        "autor": "Acervo Sertão Monumental",
+        "sizeKey": "SERTAO_OBRA_SIZE"
+      }
+    },
+    {
+      "id": "exibicao3",
+      "titulo": "Tesouros Vivos do Ceará",
+      "descricao": "Reconhecida como uma celebração dos Mestres e Mestras da Cultura Popular, a exposição apresenta as xilogravuras que homenageiam guardiões da memória coletiva cearense.",
+      "obras": [
+        {
+          "titulo": "Mestre Françuli, Miniaturista",
+          "position": {
+            "x": -1.25,
+            "y": 0.2,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-1.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        },
+        {
+          "titulo": "Mestre Lucas Evangelista, Cordelista",
+          "position": {
+            "x": -1,
+            "y": 0.2,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-2.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        },
+        {
+          "titulo": "Mestre Stênio Diniz, Xilógrafo",
+          "position": {
+            "x": -0.75,
+            "y": 0.2,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-3.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        },
+        {
+          "titulo": "Mestre Zé Pio, Bumba-meu-boi",
+          "position": {
+            "x": -0.5,
+            "y": 0.2,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-4.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        },
+        {
+          "titulo": "Mestre Raimundo Aniceto, Banda Cabaçal",
+          "position": {
+            "x": -0.25,
+            "y": 0.2,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-5.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        },
+        {
+          "titulo": "Mestre Vitor, Ferreiro",
+          "position": {
+            "x": 0,
+            "y": 0.2,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-6.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        },
+        {
+          "titulo": "Mestre Piauí, Reisado",
+          "position": {
+            "x": 0.25,
+            "y": 0.2,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-7.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        },
+        {
+          "titulo": "Mestre Pedro Balaeiro. Trançado em Cipó",
+          "position": {
+            "x": 0.5,
+            "y": 0.2,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-8.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        },
+        {
+          "titulo": "Mestre Getúlio, Sineiro",
+          "position": {
+            "x": 0.75,
+            "y": 0.2,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-9.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        },
+        {
+          "titulo": "Mestre Pimenta, Palhaço",
+          "position": {
+            "x": 1,
+            "y": 0.2,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-10.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        },
+        {
+          "titulo": "Mestre Luis Caboclo, Pajé Tremembé",
+          "position": {
+            "x": 1.25,
+            "y": 0.2,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-11.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        },
+        {
+          "titulo": "Mestre Gilberto, Bonequeiro",
+          "position": {
+            "x": -1.25,
+            "y": -0.15,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-12.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        },
+        {
+          "titulo": "Mestre Antonio Luiz, Reisado de Caretas",
+          "position": {
+            "x": -1,
+            "y": -0.15,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-13.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        },
+        {
+          "titulo": "Mestre Antonio, Luthier-rabeca",
+          "position": {
+            "x": -0.75,
+            "y": -0.15,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-14.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        },
+        {
+          "titulo": "Mestre Joaquim, Dança de São Gonçalo",
+          "position": {
+            "x": -0.5,
+            "y": -0.15,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-15.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        },
+        {
+          "titulo": "Mestre Aldenir, Reisado",
+          "position": {
+            "x": -0.25,
+            "y": -0.15,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-16.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        },
+        {
+          "titulo": "Mestre Espedito Seleiro, Arte em Couro",
+          "position": {
+            "x": 0,
+            "y": -0.15,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-17.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        },
+        {
+          "titulo": "Mestre Bibi, Escultor",
+          "position": {
+            "x": 0.25,
+            "y": -0.15,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-18.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        },
+        {
+          "titulo": "Mestre Cirilo, Maneiro Pau",
+          "position": {
+            "x": 0.5,
+            "y": -0.15,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-19.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        },
+        {
+          "titulo": "Mestre Totonho, Luthier-violino",
+          "position": {
+            "x": 0.75,
+            "y": -0.15,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-20.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        },
+        {
+          "titulo": "Mestre João Venâncio, Cacique Tremembé",
+          "position": {
+            "x": 1,
+            "y": -0.15,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-21.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        },
+        {
+          "titulo": "Mestre Moisés Cardoso, Dança do Côco",
+          "position": {
+            "x": 1.25,
+            "y": -0.15,
+            "z": -0.02
+          },
+          "url": "img/tesouros-vivos/tesouro-22.jpeg",
+          "autor": "Otávio Menezes",
+          "size": {
+            "w": 0.18,
+            "h": 0.18,
+            "d": 0.028
+          }
+        }
+      ],
+      "quadroTipo": "molduraPreta",
+      "defaults": {
+        "autor": "Otávio Menezes",
+        "sizeKey": "TESOUROS_VIVOS_OBRA_SIZE"
+      }
+    },
+    {
+      "id": "exibicao4",
+      "titulo": "Retratos do Voo",
+      "descricao": "Mostra que convida o público a contemplar a beleza e a diversidade das aves que habitam o Ceará, celebrando o amor pela avifauna e o cuidado com a natureza local.",
+      "obras": [
+        {
+          "titulo": "Sucuruá-de-barriga-vermelha",
+          "position": {
+            "x": -0.58,
+            "y": 0.54,
+            "z": -0.025
+          },
+          "url": "img/aves-cearenses/ave-1.jpeg",
+          "autor": "Alefe Queiroz",
+          "size": {
+            "w": 0.32,
+            "h": 0.42,
+            "d": 0.038
+          }
+        },
+        {
+          "titulo": "Pica-pau ocráceo",
+          "position": {
+            "x": 0,
+            "y": 0.54,
+            "z": -0.025
+          },
+          "url": "img/aves-cearenses/ave-2.jpeg",
+          "autor": "Alefe Queiroz",
+          "size": {
+            "w": 0.32,
+            "h": 0.42,
+            "d": 0.038
+          }
+        },
+        {
+          "titulo": "Carcará",
+          "position": {
+            "x": 0.58,
+            "y": 0.54,
+            "z": -0.025
+          },
+          "url": "img/aves-cearenses/ave-3.jpeg",
+          "autor": "Alefe Queiroz",
+          "size": {
+            "w": 0.32,
+            "h": 0.42,
+            "d": 0.038
+          }
+        },
+        {
+          "titulo": "Rabo-branco-rubro",
+          "position": {
+            "x": -0.96,
+            "y": 0,
+            "z": -0.025
+          },
+          "url": "img/aves-cearenses/ave-4.jpeg",
+          "autor": "Alefe Queiroz",
+          "size": {
+            "w": 0.32,
+            "h": 0.42,
+            "d": 0.038
+          }
+        },
+        {
+          "titulo": "Chorozinho-da-caatinga",
+          "position": {
+            "x": -0.48,
+            "y": 0,
+            "z": -0.025
+          },
+          "url": "img/aves-cearenses/ave-5.jpeg",
+          "autor": "Alefe Queiroz",
+          "size": {
+            "w": 0.32,
+            "h": 0.42,
+            "d": 0.038
+          }
+        },
+        {
+          "titulo": "Urutau",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": -0.025
+          },
+          "url": "img/aves-cearenses/ave-6.jpeg",
+          "autor": "Alefe Queiroz",
+          "size": {
+            "w": 0.32,
+            "h": 0.42,
+            "d": 0.038
+          }
+        },
+        {
+          "titulo": "Pompeu",
+          "position": {
+            "x": 0.48,
+            "y": 0,
+            "z": -0.025
+          },
+          "url": "img/aves-cearenses/ave-7.jpeg",
+          "autor": "Alefe Queiroz",
+          "size": {
+            "w": 0.32,
+            "h": 0.42,
+            "d": 0.038
+          }
+        },
+        {
+          "titulo": "Cara-suja",
+          "position": {
+            "x": 0.96,
+            "y": 0,
+            "z": -0.025
+          },
+          "url": "img/aves-cearenses/ave-8.jpeg",
+          "autor": "Alefe Queiroz",
+          "size": {
+            "w": 0.32,
+            "h": 0.42,
+            "d": 0.038
+          }
+        },
+        {
+          "titulo": "Picapauzinho-da-caatinga",
+          "position": {
+            "x": -0.48,
+            "y": -0.54,
+            "z": -0.025
+          },
+          "url": "img/aves-cearenses/ave-9.jpeg",
+          "autor": "Alefe Queiroz",
+          "size": {
+            "w": 0.32,
+            "h": 0.42,
+            "d": 0.038
+          }
+        },
+        {
+          "titulo": "Bacurauzinho-da-caatinga",
+          "position": {
+            "x": 0.48,
+            "y": -0.54,
+            "z": -0.025
+          },
+          "url": "img/aves-cearenses/ave-10.jpeg",
+          "autor": "Alefe Queiroz",
+          "size": {
+            "w": 0.32,
+            "h": 0.42,
+            "d": 0.038
+          }
+        }
+      ],
+      "quadroTipo": "molduraMadeira",
+      "autoSpread": false,
+      "defaults": {
+        "autor": "Alefe Queiroz",
+        "sizeKey": "AVES_CEARENSES_OBRA_SIZE"
+      }
+    },
+    {
+      "id": "exibicao5",
+      "titulo": "Cotidiano",
+      "descricao": "Sequência de fotografias que revela, com delicadeza, como o comum guarda camadas de afeto e memória.",
+      "obras": [
+        {
+          "titulo": "Cotidiano 1",
+          "position": {
+            "x": -0.44,
+            "y": 0.5,
+            "z": -0.025
+          },
+          "size": {
+            "w": 0.32,
+            "h": 0.42,
+            "d": 0.035
+          },
+          "url": "img/cotidiano/cotidiano-1.jpeg",
+          "autor": "Fábricia Teodoro"
+        },
+        {
+          "titulo": "Cotidiano 2",
+          "position": {
+            "x": 0,
+            "y": 0.5,
+            "z": -0.025
+          },
+          "size": {
+            "w": 0.32,
+            "h": 0.42,
+            "d": 0.035
+          },
+          "url": "img/cotidiano/cotidiano-2.jpeg",
+          "autor": "Fábricia Teodoro"
+        },
+        {
+          "titulo": "Cotidiano 3",
+          "position": {
+            "x": 0.44,
+            "y": 0.5,
+            "z": -0.025
+          },
+          "size": {
+            "w": 0.32,
+            "h": 0.42,
+            "d": 0.035
+          },
+          "url": "img/cotidiano/cotidiano-3.jpeg",
+          "autor": "Fábricia Teodoro"
+        },
+        {
+          "titulo": "Cotidiano 4",
+          "position": {
+            "x": -0.44,
+            "y": 0,
+            "z": -0.025
+          },
+          "size": {
+            "w": 0.36,
+            "h": 0.47,
+            "d": 0.035
+          },
+          "url": "img/cotidiano/cotidiano-4.jpeg",
+          "autor": "Fábricia Teodoro"
+        },
+        {
+          "titulo": "Cotidiano 5",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": -0.025
+          },
+          "size": {
+            "w": 0.32,
+            "h": 0.42,
+            "d": 0.035
+          },
+          "url": "img/cotidiano/cotidiano-5.jpeg",
+          "autor": "Fábricia Teodoro"
+        },
+        {
+          "titulo": "Cotidiano 6",
+          "position": {
+            "x": 0.44,
+            "y": 0,
+            "z": -0.025
+          },
+          "size": {
+            "w": 0.36,
+            "h": 0.47,
+            "d": 0.035
+          },
+          "url": "img/cotidiano/cotidiano-6.jpeg",
+          "autor": "Fábricia Teodoro"
+        },
+        {
+          "titulo": "Cotidiano 7",
+          "position": {
+            "x": -0.44,
+            "y": -0.5,
+            "z": -0.025
+          },
+          "size": {
+            "w": 0.32,
+            "h": 0.42,
+            "d": 0.035
+          },
+          "url": "img/cotidiano/cotidiano-7.jpeg",
+          "autor": "Fábricia Teodoro"
+        },
+        {
+          "titulo": "Cotidiano 8",
+          "position": {
+            "x": 0,
+            "y": -0.5,
+            "z": -0.025
+          },
+          "size": {
+            "w": 0.32,
+            "h": 0.42,
+            "d": 0.035
+          },
+          "url": "img/cotidiano/cotidiano-8.jpeg",
+          "autor": "Fábricia Teodoro"
+        },
+        {
+          "titulo": "Cotidiano 9",
+          "position": {
+            "x": 0.44,
+            "y": -0.5,
+            "z": -0.025
+          },
+          "size": {
+            "w": 0.32,
+            "h": 0.42,
+            "d": 0.035
+          },
+          "url": "img/cotidiano/cotidiano-9.jpeg",
+          "autor": "Fábricia Teodoro"
+        }
+      ],
+      "quadroTipo": "molduraPreta",
+      "defaults": {
+        "autor": "Fábricia Teodoro",
+        "sizeKey": "COTIDIANO_OBRA_SIZE"
+      }
+    },
+    {
+      "id": "exibicao6",
+      "titulo": "Quixadá Fantástico",
+      "descricao": "Cartografia afetiva e surreal de paisagens icônicas de Quixadá, pintadas com cores vibrantes que misturam mito e sertão.",
+      "obras": [
+        {
+          "titulo": "O Tempo (Pedra do Cruzeiro)",
+          "autor": "Bruno Joe",
+          "position": {
+            "x": -0.98,
+            "y": 0.08,
+            "z": -0.025
+          },
+          "size": {
+            "w": 0.52,
+            "h": 0.92,
+            "d": 0.04
+          },
+          "url": "img/quixas-fantastico/fantasia-1.jpeg"
+        },
+        {
+          "titulo": "A Noite (Cedro Fantástico)",
+          "autor": "Bruno Joe",
+          "position": {
+            "x": 0,
+            "y": 0.08,
+            "z": -0.025
+          },
+          "size": {
+            "w": 1.24,
+            "h": 0.74,
+            "d": 0.04
+          },
+          "url": "img/quixas-fantastico/fantasia-2.jpeg"
+        },
+        {
+          "titulo": "O Des-envolvimento (Pedra da Cabeça do Leão)",
+          "autor": "Bruno Joe",
+          "position": {
+            "x": 0.98,
+            "y": 0.08,
+            "z": -0.025
+          },
+          "size": {
+            "w": 0.52,
+            "h": 0.92,
+            "d": 0.04
+          },
+          "url": "img/quixas-fantastico/fantasia-3.jpeg"
+        }
+      ],
+      "quadroTipo": "molduraMadeira",
+      "autoSpread": false,
+      "defaults": {
+        "autor": "Bruno Joe"
+      }
+    },
+    {
+      "id": "exibicao7",
+      "titulo": "Ancestralidade, Resistência e Transmissão",
+      "descricao": "Xilogravuras que contam a trajetória do Mestre Stênio Diniz, em um bloco compacto com alturas irregulares, rememorando raízes, encontros e legados.",
+      "obras": [
+        {
+          "titulo": "Xilogravura 1",
+          "autor": "Maria Alice",
+          "position": {
+            "x": 1.12,
+            "y": 0,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-1.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 2",
+          "autor": "Pedro Matheus",
+          "position": {
+            "x": 0.84,
+            "y": 0.28,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-2.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 3",
+          "autor": "Maria Alice",
+          "position": {
+            "x": 0.84,
+            "y": 0,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-3.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 4",
+          "autor": "Adriana",
+          "position": {
+            "x": 0.84,
+            "y": -0.28,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-4.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 5",
+          "autor": "Pedro Torres",
+          "position": {
+            "x": 0.56,
+            "y": 0.2,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-5.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 6",
+          "autor": "Maria Eliane",
+          "position": {
+            "x": 0.56,
+            "y": -0.08,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-6.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 7",
+          "autor": "Paulo Roberto",
+          "position": {
+            "x": 0.56,
+            "y": -0.36,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-7.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 8",
+          "autor": "Adriana",
+          "position": {
+            "x": 0.28,
+            "y": 0.28,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-8.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 9",
+          "autor": "Richely",
+          "position": {
+            "x": 0.28,
+            "y": 0,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-9.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 10",
+          "autor": "Pedro Torres",
+          "position": {
+            "x": 0.28,
+            "y": -0.28,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-10.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 11",
+          "autor": "Paulo Roberto",
+          "position": {
+            "x": 0,
+            "y": 0.2,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-11.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 12",
+          "autor": "Richely",
+          "position": {
+            "x": 0,
+            "y": -0.08,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-12.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 13",
+          "autor": "Adriana",
+          "position": {
+            "x": 0,
+            "y": -0.36,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-13.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 14",
+          "autor": "Marco Martins",
+          "position": {
+            "x": -0.28,
+            "y": 0.28,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-14.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 15",
+          "autor": "Pedro Matheus",
+          "position": {
+            "x": -0.28,
+            "y": 0,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-15.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 16",
+          "autor": "Maria Alice",
+          "position": {
+            "x": -0.28,
+            "y": -0.28,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-16.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 17",
+          "autor": "Adriana",
+          "position": {
+            "x": -0.56,
+            "y": 0.2,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-17.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 18",
+          "autor": "Marco Martins",
+          "position": {
+            "x": -0.56,
+            "y": -0.08,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-18.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 19",
+          "autor": "Maria Eliane",
+          "position": {
+            "x": -0.56,
+            "y": -0.36,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-19.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 20",
+          "autor": "Richely",
+          "position": {
+            "x": -0.84,
+            "y": 0.28,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-20.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 21",
+          "autor": "Maria Alice",
+          "position": {
+            "x": -0.84,
+            "y": 0,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-21.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 22",
+          "autor": "Glimara Texeira",
+          "position": {
+            "x": -0.84,
+            "y": -0.28,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-22.jpeg"
+        },
+        {
+          "titulo": "Xilogravura 23",
+          "autor": "Marco Martins",
+          "position": {
+            "x": -1.12,
+            "y": 0,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.22,
+            "h": 0.22,
+            "d": 0.02
+          },
+          "url": "img/ancestralidade/obra-23.jpeg"
+        }
+      ],
+      "quadroTipo": "molduraMadeira",
+      "autoSpread": false,
+      "defaults": {
+        "sizeKey": "ANCESTRALIDADE_SIZE"
+      }
+    },
+    {
+      "id": "exibicao8",
+      "titulo": "Bicha Passarin",
+      "descricao": "Encontro entre performance, fotografia e afeto celebrando 10 anos de Lola Green, com curadoria de Raul Plassman e Beto Skeff.",
+      "obras": [
+        {
+          "titulo": "Passarin 1",
+          "autor": "Raul Plassman",
+          "position": {
+            "x": 0,
+            "y": 0.42,
+            "z": -0.02
+          },
+          "size": {
+            "w": 1.08,
+            "h": 0.82,
+            "d": 0.02
+          },
+          "url": "img/bicha-passarin/passarin-1.jpeg"
+        },
+        {
+          "titulo": "Passarin 2",
+          "autor": "Raul Plassman",
+          "position": {
+            "x": -0.62,
+            "y": -0.34,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.48,
+            "h": 0.35,
+            "d": 0.018
+          },
+          "url": "img/bicha-passarin/passarin-2.jpeg"
+        },
+        {
+          "titulo": "Passarin 3",
+          "autor": "Raul Plassman",
+          "position": {
+            "x": 0,
+            "y": -0.34,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.48,
+            "h": 0.35,
+            "d": 0.018
+          },
+          "url": "img/bicha-passarin/passarin-3.jpeg"
+        },
+        {
+          "titulo": "Passarin 4",
+          "autor": "Raul Plassman",
+          "position": {
+            "x": 0.62,
+            "y": -0.34,
+            "z": -0.02
+          },
+          "size": {
+            "w": 0.48,
+            "h": 0.35,
+            "d": 0.018
+          },
+          "url": "img/bicha-passarin/passarin-4.jpeg"
+        }
+      ],
+      "quadroTipo": "tecido",
+      "autoSpread": false,
+      "defaults": {
+        "autor": "Raul Plassman"
+      }
+    }
+  ]
+}
