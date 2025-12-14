@@ -1,8 +1,8 @@
-// wall utils (moldura preta = CAIXA fechada + porta-retrato fino + espaçamento automático + fotografia refinada)
+// Funções para posicionar a parede virtual e renderizar quadros durante a sessão em RA.
 let THREE, camera, scene, reticle;
 let wallPlaced = false;
 let exibicaoAtiva = null;
-let currentWall = null; // parede atual da sessão
+let currentWall = null;
 
 import { getWallTextureFromVideo } from "./video-utils.js";
 
@@ -40,7 +40,6 @@ export function onSelect() {
     );
     wall.receiveShadow = true;
 
-    // posiciona a parede virada para a câmera
     const reticlePos = new THREE.Vector3().setFromMatrixPosition(
       reticle.matrix,
     );
@@ -59,7 +58,7 @@ export function onSelect() {
     );
 
     scene.add(wall);
-    currentWall = wall; // guarda referência da parede atual
+    currentWall = wall;
     wallPlaced = true;
     reticle.visible = false;
 
@@ -70,13 +69,11 @@ export function onSelect() {
     const obras = exibicaoAtiva.obras;
 
     obras.forEach((obra, idx) => {
-      // micro nudge em Z para evitar z-fighting
-      const zNudge = (idx % 3) * 0.0006; // 0, 0.0006, 0.0012
+      const zNudge = (idx % 3) * 0.0006;
       const pos = { ...obra.position, z: (obra.position?.z ?? 0) + zNudge };
 
       addQuadro(group, obra.url, pos, obra.size, quadroTipo);
 
-      // label do autor, com deslocamento proporcional ao tamanho do quadro
       const h = obra.size?.h || 0.36;
       const labelZOffset =
         quadroTipo === "fotografia" ? pos.z + 0.012 : pos.z + 0.021;
@@ -87,29 +84,23 @@ export function onSelect() {
       });
     });
 
-    // distribuição automática: centrada e com gap uniforme
     if (exibicaoAtiva.autoSpread !== false) {
       spreadByRows(group, {
-        minGapX: "auto", // gap calculado a partir da largura média
-        rowSnap: 0.08, // tolerância de agrupamento por Y
+        minGapX: "auto",
+        rowSnap: 0.08,
       });
     }
   }
 }
 
-/** Calcula um size refinado por tipo de quadro para manter realismo (fotografias um pouco menores). */
 function normalizeSize(size, quadroTipo) {
   const base = { w: 0.36, h: 0.36, d: 0.035, ...(size || {}) };
 
-  // fator de escala suave por tipo
   let scale = 1.0;
-  if (quadroTipo === "fotografia")
-    scale = 0.84; // fotos levemente menores e realistas
-  else if (quadroTipo === "molduraPreta")
-    scale = 0.92; // moldura leve um pouco menor
-  else if (quadroTipo === "molduraMadeira")
-    scale = 0.96; // moldura rústica mais espessa
-  else scale = 0.94; // canvas branco padrão um pouco menor
+  if (quadroTipo === "fotografia") scale = 0.84;
+  else if (quadroTipo === "molduraPreta") scale = 0.92;
+  else if (quadroTipo === "molduraMadeira") scale = 0.96;
+  else scale = 0.94;
 
   return {
     w: base.w * scale,
@@ -118,11 +109,6 @@ function normalizeSize(size, quadroTipo) {
   };
 }
 
-/**
- * Agrupa quadros por linha (Y aproximado) e distribui cada linha com:
- * - gap uniforme (auto ou fixo)
- * - centrados entre si (linha inteira centrada em X=0)
- */
 function spreadByRows(parentGroup, { minGapX = "auto", rowSnap = 0.08 } = {}) {
   const frames = parentGroup.children.filter(
     (c) => c.userData?.kind === "quadro",
@@ -138,17 +124,13 @@ function spreadByRows(parentGroup, { minGapX = "auto", rowSnap = 0.08 } = {}) {
   for (const [, row] of rowsMap) {
     if (row.length === 0) continue;
 
-    // ordena por X atual só para termos uma ordem consistente
     row.sort((a, b) => a.position.x - b.position.x);
 
     const widths = row.map((n) => n.userData?.outerW ?? 0.25);
     const avgW = widths.reduce((s, w) => s + w, 0) / Math.max(widths.length, 1);
 
-    // gap automático: fração da largura média (um pouco menor que antes)
-    let gap = 0.1; // default reduzido
+    let gap = 0.1;
     if (minGapX === "auto") {
-      // antes: clamp 0.06..0.14 com fator 0.30
-      // agora: clamp 0.045..0.10 com fator 0.22 (mais compacto)
       gap = Math.max(0.045, Math.min(0.1, 0.22 * avgW));
     } else if (typeof minGapX === "number") {
       gap = Math.max(0.02, minGapX);
@@ -157,17 +139,13 @@ function spreadByRows(parentGroup, { minGapX = "auto", rowSnap = 0.08 } = {}) {
     const totalFramesW = widths.reduce((s, w) => s + w, 0);
     const totalWidth = totalFramesW + gap * (row.length - 1);
 
-    // início em -metade, de modo que a linha fique centrada em X=0
     let cursorX = -totalWidth / 2;
 
     for (let i = 0; i < row.length; i++) {
       const w = widths[i];
       const targetCenter = cursorX + w / 2;
-      // posiciona quadro
       row[i].position.x = targetCenter;
-      // micro separação no Z por ordem (reforça leitura individual)
       row[i].position.z += i * 0.0003;
-      // avança cursor
       cursorX += w + (i < row.length - 1 ? gap : 0);
     }
   }
@@ -183,39 +161,33 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
     texture.wrapS = THREE.ClampToEdgeWrapping;
     texture.wrapT = THREE.ClampToEdgeWrapping;
 
-    // helpers anti z-fighting
     const POLY_OFFSET = {
       polygonOffset: true,
       polygonOffsetFactor: -1,
       polygonOffsetUnits: -1,
     };
 
-    // aplica normalização de tamanho por tipo (fotografias um pouco menores)
     const nSize = normalizeSize(size, quadroTipo);
 
     const woodTexture =
       quadroTipo === "molduraMadeira" ? createWoodTexture(THREE) : null;
 
-    // ===== TIPO FOTOGRAFIA — papel com janela (anel extrudado) e foto recuada =====
     if (quadroTipo === "fotografia") {
       const photoGroup = new THREE.Group();
       photoGroup.userData = { kind: "quadro" };
       photoGroup.position.set(position.x, position.y, position.z);
       photoGroup.rotation.y = Math.PI;
 
-      // parâmetros visuais finos/realistas
-      const paperBorder = 0.01; // ~1 cm de borda
+      const paperBorder = 0.01;
       const paperThick = 0.0042;
       const photoRecess = 0.0012;
       const cornerRadius = Math.min(nSize.w, nSize.h) * 0.06;
 
-      // dimensões
       const paperW = nSize.w + paperBorder * 2;
       const paperH = nSize.h + paperBorder * 2;
 
-      // materiais
       const paperMaterial = new THREE.MeshPhysicalMaterial({
-        color: 0xf8f6ee, // branco “quente”
+        color: 0xf8f6ee,
         roughness: 0.55,
         metalness: 0.0,
         clearcoat: 0.25,
@@ -240,7 +212,6 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
         polygonOffsetUnits: -2,
       });
 
-      // shape utilitário com cantos arredondados
       function roundedRectShape(w, h, r) {
         const s = new THREE.Shape();
         const hw = w / 2,
@@ -258,7 +229,6 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
         return s;
       }
 
-      // 1) PAPEL como ANEL EXTRUDADO (recorte central = janela)
       const outerShape = roundedRectShape(paperW, paperH, cornerRadius);
       const innerShape = roundedRectShape(
         nSize.w,
@@ -271,7 +241,6 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
         depth: paperThick,
         bevelEnabled: false,
       });
-      // centraliza no Z: frente em +paperThick/2
       paperGeo.translate(0, 0, -paperThick / 2);
 
       const paperMesh = new THREE.Mesh(paperGeo, paperMaterial);
@@ -279,15 +248,12 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
       paperMesh.receiveShadow = true;
       photoGroup.add(paperMesh);
 
-      // 2) FOTO (atrás da janela, recuada)
       const photoGeo = new THREE.PlaneGeometry(nSize.w, nSize.h);
       const photoMesh = new THREE.Mesh(photoGeo, photoMaterial);
-      // a face frontal do papel está em +paperThick/2; foto fica um pouco atrás
       photoMesh.position.set(0, 0, paperThick / 2 - photoRecess);
       photoMesh.renderOrder = 1;
       photoGroup.add(photoMesh);
 
-      // 3) FITAS discretas nos cantos superiores
       const tapeW = Math.min(nSize.w, nSize.h) * 0.22;
       const tapeH = tapeW * 0.18;
       function addTape(px, py, rot) {
@@ -302,24 +268,21 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
       addTape(+offX, +offY, Math.PI * 0.06);
       addTape(-offX, +offY, -Math.PI * 0.06);
 
-      // largura externa para cálculo de gap
       photoGroup.userData.outerW = paperW;
 
       group.add(photoGroup);
       return;
     }
 
-    // ===== TIPO MOLDURA PRETA — caixa fechada com janela =====
     if (quadroTipo === "molduraPreta") {
       const frameGroup = new THREE.Group();
       frameGroup.userData = { kind: "quadro" };
       frameGroup.position.set(position.x, position.y, position.z);
       frameGroup.rotation.y = Math.PI;
 
-      // dimensões da “caixa”
-      const frameThickness = 0.018; // barras finas
+      const frameThickness = 0.018;
       const frameDepth = Math.max(nSize.d ?? 0.028, 0.028) + 0.012;
-      const matOverlap = 0.012; // pouca cobertura
+      const matOverlap = 0.012;
 
       const outerW = nSize.w + frameThickness * 2;
       const outerH = nSize.h + frameThickness * 2;
@@ -347,7 +310,6 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
         ...POLY_OFFSET,
       });
 
-      // 1) anel extrudado (moldura)
       const ringShape = new THREE.Shape();
       ringShape.moveTo(-outerW / 2, -outerH / 2);
       ringShape.lineTo(outerW / 2, -outerH / 2);
@@ -374,7 +336,6 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
       frameRing.receiveShadow = true;
       frameGroup.add(frameRing);
 
-      // 2) tampa traseira (fecha por trás)
       const backCover = new THREE.Mesh(
         new THREE.PlaneGeometry(innerW, innerH),
         matteMaterial,
@@ -383,7 +344,6 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
       backCover.receiveShadow = true;
       frameGroup.add(backCover);
 
-      // 3) arte recuada
       const recess = 0.003;
       const artZ = frameDepth / 2 - recess;
       const artwork = new THREE.Mesh(
@@ -395,7 +355,6 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
       artwork.receiveShadow = false;
       frameGroup.add(artwork);
 
-      // 4) “vidro” discreto
       const glassMaterial = new THREE.MeshPhysicalMaterial({
         color: 0xffffff,
         transparent: true,
@@ -421,7 +380,6 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
       return;
     }
 
-    // ===== TIPO MOLDURA DE MADEIRA RÚSTICA =====
     if (quadroTipo === "molduraMadeira") {
       const frameGroup = new THREE.Group();
       frameGroup.userData = { kind: "quadro" };
@@ -459,7 +417,6 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
         ...POLY_OFFSET,
       });
 
-      // moldura em anel extrudado com textura de madeira
       const ringShape = new THREE.Shape();
       ringShape.moveTo(-outerW / 2, -outerH / 2);
       ringShape.lineTo(outerW / 2, -outerH / 2);
@@ -486,7 +443,6 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
       frameRing.receiveShadow = true;
       frameGroup.add(frameRing);
 
-      // fundo claro para destacar o desenho
       const backCover = new THREE.Mesh(
         new THREE.PlaneGeometry(innerW, innerH),
         matteMaterial,
@@ -513,7 +469,6 @@ function addQuadro(group, textureURL, position, size, quadroTipo = "moldura") {
       return;
     }
 
-    // ===== TIPO “moldura” branca (canvas) =====
     const canvasMaterial = new THREE.MeshStandardMaterial({
       map: texture,
       color: 0xffffff,
@@ -561,7 +516,6 @@ function createWoodTexture(THREE) {
   ctx.fillStyle = "#c8a26b";
   ctx.fillRect(0, 0, size, size);
 
-  // veios verticais simples com ruído suave
   for (let x = 0; x < size; x += 6) {
     const hue = 35 + Math.sin(x * 0.08) * 6;
     const light = 48 + Math.random() * 18;
@@ -570,7 +524,6 @@ function createWoodTexture(THREE) {
     ctx.fillRect(x + offset, 0, 4, size);
   }
 
-  // pequenos nós
   for (let i = 0; i < 18; i++) {
     const radius = 8 + Math.random() * 12;
     const x = Math.random() * size;
@@ -619,7 +572,6 @@ function addAutorLabel(
     transparent: true,
   });
 
-  // tenta achar a largura externa do último quadro adicionado para dimensionar o label
   const lastFrame = [...parent.children]
     .reverse()
     .find((c) => c.userData?.outerW);
@@ -635,7 +587,6 @@ function addAutorLabel(
   parent.add(mesh);
 }
 
-// limpa a parede atual e permite nova interação RA
 export function resetWall() {
   if (currentWall && scene) {
     scene.remove(currentWall);
