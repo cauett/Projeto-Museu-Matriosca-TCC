@@ -1,4 +1,4 @@
-// Utilitários para carregar e normalizar os dados das exposições
+// Gerencia carregamento das exposições e toda a navegação da interface web.
 function mapObras(itens, { autor: autorPadrao, size: sizePadrao } = {}) {
   return (itens ?? []).map(({ arquivo, url, ...obra }) => ({
     ...obra,
@@ -37,7 +37,6 @@ export async function loadData() {
   return { exibicoes, exibicoesInfo: info ?? {}, sizes };
 }
 
-// UI
 export function initUI(
   startCallback,
   { exibicoes: exibicoesData = [], exibicoesInfo: exibicoesInfoData = {} } = {},

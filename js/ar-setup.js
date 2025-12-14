@@ -1,3 +1,4 @@
+// Prepara a cena WebXR com retículo, iluminação e controles da sessão AR.
 import { initVideoStream } from "./video-utils.js";
 
 export async function setupARScene(THREE, ARButton, onSelect) {
@@ -40,8 +41,6 @@ export async function setupARScene(THREE, ARButton, onSelect) {
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.physicallyCorrectLights = true;
 
-
-  // Criar e esconder o ARButton para acionamento no novo botão
   const arButton = ARButton.createButton(renderer, {
     requiredFeatures: ["hit-test"],
     optionalFeatures: ["dom-overlay"],
@@ -53,7 +52,6 @@ export async function setupARScene(THREE, ARButton, onSelect) {
   arButton.tabIndex = -1;
   document.body.appendChild(arButton);
 
-  // Iluminação
   scene.add(new THREE.HemisphereLight(0xffffff, 0x444444, 1));
   const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
   dirLight.position.set(1, 3, 2);
@@ -65,7 +63,6 @@ export async function setupARScene(THREE, ARButton, onSelect) {
   spotLight.castShadow = true;
   scene.add(spotLight);
 
-  // Retículo
   const ringGeometry = new THREE.RingGeometry(0.05, 0.06, 32).rotateX(-Math.PI / 2);
   const reticle = new THREE.Mesh(
     ringGeometry,
@@ -75,15 +72,12 @@ export async function setupARScene(THREE, ARButton, onSelect) {
   reticle.visible = false;
   scene.add(reticle);
 
-  // Controlador XR
   const controller = renderer.xr.getController(0);
   controller.addEventListener("select", onSelect);
   scene.add(controller);
 
-  // Iniciar vídeo para capturar textura
   await initVideoStream();
 
-  // Retornar todos os objetos úteis
   return {
     camera,
     scene,

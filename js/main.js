@@ -1,3 +1,4 @@
+// Orquestra a experiência WebXR unindo a UI e a colocação das paredes em RA.
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
 import { ARButton } from "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/webxr/ARButton.js";
 import { setupARScene } from "./ar-setup.js";
@@ -6,7 +7,7 @@ import {
   configureWallUtils,
   isWallPlaced,
   setExibicaoAtiva,
-  resetWall, // 👈 ADICIONADO AQUI
+  resetWall,
 } from "./wall-utils.js";
 import { initUI, loadData } from "./ui.js";
 
@@ -30,26 +31,23 @@ function hideArHint() {
   }
 }
 
-// callback que vem da UI (detalhes da exposição -> botão "Iniciar experiência em RA")
 loadData().then((data) => {
   initUI(
     (exibicaoSelecionada) => {
-      setExibicaoAtiva(exibicaoSelecionada); // envia a exibição para o wall-utils
+      setExibicaoAtiva(exibicaoSelecionada);
       if (arButton) {
-        arButton.click(); // simula clique no botão nativo do WebXR
+        arButton.click();
       }
     },
     data,
   );
 });
 
-// 🔹 quando sessão AR termina (X do sistema OU qualquer fim de sessão)
 function handleSessionEnd() {
   hitTestSource = null;
   localSpace = null;
   referenceSpace = null;
 
-  // esconde o container da RA
   if (arContainer) {
     arContainer.style.display = "none";
   }
@@ -61,23 +59,19 @@ function handleSessionEnd() {
 
   hideArHint();
 
-  // mostra de volta a UI (mantendo a tela de detalhes/carrossel que já estava ativa)
   const ui = document.getElementById("ui");
   if (ui) {
     ui.style.display = "flex";
   }
 
-  // garante que o retículo some
   if (reticle) {
     reticle.visible = false;
   }
 
-  // 🔥 limpa a parede e quadros da sessão anterior
   if (typeof resetWall === "function") {
     resetWall();
   }
 
-  // se você estiver usando o atalho pra voltar pro carrossel:
   if (window.__matrioscaBackToCarousel) {
     window.__matrioscaBackToCarousel();
   }
