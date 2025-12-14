@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
@@ -14,7 +14,6 @@
   <body>
     <div id="ui">
       <div id="gallery-ui">
-        <!-- Tela inicial -->
         <section id="intro-screen" class="screen active">
           <div class="intro-card">
             <div class="intro-hero">
@@ -27,17 +26,19 @@
                 <p class="eyebrow">Casa de Saberes Cego Aderaldo</p>
                 <h1>Museu Matriosca</h1>
                 <p class="subtitle">
-                  Uma jornada pelo acervo de 2025 com arte e realidade aumentada.
+                  Uma jornada pelo acervo de 2025 com arte e realidade
+                  aumentada.
                 </p>
               </div>
             </div>
             <div class="intro-actions">
-              <button id="enter-gallery-btn" type="button">Explorar agora</button>
+              <button id="enter-gallery-btn" type="button">
+                Explorar agora
+              </button>
             </div>
           </div>
         </section>
 
-        <!-- Carrossel das exposições -->
         <section id="carousel-screen" class="screen">
           <header class="screen-header">
             <h2>Escolha a exposição</h2>
@@ -48,9 +49,7 @@
               <span class="sr-only">Exposição anterior</span>
             </button>
             <div class="carousel-window">
-              <div id="carousel-track">
-                <!-- Slides inseridos via ui.js -->
-              </div>
+              <div id="carousel-track"></div>
             </div>
             <button id="carousel-next" class="carousel-nav" type="button">
               <span aria-hidden="true">›</span>
@@ -64,12 +63,13 @@
           <div id="carousel-info">
             <h3 id="carousel-title"></h3>
             <p id="carousel-description"></p>
-            <button id="view-details-btn" type="button">Explorar exposição</button>
+            <button id="view-details-btn" type="button">
+              Explorar exposição
+            </button>
           </div>
           <div id="carousel-indicators" aria-hidden="true"></div>
         </section>
 
-        <!-- Detalhes da exposição selecionada -->
         <section id="details-screen" class="screen">
           <header class="screen-header">
             <button id="voltar-btn" class="ghost-btn" type="button">
@@ -89,9 +89,7 @@
               </div>
             </div>
           </div>
-          <div id="obras-lista">
-            <!-- Obras e autores aparecem aqui -->
-          </div>
+          <div id="obras-lista"></div>
           <div id="start-wrapper">
             <button id="start-ar-btn" type="button"></button>
             <span class="start-label">Iniciar experiência em RA</span>

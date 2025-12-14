@@ -6,11 +6,18 @@ import {
   configureWallUtils,
   isWallPlaced,
   setExibicaoAtiva,
-  resetWall, // 👈 ADICIONADO AQUI
+  resetWall,
 } from "./wall-utils.js";
 import { initUI } from "./ui.js";
 
-let camera, scene, renderer, controller, reticle, arButton, arHint, arCloseButton;
+let camera,
+  scene,
+  renderer,
+  controller,
+  reticle,
+  arButton,
+  arHint,
+  arCloseButton;
 let hitTestSource = null;
 let localSpace = null;
 let referenceSpace = null;
@@ -30,21 +37,18 @@ function hideArHint() {
   }
 }
 
-// callback que vem da UI (detalhes da exposição -> botão "Iniciar experiência em RA")
 initUI((exibicaoSelecionada) => {
-  setExibicaoAtiva(exibicaoSelecionada); // envia a exibição para o wall-utils
+  setExibicaoAtiva(exibicaoSelecionada);
   if (arButton) {
-    arButton.click(); // simula clique no botão nativo do WebXR
+    arButton.click();
   }
 });
 
-// 🔹 quando sessão AR termina (X do sistema OU qualquer fim de sessão)
 function handleSessionEnd() {
   hitTestSource = null;
   localSpace = null;
   referenceSpace = null;
 
-  // esconde o container da RA
   if (arContainer) {
     arContainer.style.display = "none";
   }
@@ -56,23 +60,19 @@ function handleSessionEnd() {
 
   hideArHint();
 
-  // mostra de volta a UI (mantendo a tela de detalhes/carrossel que já estava ativa)
   const ui = document.getElementById("ui");
   if (ui) {
     ui.style.display = "flex";
   }
 
-  // garante que o retículo some
   if (reticle) {
     reticle.visible = false;
   }
 
-  // 🔥 limpa a parede e quadros da sessão anterior
   if (typeof resetWall === "function") {
     resetWall();
   }
 
-  // se você estiver usando o atalho pra voltar pro carrossel:
   if (window.__matrioscaBackToCarousel) {
     window.__matrioscaBackToCarousel();
   }
