@@ -1,8 +1,10 @@
-export let video;
-export let canvas;
+let video;
+let canvas;
 export let ctx;
 
 export async function initVideoStream() {
+  if (video && canvas && ctx) return;
+
   video = document.createElement("video");
   video.setAttribute("autoplay", "");
   video.setAttribute("muted", "");
@@ -27,6 +29,8 @@ export async function initVideoStream() {
 }
 
 export function getWallTextureFromVideo(THREE) {
+  if (!video || !canvas || !ctx) return null;
+
   const w = video.videoWidth;
   const h = video.videoHeight;
   if (!w || !h) return null;
