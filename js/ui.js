@@ -9,6 +9,8 @@ const COTIDIANO_MIDDLE_SIZE = { w: 0.36, h: 0.47, d: 0.035 };
 const QUIXADA_VERTICAL_SIZE = { w: 0.52, h: 0.92, d: 0.04 };
 const QUIXADA_HORIZONTAL_SIZE = { w: 1.24, h: 0.74, d: 0.04 };
 const ANCESTRALIDADE_SIZE = { w: 0.22, h: 0.22, d: 0.02 };
+const BICHA_PASSARIN_MAIN_SIZE = { w: 1.08, h: 0.82, d: 0.02 };
+const BICHA_PASSARIN_SMALL_SIZE = { w: 0.48, h: 0.35, d: 0.018 };
 
 function mapObras(
   itens,
@@ -593,6 +595,37 @@ const ancestralidadeObras = [
   },
 ];
 
+const bichaPassarinObras = [
+  {
+    titulo: "Passarin 1",
+    arquivo: "bicha-passarin/passarin-1.jpeg",
+    autor: "Raul Plassman",
+    position: { x: 0, y: 0.42, z: -0.02 },
+    size: BICHA_PASSARIN_MAIN_SIZE,
+  },
+  {
+    titulo: "Passarin 2",
+    arquivo: "bicha-passarin/passarin-2.jpeg",
+    autor: "Raul Plassman",
+    position: { x: -0.62, y: -0.34, z: -0.02 },
+    size: BICHA_PASSARIN_SMALL_SIZE,
+  },
+  {
+    titulo: "Passarin 3",
+    arquivo: "bicha-passarin/passarin-3.jpeg",
+    autor: "Raul Plassman",
+    position: { x: 0, y: -0.34, z: -0.02 },
+    size: BICHA_PASSARIN_SMALL_SIZE,
+  },
+  {
+    titulo: "Passarin 4",
+    arquivo: "bicha-passarin/passarin-4.jpeg",
+    autor: "Raul Plassman",
+    position: { x: 0.62, y: -0.34, z: -0.02 },
+    size: BICHA_PASSARIN_SMALL_SIZE,
+  },
+];
+
 // Export das exposições (usando o mapper genérico)
 export const exibicoes = [
   {
@@ -668,6 +701,15 @@ export const exibicoes = [
     quadroTipo: "molduraMadeira",
     autoSpread: false,
   },
+  {
+    id: "exibicao8",
+    titulo: "Bicha Passarin — um voo de Raul Plassman e Lola Green",
+    descricao:
+      "Encontro entre performance, fotografia e afeto celebrando 10 anos de Lola Green, com curadoria de Raul Plassman e Beto Skeff.",
+    obras: mapObras(bichaPassarinObras, { autor: "Raul Plassman" }),
+    quadroTipo: "tecido",
+    autoSpread: false,
+  },
 ];
 
 const exibicoesInfo = {
@@ -695,26 +737,68 @@ const exibicoesInfo = {
       "Esta exposição é um esforço conjunto de agentes sociais, educacionais e culturais que buscam promover a difusão e valorização do patrimônio local, de forma educativa e cultural, apresentando à sociedade do Sertão Central o projeto do Geoparque Sertão Monumental em suas múltiplas dimensões.\n\nO Projeto Geoparque Sertão Monumental surge em 2019 a partir de um relatório técnico realizado pelo Serviço Geológico do Brasil e pesquisadores de outros institutos. O projeto tem como geossítios iniciais, segundo Furtado et al., 2021, o açude do Cedro, a Pedra do Cruzeiro, os Monólitos e o Quixadá Gnaisse, situados no município de Quixadá. As ações são orientadas pelos aspectos geológicos, biológicos, turísticos e culturais na escala regional. Atualmente o Projeto encontra-se em sua fase preparatória, a partir do planejamento e a elaboração do Plano de Gestão, bem como a execução de projetos e eventos de sensibilização junto às comunidades locais e aos governos municipal e estadual. Os geoparques servem como ferramentas de desenvolvimento econômico sustentável. A principal característica é a unicidade geológica, mas a estrutura geoparque tem como foco conservar e elevar a valorização da comunidade local por meio de experiências imersivas e educativas que conciliam o trinômio do desenvolvimento sustentável.\n\nO Geoparque tem como objetivo a conservação dos geossítios e o estímulo aos seus valores ambientais, científicos, culturais e turísticos contribuindo com a estratégia de desenvolvimento sustentável e conservação do território a partir das demandas das comunidades das localidades. A Geodiversidade faz parte da identidade do Sertão Central, assim como nossa forma de viver, sentir e ser. O projeto visa ampliar a divulgação e o conhecimento dos geossítios, considerando suas contribuições às teorias e estudos sobre a formação da Terra, como também ações educacionais, culturais e atividades turísticas, e ainda à atividade econômica da região trazendo mais emprego e renda para as comunidades locais.",
     credits: [
       {
-        label: "Curadoria e pesquisa",
-        value: "Yasmin Malheiros",
-      },
-      {
-        label: "Assistência de curadoria",
-        value: "Isabella Lima, Lucas Lopes, Beatriz Neres, Beatriz Nascimento",
-      },
-      {
-        label: "Produção",
+        label: "Governo do Estado do Ceará",
         value:
-          "Priscila Lima, Raiane Alves, Richely Santos, Tayná Maia, Vinicius Oliveira",
+          "Elmano de Freitas da Costa (Governador do Estado do Ceará)\n" +
+          "Jade Afonso Romero (Vice-governadora do Estado do Ceará)\n" +
+          "Luisa Cela de Arruda Coelho (Secretária da Cultura do Estado do Ceará)\n" +
+          "Rafael Cordeiro Felismino (Secretário Executivo da Cultura do Estado do Ceará)\n" +
+          "Gecíola Torres Fonseca (Secretária Executiva de Planejamento e Gestão Interna da Cultura do Ceará)",
       },
       {
-        label: "Roteiro, gravação e edição do áudio guia",
-        value: "Rayanne Sobrinho",
-      },
-      {
-        label: "Realização e apoio",
+        label: "Instituto Dragão do Mar",
         value:
-          "Governo do Estado do Ceará, Instituto Dragão do Mar, Centro Cultural Banco do Nordeste, Serviço Social do Comércio (SESC), Governo Federal — Ministério da Cultura",
+          "Rachel Gadelha (Diretora-Presidente)\n" +
+          "Adriana Victorino (Diretora Administrativo-Financeira)\n" +
+          "Lenildo Gomes (Diretor de Ação Cultural)\n" +
+          "Bete Jaguaribe (Diretora de Formação)",
+      },
+      {
+        label: "Casa de Saberes Cego Aderaldo",
+        value:
+          "Michelle Maciel (Gestora Executiva)\n" +
+          "Lorena Patrício (Coordenação Pedagógica)\n" +
+          "Alexandre Pinheiro (Coordenador de Formação Patrimonial)\n" +
+          "Kamila Brito (Supervisora Administrativa Financeira)\n" +
+          "Pedro Matheus (Analista de Comunicação)\n" +
+          "Railane Alves (Assistente de Ação Cultural)\n" +
+          "Allyson Cavalcante (Assistente de Produção)\n" +
+          "Roni Nogueira (Assistente de Produção)\n" +
+          "Yasmim Palhares (Assistente Administrativa)\n" +
+          "Núcleo Educativo: Beatriz Negreiros; Isabella Lima; Kauane Lopes; Mariana Yasmim; Rafael Pereira; Richelly Santos; Talita Souza; Vivianny Nascimento\n" +
+          "João Carlos (Auxiliar de Serviços Gerais)",
+      },
+      {
+        label: "Ficha técnica",
+        value:
+          'Exposição: "Sertão Monumental: Valorização do Patrimônio Cultural e Natural"',
+      },
+      {
+        label: "Curadoria",
+        value:
+          "Aterlane Martins\n" +
+          "Caroline Vitor Loureiro\n" +
+          "João Luís Sampaio Olímpio",
+      },
+      {
+        label: "Arte mural",
+        value: "Bruno Joe",
+      },
+      {
+        label: "Montagem",
+        value: "Agnaldo Monteiro",
+      },
+      {
+        label: "Fotografias",
+        value:
+          "Caroline Vitor Loureiro\n" +
+          "João Luís Sampaio Olímpio\n" +
+          "Vaneicia dos Santos Gomes",
+      },
+      {
+        label: "Realização",
+        value:
+          "Governo do Estado do Ceará; Instituto Dragão do Mar; Casa de Saberes Cego Aderaldo",
       },
     ],
   },
@@ -743,23 +827,31 @@ const exibicoesInfo = {
     credits: [
       {
         label: "Curadoria",
-        value: "Alefe Queiroz",
+        value: "Álefe Queiroz",
       },
       {
-        label: "Desenho, pintura e música",
-        value: "Alefe Queiroz",
+        label: "Desenhos",
+        value: "Álefe Queiroz",
       },
       {
-        label: "Assistência",
-        value: "Priscila Camelo",
+        label: "Montagem",
+        value: "Álefe Queiroz e Regina Queiroz",
       },
       {
-        label: "Voz",
-        value: "Alefe Queiroz",
+        label: "Produção",
+        value: "Hotomberg Queiroz",
       },
       {
-        label: "Redes",
-        value: "@alefequeiroz, @alefequeiroz2",
+        label: "Molduras",
+        value: "Paulo Queiroz",
+      },
+      {
+        label: "Assessoria",
+        value: "Cícero Freitas",
+      },
+      {
+        label: "Instagram do artista",
+        value: "@alefequeiroz2",
       },
       {
         label: "Apoio",
@@ -770,7 +862,7 @@ const exibicoesInfo = {
   },
   exibicao5: {
     curatorialText:
-      "O que é comum. O que é diário. Dia a dia. O espaço da constituição das subjetividades.\n\nÉ nesse território, entre a mesa de bar; o silêncio do taró; o ruído da chuva; onde as subjetividades se fazem presente. O cotidiano é chão e céu; pode sufocar; pode revelar.\n\nClarice Lispector escreveu: “O que me mata é o cotidiano. Eu queria só exceções.” Mas e se o comum também puder nomear o extraordinário?\n\nOs sentidos do que nos empurra para o rápido, para o raso, para o ruidoso. Esteja atento a isso: estarei te observando de qualquer lugar. Respirar fundo. Desacelerar. O banal carrega a beleza.\n\nCada fotografia é uma negociação com o tempo: um segundo em que a memória é presente. Aqui, o chão é espaço de afeto e recomeço. Onde as pessoas estão, a chuva também chega. Todos os mundos agora são possíveis.\n\nSe um rio pudesse se manter no mesmo lugar, eu iria esperar a onda novamente. Vejo-me e continuo.\n\nEsse é o cotidiano que me atravessa. Espero que também atravesse você. E todos merecemos viver as reversões, revoluções.\n\nFabrícia Teodoro artista.",
+      'O que é comum. O que é diário. Dia a dia.\nO espaço da constituição das subjetividades.\n\nÉ nesse território, entre a mesa de bar, o silêncio da tarde, o gesto que se repete, que as subjetividades se formam. O cotidiano é chão e céu: pode sufocar, pode revelar.\n\nClarice Lispector escreveu: "O que me mata é o cotidiano. Eu queria só exceções."\nMas e se o comum for justamente onde mora o extraordinário?\n\nVivemos num tempo que nos empurra para o rápido, para o raso, para o ruído. Esta exposição é um convite ao contrário: olhar devagar. Respirar fundo. Desenterrar sentidos onde o costume já não vê.\n\nCada fotografia é uma negociação com o tempo: um acordo silencioso para que algo permaneça. Aqui, o cotidiano não é só rotina, é denúncia, é afeto, é infância, é sonho. É o banal carregado de sentido.\n\nSe o dia a dia lhe parece batido, talvez o olhar esteja cansado. Que esta mostra seja um descanso para os olhos e um chamado para a escuta. Que o cotidiano não só pese, mas também abrace, revele, transforme.\n\nPorque ele, como nós, é feito de múltiplas versões.\nE todas merecem ser vistas.',
     credits: [
       {
         label: "Criação e texto",
@@ -783,13 +875,70 @@ const exibicoesInfo = {
       "Apresenta leituras surrealistas pintadas em tela e vídeo de paisagens e lendas famosas da cidade de Quixadá. As novas obras do artista Bruno Joe mostram uma cartografia afetiva e, ao mesmo tempo, um pouco surreal dos lugares em Quixadá que influenciaram o imaginário popular e a identidade da região, como os monólitos, açude do Cedro, Pedra do Cruzeiro, o crato e o Santuário de Nossa Senhora da Imaculada Rainha do Sertão, o Santuário de Nossa Senhora do Rosário e a Pedra do Cruzeiro. As obras evidenciam a dimensão fantasmagórica que é latente do imaginário popular, e também transmitem a sensação de estar no interior através de recortes das cidades e pontos históricos que foram símbolos dessas histórias.\n\nNo cenário imaginário do real e quem nos move são artistas que trazem as luzes mais fantasiosas da nossa região para a vida visual e que imaginam mundos e universos paralelos, com a tropicalidade das paisagens e a diversidade de cores, diversidade étnica e meio ambiente e a cidade onde moramos.\n\nA exposição traz a imaginação do real e promove uma viagem para o mundo do surreal, com ilustrações que criam um universo fantástico e lúdico que perpassa a vivência social do Sertão Central. A mostra “Quixadá Fantástico” dispõe de obras em tela, mas o foco das obras está no audiovisual, narrando histórias e lendas cearenses, que imaginam o futuro e ressignificam o passado. A mostra apresenta um recorte da nossa região que atravessa diversas memórias afetivas.\n\nBruno Joe\nCurador.",
     credits: [
       {
-        label: "Curadoria e obras",
+        label: "Governo do Estado do Ceará",
+        value:
+          "Elmano de Freitas da Costa (Governador do Estado do Ceará)\n" +
+          "Jade Afonso Romero (Vice-governadora do Estado do Ceará)\n" +
+          "Luisa Cela de Arruda Coelho (Secretária da Cultura do Estado do Ceará)\n" +
+          "Rafael Cordeiro Felismino (Secretário Executivo da Cultura do Estado do Ceará)\n" +
+          "Gecíola Torres Fonseca (Secretária Executiva de Planejamento e Gestão Interna da Cultura do Ceará)",
+      },
+      {
+        label: "Instituto Dragão do Mar",
+        value:
+          "Rachel Gadelha (Diretora-Presidente)\n" +
+          "Adriana Victorino (Diretora Administrativo-Financeira)\n" +
+          "Lenildo Gomes (Diretor de Ação Cultural)\n" +
+          "Bete Jaguaribe (Diretora de Formação)",
+      },
+      {
+        label: "Serviço Social do Comércio - Sesc",
+        value:
+          "Luiz Gastão Bittencourt da Silva (Presidente do Sistema Fecomércio Ceará)\n" +
+          "Henrique Jorge Javi de Sousa (Superintendente de Ações Integradas e Diretor Regional do Sesc Ceará)\n" +
+          "Sabrina Maria Parente Veras (Diretora de Programação Social do Sesc Ceará)\n" +
+          "Aline Pinheiro Rabelo (Gerente de Programação Social do Sesc Ceará)\n" +
+          "Francisco Alemberg de Souza Lima (Gerente do Programa Cultura do Sesc Ceará)",
+      },
+      {
+        label: "Casa de Saberes Cego Aderaldo",
+        value:
+          "Michelle Maciel (Gestora Executiva)\n" +
+          "Lorena Patrício (Coordenação Pedagógica)\n" +
+          "Alexandre Pinheiro (Coordenador de Formação Patrimonial)\n" +
+          "Kamila Brito (Supervisora Administrativa Financeira)\n" +
+          "Pedro Matheus (Analista de Comunicação)\n" +
+          "Railane Alves (Assistente de Ação Cultural)\n" +
+          "Allyson Cavalcante (Assistente de Produção)\n" +
+          "Roni Nogueira (Assistente de Produção)\n" +
+          "Yasmim Palhares (Assistente Administrativo)\n" +
+          "Núcleo Educativo: Beatriz Negreiros; Kauane Lopes; Mariana Yasmin; Rafael Pereira; Richelly Santos; Vivianny Nascimento\n" +
+          "João Carlos (Auxiliar de Serviços Gerais)",
+      },
+      {
+        label: "Ficha técnica",
+        value: 'Exposição: "Quixadá Fantástico"',
+      },
+      {
+        label: "Curadoria",
         value: "Bruno Joe",
+      },
+      {
+        label: "Molduras",
+        value: "Paulo Queiroz",
+      },
+      {
+        label: "Design gráfico",
+        value: "Pedro Matheus",
+      },
+      {
+        label: "Montagem",
+        value: "Agnaldo Oliveira",
       },
       {
         label: "Realização",
         value:
-          "Casa de Saberes Cego Aderaldo, Instituto Dragão do Mar, Governo do Estado do Ceará",
+          "Casa de Saberes Cego Aderaldo; Instituto Dragão do Mar; Governo do Estado do Ceará; Sesc Ceará",
       },
     ],
   },
@@ -798,24 +947,106 @@ const exibicoesInfo = {
       'A exposição "Ancestralidade, Resistência e Transmissão: A saga do Mestre Stênio Diniz" convida o olhar a mergulhar na xilogravura como memória viva, abrindo caminhos para celebrar as raízes, os frutos e os futuros que elas germinam. Desde a segunda metade do século XIX, a gravura em madeira acompanhou a poesia dos folhetos no Nordeste. Foi a xilogravura dos cordéis que inspirou Mestre Stênio a se tornar gravador ainda nos mercados e feiras, quando comprava e lia cordéis no Madureira, no Rio de Janeiro.\n\nA segunda sala revela o período de formação e as obras produzidas no Quixadá, onde a saga do mestre se conecta às memórias coletivas e às experimentações de uma juventude que resiste, cria e repassa saberes. A mostra reúne xilogravuras de artistas que partilham da caminhada de Stênio Diniz, mantendo viva a tradição ao mesmo tempo em que assumem diferentes gestos e perspectivas para retratar a comunidade, os sonhos e as lutas do sertão.',
     credits: [
       {
+        label: "Ficha técnica",
+        value:
+          'Exposição: "Ancestralidade, Resistência e Transmissão: A Saga do Mestre Stênio Diniz"',
+      },
+      {
+        label: "Governo do Estado do Ceará",
+        value:
+          "Elmano de Freitas da Costa (Governador do Estado do Ceará)\n" +
+          "Jade Afonso Romero (Vice-governadora do Estado do Ceará)\n" +
+          "Luisa Cela de Arruda Coelho (Secretária da Cultura do Estado do Ceará)\n" +
+          "Rafael Cordeiro Felismino (Secretário Executivo da Cultura do Estado do Ceará)\n" +
+          "Gecíola Torres Fonseca (Secretária Executiva de Planejamento e Gestão Interna da Cultura do Ceará)",
+      },
+      {
+        label: "Instituto Dragão do Mar",
+        value:
+          "Rachel Gadelha (Diretora-Presidente)\n" +
+          "Adriana Victorino (Diretora Administrativo-Financeira)\n" +
+          "Lenildo Gomes (Diretor de Ação Cultural)\n" +
+          "Bete Jaguaribe (Diretora de Formação)",
+      },
+      {
+        label: "Casa de Saberes Cego Aderaldo",
+        value:
+          "Michelle Maciel (Gestora Executiva)\n" +
+          "Lorena Patrício (Coordenadora Pedagógica)\n" +
+          "Alexandre Pinheiro (Coordenador de Formação Patrimonial)\n" +
+          "Kamila Brito (Supervisora Administrativa Financeira)\n" +
+          "Pedro Matheus (Analista de Comunicação)\n" +
+          "Railane Alves (Assistente de Ação Cultural)\n" +
+          "Allyson Cavalcante (Assistente de Produção)\n" +
+          "Roni Nogueira (Assistente de Produção)\n" +
+          "Yasmim Palhares (Assistente Administrativo)\n" +
+          "Núcleo Educativo: Beatriz Negreiros; Kauane Lopes; Mariana Yasmin; Rafael Pereira; Richely Santos; Vivianny Nascimento\n" +
+          "João Carlos (Zeladoria)",
+      },
+      {
         label: "Curadoria",
-        value: "Raianne Alves",
+        value: "José Stênio Silva Diniz (Mestre Stênio Diniz)",
       },
       {
-        label: "Assistência de curadoria",
-        value: "Richely Santos",
+        label: "Assistente de curadoria",
+        value: "Beatriz Negreiros; Lorena Patrício",
       },
       {
-        label: "Curadoria educativa",
-        value: "Raiane Alves",
-      },
-      {
-        label: "Montagem de exposição",
-        value: "Equipe Casa de Saberes Cego Aderaldo",
+        label: "Obras de",
+        value:
+          "Rafael Pereira da Silva\n" +
+          "Marta Eliane Queiroga\n" +
+          "Evaristo Pereira de Sousa Filho\n" +
+          "Francisco Haulivan Ferreira Silva\n" +
+          "Adriana Batista de Morais\n" +
+          "Paulo Roberto Leandro da Silva\n" +
+          "Pedro Matheus Vieira Pinheiro\n" +
+          "Maria Alice Maciel M. Silva\n" +
+          "Richely Santos",
       },
       {
         label: "Design gráfico e comunicação",
-        value: "Casa de Saberes Cego Aderaldo",
+        value: "Carolaine Lima; Pedro Matheus",
+      },
+      {
+        label: "Fotografia, vídeo e edição",
+        value: "Pedro Matheus",
+      },
+      {
+        label: "Intérprete em Libras",
+        value: "Aldenisia Peixoto",
+      },
+      {
+        label: "Montagem e quadros",
+        value: "Agnaldo Oliveira",
+      },
+      {
+        label: "Agradecimentos",
+        value: "Alênio Alencar\nRosemberg Cariry",
+      },
+      {
+        label: "Produção / Formação",
+        value:
+          "As obras desta exposição foram produzidas na oficina “Arte e Memória da Xilogravura” sob orientação artística do José Stênio Silva Diniz (Mestre Stênio Diniz), Tesouro Vivo da Cultura do Ceará (2008).\n" +
+          "A formação foi realizada pela Casa de Saberes Cego Aderaldo entre outubro e novembro de 2025.",
+      },
+    ],
+  },
+  exibicao8: {
+    curatorialText:
+      "Exposição “Bicha Passarim — um voo de Raul Plassman e Lola Green”, com curadoria de Raul Plassman e Beto Skeff.\n\nUm encontro entre performance, fotografia e afeto.\nNesta mostra, o artista Raul Plassman celebra os 10 anos de Lola Green, criação mística de Emanuel Martins, em uma travessia poética entre o interior e a cidade, entre o sonho e o chão.\n\nAs imagens, analógicas, instantâneas e digitais, revelam o aconchego da casa de vó, o território das memórias e a liberdade dos voos singulares que também são coletivos. Um convite para sentir, ver e voar junto.",
+    credits: [
+      {
+        label: "Curadoria",
+        value: "Raul Plassman e Beto Skeff",
+      },
+      {
+        label: "Fotografia",
+        value: "Raul Plassman",
+      },
+      {
+        label: "Criação de Lola Green",
+        value: "Emanuel Martins",
       },
     ],
   },
