@@ -1,10 +1,6 @@
-let video;
-let canvas;
-export let ctx;
+export let video, canvas, ctx;
 
 export async function initVideoStream() {
-  if (video && canvas && ctx) return;
-
   video = document.createElement("video");
   video.setAttribute("autoplay", "");
   video.setAttribute("muted", "");
@@ -29,17 +25,16 @@ export async function initVideoStream() {
 }
 
 export function getWallTextureFromVideo(THREE) {
-  if (!video || !canvas || !ctx) return null;
-
   const w = video.videoWidth;
   const h = video.videoHeight;
   if (!w || !h) return null;
 
   const sampleSize = 64;
-  const cropSize = Math.min(w, h) * 0.35;
+  const cropSize = Math.min(w, h) * 0.35; // captura área central maior da cena
   canvas.width = sampleSize;
   canvas.height = sampleSize;
 
+  // primeiro passo: capturar a área central já desfocada para priorizar cores predominantes
   ctx.filter = "blur(6px) saturate(0.9)";
   ctx.drawImage(
     video,
@@ -57,15 +52,15 @@ export function getWallTextureFromVideo(THREE) {
   const imageData = ctx.getImageData(0, 0, sampleSize, sampleSize);
   const data = imageData.data;
 
-  let rSum = 0;
-  let gSum = 0;
-  let bSum = 0;
+  // cor média para reforçar a predominância da parede
+  let rSum = 0,
+    gSum = 0,
+    bSum = 0;
   for (let i = 0; i < data.length; i += 4) {
     rSum += data[i];
     gSum += data[i + 1];
     bSum += data[i + 2];
   }
-
   const totalPixels = sampleSize * sampleSize;
   const avgColor = {
     r: rSum / totalPixels,
@@ -73,6 +68,7 @@ export function getWallTextureFromVideo(THREE) {
     b: bSum / totalPixels,
   };
 
+  // blenda cada pixel com a cor média para reduzir interferência de objetos
   for (let y = 0; y < sampleSize; y++) {
     const vFade = Math.min(y / 18.5, (sampleSize - y) / 18.5, 1);
     for (let x = 0; x < sampleSize; x++) {
