@@ -8,7 +8,7 @@ import {
   setExibicaoAtiva,
   resetWall, // 👈 ADICIONADO AQUI
 } from "./wall-utils.js";
-import { initUI } from "./ui.js";
+import { initUI, loadData } from "./ui.js";
 
 let camera, scene, renderer, controller, reticle, arButton, arHint, arCloseButton;
 let hitTestSource = null;
@@ -31,11 +31,16 @@ function hideArHint() {
 }
 
 // callback que vem da UI (detalhes da exposição -> botão "Iniciar experiência em RA")
-initUI((exibicaoSelecionada) => {
-  setExibicaoAtiva(exibicaoSelecionada); // envia a exibição para o wall-utils
-  if (arButton) {
-    arButton.click(); // simula clique no botão nativo do WebXR
-  }
+loadData().then((data) => {
+  initUI(
+    (exibicaoSelecionada) => {
+      setExibicaoAtiva(exibicaoSelecionada); // envia a exibição para o wall-utils
+      if (arButton) {
+        arButton.click(); // simula clique no botão nativo do WebXR
+      }
+    },
+    data,
+  );
 });
 
 // 🔹 quando sessão AR termina (X do sistema OU qualquer fim de sessão)
