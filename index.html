@@ -14,7 +14,6 @@
   <body>
     <div id="ui">
       <div id="gallery-ui">
-        <!-- Tela inicial -->
         <section id="intro-screen" class="screen active">
           <div class="intro-card">
             <div class="intro-hero">
@@ -36,8 +35,6 @@
             </div>
           </div>
         </section>
-
-        <!-- Carrossel das exposições -->
         <section id="carousel-screen" class="screen">
           <header class="screen-header">
             <h2>Escolha a exposição</h2>
@@ -49,7 +46,6 @@
             </button>
             <div class="carousel-window">
               <div id="carousel-track">
-                <!-- Slides inseridos via ui.js -->
               </div>
             </div>
             <button id="carousel-next" class="carousel-nav" type="button">
@@ -68,8 +64,6 @@
           </div>
           <div id="carousel-indicators" aria-hidden="true"></div>
         </section>
-
-        <!-- Detalhes da exposição selecionada -->
         <section id="details-screen" class="screen">
           <header class="screen-header">
             <button id="voltar-btn" class="ghost-btn" type="button">
@@ -90,14 +84,12 @@
             </div>
           </div>
           <div id="obras-lista">
-            <!-- Obras e autores aparecem aqui -->
           </div>
           <div id="start-wrapper">
             <button id="start-ar-btn" type="button"></button>
             <span class="start-label">Iniciar experiência em RA</span>
           </div>
         </section>
-
         <div id="image-modal" aria-hidden="true">
           <div class="image-modal__overlay" data-close-modal></div>
           <div class="image-modal__content" role="dialog" aria-modal="true">
@@ -113,7 +105,6 @@
             <p id="image-modal-caption"></p>
           </div>
         </div>
-
         <div id="info-modal" aria-hidden="true">
           <div class="info-modal__overlay" data-close-info></div>
           <div class="info-modal__content" role="dialog" aria-modal="true">
