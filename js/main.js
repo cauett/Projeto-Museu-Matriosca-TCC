@@ -6,102 +6,92 @@ import {
   configureWallUtils,
   isWallPlaced,
   setExibicaoAtiva,
-  resetWall, // 👈 ADICIONADO AQUI
+  resetWall,
 } from "./wall-utils.js";
 import { initUI } from "./ui.js";
 
-let camera, scene, renderer, controller, reticle, arButton, arHint, arCloseButton;
-let hitTestSource = null;
-let localSpace = null;
-let referenceSpace = null;
-let arContainer = null;
+const uiElement = document.getElementById("ui");
 
-function showArHint() {
-  if (arHint) {
-    arHint.classList.add("visible");
-    arHint.setAttribute("aria-hidden", "false");
-  }
-}
+let camera,
+  scene,
+  renderer,
+  controller,
+  reticle,
+  arButton,
+  arHint,
+  arCloseButton,
+  arContainer,
+  hitTestSource,
+  localSpace,
+  referenceSpace;
 
-function hideArHint() {
-  if (arHint) {
-    arHint.classList.remove("visible");
-    arHint.setAttribute("aria-hidden", "true");
-  }
-}
+const toggleHintVisibility = (shouldShow) => {
+  if (!arHint) return;
+  arHint.classList.toggle("visible", shouldShow);
+  arHint.setAttribute("aria-hidden", shouldShow ? "false" : "true");
+};
 
-// callback que vem da UI (detalhes da exposição -> botão "Iniciar experiência em RA")
+const toggleUIVisibility = (shouldShow) => {
+  if (uiElement) uiElement.style.display = shouldShow ? "flex" : "none";
+};
+
+const toggleArContainer = (shouldShow) => {
+  if (arContainer) arContainer.style.display = shouldShow ? "block" : "none";
+  if (!arCloseButton) return;
+  arCloseButton.style.display = shouldShow ? "inline-flex" : "none";
+  arCloseButton.onclick = shouldShow
+    ? () => renderer.xr.getSession()?.end()
+    : null;
+};
+
 initUI((exibicaoSelecionada) => {
-  setExibicaoAtiva(exibicaoSelecionada); // envia a exibição para o wall-utils
-  if (arButton) {
-    arButton.click(); // simula clique no botão nativo do WebXR
-  }
+  setExibicaoAtiva(exibicaoSelecionada);
+  arButton?.click();
 });
 
-// 🔹 quando sessão AR termina (X do sistema OU qualquer fim de sessão)
-function handleSessionEnd() {
+const handleSessionEnd = () => {
   hitTestSource = null;
   localSpace = null;
   referenceSpace = null;
 
-  // esconde o container da RA
-  if (arContainer) {
-    arContainer.style.display = "none";
-  }
+  toggleArContainer(false);
+  toggleHintVisibility(false);
+  toggleUIVisibility(true);
 
-  if (arCloseButton) {
-    arCloseButton.style.display = "none";
-    arCloseButton.onclick = null;
-  }
-
-  hideArHint();
-
-  // mostra de volta a UI (mantendo a tela de detalhes/carrossel que já estava ativa)
-  const ui = document.getElementById("ui");
-  if (ui) {
-    ui.style.display = "flex";
-  }
-
-  // garante que o retículo some
-  if (reticle) {
-    reticle.visible = false;
-  }
-
-  // 🔥 limpa a parede e quadros da sessão anterior
-  if (typeof resetWall === "function") {
-    resetWall();
-  }
-
-  // se você estiver usando o atalho pra voltar pro carrossel:
-  if (window.__matrioscaBackToCarousel) {
-    window.__matrioscaBackToCarousel();
-  }
-}
+  if (reticle) reticle.visible = false;
+  resetWall?.();
+  window.__matrioscaBackToCarousel?.();
+};
 
 (async function init() {
   const sceneObjects = await setupARScene(THREE, ARButton, onSelect);
-  camera = sceneObjects.camera;
-  scene = sceneObjects.scene;
-  renderer = sceneObjects.renderer;
-  controller = sceneObjects.controller;
-  reticle = sceneObjects.reticle;
-  arButton = sceneObjects.arButton;
-  arHint = sceneObjects.arHint;
-  arCloseButton = sceneObjects.arCloseButton;
+  ({
+    camera,
+    scene,
+    renderer,
+    controller,
+    reticle,
+    arButton,
+    arHint,
+    arCloseButton,
+  } = sceneObjects);
 
   arContainer = renderer.domElement.parentElement;
   if (arContainer) {
-    arContainer.style.position = "fixed";
-    arContainer.style.inset = "0";
-    arContainer.style.zIndex = "1";
-    arContainer.style.display = "none";
+    Object.assign(arContainer.style, {
+      position: "fixed",
+      inset: "0",
+      zIndex: "1",
+      display: "none",
+    });
   }
 
-  const ui = document.getElementById("ui");
-  if (ui) {
-    ui.style.display = "flex";
-    ui.style.position = "relative";
-    ui.style.zIndex = "2";
+  if (uiElement) {
+    Object.assign(uiElement.style, {
+      display: "flex",
+      position: "relative",
+      zIndex: "2",
+    });
   }
 
   configureWallUtils({
@@ -119,16 +109,8 @@ function handleSessionEnd() {
     hitTestSource = await session.requestHitTestSource({ space: localSpace });
     referenceSpace = renderer.xr.getReferenceSpace();
 
-    if (arContainer) {
-      arContainer.style.display = "block";
-    }
-
-    if (arCloseButton) {
-      arCloseButton.style.display = "inline-flex";
-      arCloseButton.onclick = () => session.end();
-    }
-
-    showArHint();
+    toggleArContainer(true);
+    toggleHintVisibility(true);
 
     session.addEventListener("end", handleSessionEnd, { once: true });
   });
@@ -136,22 +118,17 @@ function handleSessionEnd() {
   renderer.setAnimationLoop((timestamp, frame) => {
     if (frame && hitTestSource && referenceSpace) {
       const hitTestResults = frame.getHitTestResults(hitTestSource);
+      const pose = hitTestResults[0]?.getPose(referenceSpace);
 
-      if (hitTestResults.length > 0 && !isWallPlaced()) {
-        const pose = hitTestResults[0].getPose(referenceSpace);
-        if (pose) {
-          reticle.visible = true;
-          reticle.matrix.fromArray(pose.transform.matrix);
-        }
+      if (pose && !isWallPlaced()) {
+        reticle.visible = true;
+        reticle.matrix.fromArray(pose.transform.matrix);
       } else {
         reticle.visible = false;
       }
     }
 
-    if (isWallPlaced()) {
-      hideArHint();
-    }
-
+    if (isWallPlaced()) toggleHintVisibility(false);
     renderer.render(scene, camera);
   });
 })();

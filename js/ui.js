@@ -1,6 +1,4 @@
-// Tamanho padrão das obras
 const DEFAULT_OBRA_SIZE = { w: 0.42, h: 0.42, d: 0.04 };
-// Sertão Monumental reduzido (~15%) para não ficar "gigantesco"
 const SERTAO_OBRA_SIZE = { w: 0.53, h: 0.34, d: 0.03 };
 export const TESOUROS_VIVOS_OBRA_SIZE = { w: 0.18, h: 0.18, d: 0.028 };
 const AVES_CEARENSES_OBRA_SIZE = { w: 0.32, h: 0.42, d: 0.038 };
@@ -24,7 +22,7 @@ function mapObras(
   }));
 }
 
-// Exposição "Linhas da Vida" (URLs remotas do periodo glitch)
+// Linhas da Vida — grid principal
 const linhasDaVidaObras = [
   {
     titulo: "Obra 1",
@@ -60,22 +58,20 @@ const linhasDaVidaObras = [
   },
 ];
 
-// Exposição "Sertão Monumental"
+// Sertão Monumental — fileira de geossítios
 const sertaoAutor = "Acervo Sertão Monumental";
 const sertaoMonumentalObras = [
-  // === Linha 1
   {
     titulo: "Ponte Metálica de Quixeramobim",
     arquivo: "sertao-monumental/sertao-02.jpeg",
-    position: { x: -0.38, y: 0.36, z: -0.025 }, // y antes: 0.50
+    position: { x: -0.38, y: 0.36, z: -0.025 },
   },
   {
     titulo: "Geossítio Gruta de São Francisco",
     arquivo: "sertao-monumental/sertao-01.jpeg",
-    position: { x: 0.38, y: 0.36, z: -0.025 }, // y antes: 0.50
+    position: { x: 0.38, y: 0.36, z: -0.025 },
   },
 
-  // === Linha 2
   {
     titulo: "Açude Cedro",
     arquivo: "sertao-monumental/sertao-05.jpeg",
@@ -97,33 +93,31 @@ const sertaoMonumentalObras = [
     position: { x: 0.78, y: 0.0, z: -0.025 },
   },
 
-  // === Linha 3
   {
     titulo: "Geossítio Pedra do Letreiro",
     arquivo: "sertao-monumental/sertao-10.jpeg",
-    position: { x: -0.78, y: -0.36, z: -0.025 }, // y antes: -0.55
+    position: { x: -0.78, y: -0.36, z: -0.025 },
   },
   {
     titulo: "Serra do Padre",
     arquivo: "sertao-monumental/sertao-09.jpeg",
-    position: { x: -0.26, y: -0.36, z: -0.025 }, // y antes: -0.55
+    position: { x: -0.26, y: -0.36, z: -0.025 },
   },
   {
     titulo: "Geossítio Pedra do Cruzeiro",
     arquivo: "sertao-monumental/sertao-08.jpeg",
-    position: { x: 0.26, y: -0.36, z: -0.025 }, // y antes: -0.55
+    position: { x: 0.26, y: -0.36, z: -0.025 },
   },
   {
     titulo: "Pedra da Gaveta",
     arquivo: "sertao-monumental/sertao-07.jpeg",
-    position: { x: 0.78, y: -0.36, z: -0.025 }, // y antes: -0.55
+    position: { x: 0.78, y: -0.36, z: -0.025 },
   },
 ];
 
-// Exposição "Retratos do Voo — Aves Cearenses"
+// Aves Cearenses — 3x3 mais topo
 const avesCearensesAutor = "Alefe Queiroz";
 const avesCearensesObras = [
-  // Linha superior (3 quadros)
   {
     titulo: "Sucuruá-de-barriga-vermelha",
     arquivo: "aves-cearenses/ave-1.jpeg",
@@ -140,7 +134,6 @@ const avesCearensesObras = [
     position: { x: 0.58, y: 0.54, z: -0.025 },
   },
 
-  // Linha central (5 quadros)
   {
     titulo: "Rabo-branco-rubro",
     arquivo: "aves-cearenses/ave-4.jpeg",
@@ -167,7 +160,6 @@ const avesCearensesObras = [
     position: { x: 0.96, y: 0, z: -0.025 },
   },
 
-  // Linha inferior (2 quadros)
   {
     titulo: "Picapauzinho-da-caatinga",
     arquivo: "aves-cearenses/ave-9.jpeg",
@@ -180,10 +172,9 @@ const avesCearensesObras = [
   },
 ];
 
-// Exposição "Cotidiano"
+// Cotidiano — mosaico 3x3
 const cotidianoAutor = "Fábricia Teodoro";
 const cotidianoObras = [
-  // Linha superior
   {
     titulo: "Cotidiano 1",
     arquivo: "cotidiano/cotidiano-1.jpeg",
@@ -203,7 +194,6 @@ const cotidianoObras = [
     size: COTIDIANO_OBRA_SIZE,
   },
 
-  // Linha do meio
   {
     titulo: "Cotidiano 4",
     arquivo: "cotidiano/cotidiano-4.jpeg",
@@ -223,7 +213,6 @@ const cotidianoObras = [
     size: COTIDIANO_MIDDLE_SIZE,
   },
 
-  // Linha inferior
   {
     titulo: "Cotidiano 7",
     arquivo: "cotidiano/cotidiano-7.jpeg",
@@ -244,10 +233,9 @@ const cotidianoObras = [
   },
 ];
 
-// Exposição "Tesouros Vivos do Ceará"
+// Tesouros Vivos — linha dupla
 const tesourosVivosAutor = "Otávio Menezes";
 const tesourosVivosObras = [
-  // === Linha superior ===
   {
     titulo: "Mestre Françuli, Miniaturista",
     arquivo: "tesouros-vivos/tesouro-1.jpeg",
@@ -304,7 +292,6 @@ const tesourosVivosObras = [
     position: { x: 1.25, y: 0.2, z: -0.02 },
   },
 
-  // === Linha inferior ===
   {
     titulo: "Mestre Gilberto, Bonequeiro",
     arquivo: "tesouros-vivos/tesouro-12.jpeg",
@@ -362,7 +349,7 @@ const tesourosVivosObras = [
   },
 ];
 
-// Exposição "Quixadá Fantástico"
+// Quixadá Fantástico — tríptico
 const quixadaFantasticoAutor = "Bruno Joe";
 const quixadaFantasticoObras = [
   {
@@ -388,6 +375,7 @@ const quixadaFantasticoObras = [
   },
 ];
 
+// Ancestralidade — blocos de xilogravura
 const ancestralidadeAutores = {
   1: "Maria Alice",
   2: "Pedro Matheus",
@@ -415,7 +403,6 @@ const ancestralidadeAutores = {
 };
 
 const ancestralidadeObras = [
-  // coluna 1 (1)
   {
     titulo: "Xilogravura 1",
     arquivo: "ancestralidade/obra-1.jpeg",
@@ -424,12 +411,11 @@ const ancestralidadeObras = [
     size: ANCESTRALIDADE_SIZE,
   },
 
-  // coluna 2 (2,3,4) – coluna "alta"
   {
     titulo: "Xilogravura 2",
     arquivo: "ancestralidade/obra-2.jpeg",
     autor: ancestralidadeAutores[2],
-    position: { x: 0.84, y: 0.28, z: -0.02 }, // acima do 3
+    position: { x: 0.84, y: 0.28, z: -0.02 },
     size: ANCESTRALIDADE_SIZE,
   },
   {
@@ -443,11 +429,10 @@ const ancestralidadeObras = [
     titulo: "Xilogravura 4",
     arquivo: "ancestralidade/obra-4.jpeg",
     autor: ancestralidadeAutores[4],
-    position: { x: 0.84, y: -0.28, z: -0.02 }, // abaixo do 3
+    position: { x: 0.84, y: -0.28, z: -0.02 },
     size: ANCESTRALIDADE_SIZE,
   },
 
-  // coluna 3 (5,6,7) – coluna "baixa"
   {
     titulo: "Xilogravura 5",
     arquivo: "ancestralidade/obra-5.jpeg",
@@ -470,12 +455,11 @@ const ancestralidadeObras = [
     size: ANCESTRALIDADE_SIZE,
   },
 
-  // coluna 4 (8,9,10) – coluna "alta"
   {
     titulo: "Xilogravura 8",
     arquivo: "ancestralidade/obra-8.jpeg",
     autor: ancestralidadeAutores[8],
-    position: { x: 0.28, y: 0.28, z: -0.02 }, // acima do 9
+    position: { x: 0.28, y: 0.28, z: -0.02 },
     size: ANCESTRALIDADE_SIZE,
   },
   {
@@ -489,11 +473,10 @@ const ancestralidadeObras = [
     titulo: "Xilogravura 10",
     arquivo: "ancestralidade/obra-10.jpeg",
     autor: ancestralidadeAutores[10],
-    position: { x: 0.28, y: -0.28, z: -0.02 }, // abaixo do 9
+    position: { x: 0.28, y: -0.28, z: -0.02 },
     size: ANCESTRALIDADE_SIZE,
   },
 
-  // coluna 5 (11,12,13) – coluna "baixa"
   {
     titulo: "Xilogravura 11",
     arquivo: "ancestralidade/obra-11.jpeg",
@@ -516,12 +499,11 @@ const ancestralidadeObras = [
     size: ANCESTRALIDADE_SIZE,
   },
 
-  // coluna 6 (14,15,16) – coluna "alta"
   {
     titulo: "Xilogravura 14",
     arquivo: "ancestralidade/obra-14.jpeg",
     autor: ancestralidadeAutores[14],
-    position: { x: -0.28, y: 0.28, z: -0.02 }, // acima do 15
+    position: { x: -0.28, y: 0.28, z: -0.02 },
     size: ANCESTRALIDADE_SIZE,
   },
   {
@@ -535,11 +517,10 @@ const ancestralidadeObras = [
     titulo: "Xilogravura 16",
     arquivo: "ancestralidade/obra-16.jpeg",
     autor: ancestralidadeAutores[16],
-    position: { x: -0.28, y: -0.28, z: -0.02 }, // abaixo do 15
+    position: { x: -0.28, y: -0.28, z: -0.02 },
     size: ANCESTRALIDADE_SIZE,
   },
 
-  // coluna 7 (17,18,19) – coluna "baixa"
   {
     titulo: "Xilogravura 17",
     arquivo: "ancestralidade/obra-17.jpeg",
@@ -562,12 +543,11 @@ const ancestralidadeObras = [
     size: ANCESTRALIDADE_SIZE,
   },
 
-  // coluna 8 (20,21,22) – coluna "alta"
   {
     titulo: "Xilogravura 20",
     arquivo: "ancestralidade/obra-20.jpeg",
     autor: ancestralidadeAutores[20],
-    position: { x: -0.84, y: 0.28, z: -0.02 }, // acima do 21
+    position: { x: -0.84, y: 0.28, z: -0.02 },
     size: ANCESTRALIDADE_SIZE,
   },
   {
@@ -581,11 +561,10 @@ const ancestralidadeObras = [
     titulo: "Xilogravura 22",
     arquivo: "ancestralidade/obra-22.jpeg",
     autor: ancestralidadeAutores[22],
-    position: { x: -0.84, y: -0.28, z: -0.02 }, // abaixo do 21
+    position: { x: -0.84, y: -0.28, z: -0.02 },
     size: ANCESTRALIDADE_SIZE,
   },
 
-  // coluna 9 (23)
   {
     titulo: "Xilogravura 23",
     arquivo: "ancestralidade/obra-23.jpeg",
@@ -595,6 +574,7 @@ const ancestralidadeObras = [
   },
 ];
 
+// Bicha Passarin — painel central e laterais
 const bichaPassarinObras = [
   {
     titulo: "Passarin 1",
@@ -626,7 +606,6 @@ const bichaPassarinObras = [
   },
 ];
 
-// Export das exposições (usando o mapper genérico)
 export const exibicoes = [
   {
     id: "exibicao1",
@@ -1052,7 +1031,6 @@ const exibicoesInfo = {
   },
 };
 
-// UI
 export function initUI(startCallback) {
   const uiContainer = document.getElementById("ui");
   const galleryRoot = document.getElementById("gallery-ui");
@@ -1066,6 +1044,8 @@ export function initUI(startCallback) {
     DETAILS: "detalhes",
   };
   let navigationIndex = 0;
+
+  const bindClick = (el, handler) => el?.addEventListener("click", handler);
 
   const enterGalleryBtn = document.getElementById("enter-gallery-btn");
   const backToIntroBtn = document.getElementById("back-to-intro");
@@ -1371,34 +1351,37 @@ export function initUI(startCallback) {
     setModalOpenState(false);
   }
 
-  function handleModalClick(event) {
-    const target = event.target;
-    if (!(target instanceof HTMLElement)) return;
-    if (target.dataset.closeModal !== undefined) {
-      closeImageModal();
-    }
+  const modalConfigs = [
+    { modal: imageModal, closeAttr: "closeModal", closeFn: closeImageModal },
+    { modal: infoModal, closeAttr: "closeInfo", closeFn: closeInfoModal },
+  ];
+
+  function bindModalClose(modalEl, closeAttr, closeFn) {
+    if (!modalEl || typeof closeFn !== "function") return;
+    modalEl.addEventListener("click", (event) => {
+      const target = event.target;
+      if (
+        target instanceof HTMLElement &&
+        target.dataset?.[closeAttr] !== undefined
+      ) {
+        closeFn();
+      }
+    });
   }
 
-  imageModal?.addEventListener("click", handleModalClick);
+  modalConfigs.forEach(({ modal, closeAttr, closeFn }) =>
+    bindModalClose(modal, closeAttr, closeFn),
+  );
 
-  function handleInfoClick(event) {
-    const target = event.target;
-    if (!(target instanceof HTMLElement)) return;
-    if (target.dataset.closeInfo !== undefined) {
-      closeInfoModal();
-    }
+  function closeModalIfOpen(modalEl, closeFn) {
+    if (modalEl?.classList.contains("open")) closeFn();
   }
-
-  infoModal?.addEventListener("click", handleInfoClick);
 
   document.addEventListener("keydown", (event) => {
     if (event.key !== "Escape") return;
-    if (imageModal?.classList.contains("open")) {
-      closeImageModal();
-    }
-    if (infoModal?.classList.contains("open")) {
-      closeInfoModal();
-    }
+    modalConfigs.forEach(({ modal, closeFn }) =>
+      closeModalIfOpen(modal, closeFn),
+    );
   });
 
   function coverImageFor(exibicao) {
@@ -1507,17 +1490,10 @@ export function initUI(startCallback) {
     }
   }
 
-  enterGalleryBtn.addEventListener("click", () => {
-    goToCarousel();
-  });
+  bindClick(enterGalleryBtn, () => goToCarousel());
+  bindClick(backToIntroBtn, () => goToIntro());
 
-  if (backToIntroBtn) {
-    backToIntroBtn.addEventListener("click", () => {
-      goToIntro();
-    });
-  }
-
-  voltarBtn.addEventListener("click", () => {
+  bindClick(voltarBtn, () => {
     if (navigationIndex > 0) {
       window.history.back();
       return;
@@ -1526,24 +1502,18 @@ export function initUI(startCallback) {
     goToCarousel({ replace: true });
   });
 
-  carouselPrev.addEventListener("click", () => {
-    goToSlide(currentIndex - 1, { behavior: "smooth" });
-  });
-
-  carouselNext.addEventListener("click", () => {
-    goToSlide(currentIndex + 1, { behavior: "smooth" });
-  });
-
-  viewDetailsBtn.addEventListener("click", () => {
-    showExibicao(currentExibicao);
-  });
-
-  openInfoBtn?.addEventListener("click", () => {
+  bindClick(carouselPrev, () =>
+    goToSlide(currentIndex - 1, { behavior: "smooth" }),
+  );
+  bindClick(carouselNext, () =>
+    goToSlide(currentIndex + 1, { behavior: "smooth" }),
+  );
+  bindClick(viewDetailsBtn, () => showExibicao(currentExibicao));
+  bindClick(openInfoBtn, () => {
     updateInfoModalContent(currentExibicao);
     openInfoModal();
   });
-
-  infoAudioBtn?.addEventListener("click", () => toggleInfoAudio());
+  bindClick(infoAudioBtn, () => toggleInfoAudio());
 
   window.addEventListener("resize", () => centerCurrentSlide("auto"));
 
