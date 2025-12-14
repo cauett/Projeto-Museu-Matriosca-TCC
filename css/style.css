@@ -323,7 +323,6 @@ body.details-active {
   text-align: center;
 }
 
-/* Base do rodapé informativo */
 .intro-footnote {
   display: inline-flex;
   align-items: center;
@@ -335,26 +334,17 @@ body.details-active {
   text-transform: uppercase;
 }
 
-/* AVISO DO CARROSSEL CENTRALIZADO (bolinha + texto juntos) */
 .carousel-hint {
   display: flex;
-  /* garante layout em linha */
   align-items: center;
-  /* alinha verticalmente */
   justify-content: center;
-  /* CENTRALIZA o conjunto */
   gap: 0.5rem;
-  /* espaço entre bolinha e texto */
   width: 100%;
   margin: 8px auto 0;
-  /* centraliza como bloco */
   padding: 0;
-  /* remove padding que empurrava à esquerda */
   text-align: center;
-  /* centraliza o texto */
 }
 
-/* Bolinha vermelha */
 .pulse {
   width: 8px;
   height: 8px;
@@ -363,7 +353,6 @@ body.details-active {
   position: relative;
   animation: pulse 2.2s ease-in-out infinite;
   flex: 0 0 8px;
-  /* tamanho fixo, não deforma */
 }
 
 @keyframes pulse {
