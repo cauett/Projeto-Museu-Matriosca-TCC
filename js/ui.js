@@ -1034,7 +1034,7 @@ const exibicoesInfo = {
   },
   exibicao8: {
     curatorialText:
-      "Exposição “Bicha Passarim — um voo de Raul Plassman e Lola Green”, com curadoria de Raul Plassman e Beto Skeff.\n\nUm encontro entre performance, fotografia e afeto.\nNesta mostra, o artista Raul Plassman celebra os 10 anos de Lola Green, criação mística de Emanuel Martins, em uma travessia poética entre o interior e a cidade, entre o sonho e o chão.\n\nAs imagens, analógicas, instantâneas e digitais, revelam o aconchego da casa de vó, o território das memórias e a liberdade dos voos singulares que também são coletivos. Um convite para sentir, ver e voar junto.",
+      "Exposição “Bicha Passarin — um voo de Raul Plassman e Lola Green”, com curadoria de Raul Plassman e Beto Skeff.\n\nUm encontro entre performance, fotografia e afeto.\nNesta mostra, o artista Raul Plassman celebra os 10 anos de Lola Green, criação mística de Emanuel Martins, em uma travessia poética entre o interior e a cidade, entre o sonho e o chão.\n\nAs imagens, analógicas, instantâneas e digitais, revelam o aconchego da casa de vó, o território das memórias e a liberdade dos voos singulares que também são coletivos. Um convite para sentir, ver e voar junto.",
     credits: [
       {
         label: "Curadoria",
