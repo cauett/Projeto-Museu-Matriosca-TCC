@@ -703,7 +703,7 @@ export const exibicoes = [
   },
   {
     id: "exibicao8",
-    titulo: "Bicha Passarin — um voo de Raul Plassman e Lola Green",
+    titulo: "Bicha Passarin",
     descricao:
       "Encontro entre performance, fotografia e afeto celebrando 10 anos de Lola Green, com curadoria de Raul Plassman e Beto Skeff.",
     obras: mapObras(bichaPassarinObras, { autor: "Raul Plassman" }),
